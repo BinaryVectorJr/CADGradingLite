@@ -14,7 +14,10 @@ public class GameManager : MonoBehaviour
     private List<SceneAsset> scenesList;
 
     [SerializeField]
-    private GameObject focusPanel;
+    private GameObject[] modalPanels;
+
+    [SerializeField]
+    private GameObject[] buttonTexts;
 
     void Awake()
     {
@@ -43,34 +46,23 @@ public class GameManager : MonoBehaviour
     public void SwitchScenes(int _sceneNumber)
     {
         SceneManager.LoadScene(gmInstance.scenesList[_sceneNumber].name.ToString());
-        focusPanel = GameObject.FindGameObjectWithTag("Modal");
+        modalPanels = GameObject.FindGameObjectsWithTag("Modal");
         //print(scenesList[sceneNumber].name.ToString());
     }
 
-    public void LaunchDueDateCalculator(int _state)
+    public void LaunchModals(int _modalNumber)
     {
-        if(focusPanel.gameObject != null)
+        if(modalPanels[_modalNumber].gameObject != null)
         {
-            switch(_state)
+            if(modalPanels[_modalNumber].gameObject.activeSelf)
             {
-                case 0:
-                    focusPanel.gameObject.SetActive(false);
-                break;
-
-                case 1:
-                    focusPanel.gameObject.SetActive(true);
-                break;
-
-                default:
-                    focusPanel.gameObject.SetActive(false);
-                break;
+                modalPanels[_modalNumber].gameObject.SetActive(false);
+            }
+            else
+            {
+                modalPanels[_modalNumber].gameObject.SetActive(true);
             }
         }
-    }
-
-    public void LaunchDirectorySetter()
-    {
-
     }
 
     public void Quit()
