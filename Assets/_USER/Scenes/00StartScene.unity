@@ -822,8 +822,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d838b24143af3b749ab07c09c6cdedd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _datasetFile: {fileID: 4900000, guid: 3edd8c886f144ae4082c18644d65057a, type: 3}
-  _datasetLines:
+  _assignmentDatasetFile: {fileID: 4900000, guid: 3edd8c886f144ae4082c18644d65057a, type: 3}
+  _rubricDatasetFile: {fileID: 4900000, guid: 721ee21b56d93674d989053e79b22ea1, type: 3}
+  _assmDatasetLines:
   - 01,1,Introduction To Course,100,available,due
   - 01,2,NX Interface,100,available,due
   - 01,3,Introduction To Course,100,available,due
@@ -840,7 +841,7 @@ MonoBehaviour:
   - 04,2,NX Interface,100,available,due
   - 04,3,Introduction To Course,100,available,due
   - 04,4,NX Interface,100,available,due
-  _datasetElements:
+  _assmDatasetElements:
   - week_no: 1
     assm_no: 1
     assm_name: Introduction To Course
@@ -937,7 +938,120 @@ MonoBehaviour:
     total_points: 100
     avail_date: available
     due_date: due
-  lineCount: 16
+  _rubricDatasetLines:
+  - 0,Sketches are under-defined/over-defined,20,20
+  - 0,User expressions missing/non-functional,20,20
+  - 0,Part cannot be morphed as intended,20,20
+  - 0,Incorrect dimensioning scheme (not according to requirements),10,10
+  - 0,Required features not present,5,5
+  - 0,Features not renamed in Part Hierarchy,5,5
+  - 0,Color not changed,5,5
+  - 0,Incorrect material and mass,5,5
+  - 0,3D Annotations missing/incorrect,10,10
+  - 1,All required sketches present,40
+  - 1,Iso sketch has issues,10,10
+  - 1,Ortho sketch has issues,10,10
+  - 1,Ortho sketch does not follow correct layout,10,10
+  - 1,Incorrect scale,10,10
+  - 1,View name labels are present,5,5
+  - 1,Model names not present for each model,5,5
+  - 1,File format not PDF,5,5
+  - 1,Messy sketches,5,5
+  - 2,Incorrect image(s) (not according to requirements),90,90
+  - 2,File format not PDF,10,10
+  - 3,Incorrect piston file,90,90
+  - 3,Color not changed,10,10
+  _rubricDatasetElements:
+  - assm_type: 0
+    error_item_desc: Sketches are under-defined/over-defined
+    error_item_total_points: 20
+    error_item_achieved_points: 20
+  - assm_type: 0
+    error_item_desc: User expressions missing/non-functional
+    error_item_total_points: 20
+    error_item_achieved_points: 20
+  - assm_type: 0
+    error_item_desc: Part cannot be morphed as intended
+    error_item_total_points: 20
+    error_item_achieved_points: 20
+  - assm_type: 0
+    error_item_desc: Incorrect dimensioning scheme (not according to requirements)
+    error_item_total_points: 10
+    error_item_achieved_points: 10
+  - assm_type: 0
+    error_item_desc: Required features not present
+    error_item_total_points: 5
+    error_item_achieved_points: 5
+  - assm_type: 0
+    error_item_desc: Features not renamed in Part Hierarchy
+    error_item_total_points: 5
+    error_item_achieved_points: 5
+  - assm_type: 0
+    error_item_desc: Color not changed
+    error_item_total_points: 5
+    error_item_achieved_points: 5
+  - assm_type: 0
+    error_item_desc: Incorrect material and mass
+    error_item_total_points: 5
+    error_item_achieved_points: 5
+  - assm_type: 0
+    error_item_desc: 3D Annotations missing/incorrect
+    error_item_total_points: 10
+    error_item_achieved_points: 10
+  - assm_type: 0
+    error_item_desc: 
+    error_item_total_points: 0
+    error_item_achieved_points: 0
+  - assm_type: 0
+    error_item_desc: 
+    error_item_total_points: 0
+    error_item_achieved_points: 0
+  - assm_type: 0
+    error_item_desc: 
+    error_item_total_points: 0
+    error_item_achieved_points: 0
+  - assm_type: 0
+    error_item_desc: 
+    error_item_total_points: 0
+    error_item_achieved_points: 0
+  - assm_type: 0
+    error_item_desc: 
+    error_item_total_points: 0
+    error_item_achieved_points: 0
+  - assm_type: 0
+    error_item_desc: 
+    error_item_total_points: 0
+    error_item_achieved_points: 0
+  - assm_type: 0
+    error_item_desc: 
+    error_item_total_points: 0
+    error_item_achieved_points: 0
+  - assm_type: 0
+    error_item_desc: 
+    error_item_total_points: 0
+    error_item_achieved_points: 0
+  - assm_type: 0
+    error_item_desc: 
+    error_item_total_points: 0
+    error_item_achieved_points: 0
+  - assm_type: 0
+    error_item_desc: 
+    error_item_total_points: 0
+    error_item_achieved_points: 0
+  - assm_type: 0
+    error_item_desc: 
+    error_item_total_points: 0
+    error_item_achieved_points: 0
+  - assm_type: 0
+    error_item_desc: 
+    error_item_total_points: 0
+    error_item_achieved_points: 0
+  - assm_type: 0
+    error_item_desc: 
+    error_item_total_points: 0
+    error_item_achieved_points: 0
+  assmLineCount: 16
+  rubricLineCount: 22
 --- !u!1 &787713839
 GameObject:
   m_ObjectHideFlags: 0

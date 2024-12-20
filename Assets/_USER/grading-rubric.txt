@@ -1,0 +1,22 @@
+0,Sketches are under-defined/over-defined,                          20,20
+0,User expressions missing/non-functional,                          20,20
+0,Part cannot be morphed as intended,                               20,20
+0,Incorrect dimensioning scheme (not according to requirements),    10,10
+0,Required features not present,                                    5,5
+0,Features not renamed in Part Hierarchy,                           5,5
+0,Color not changed,                                                5,5
+0,Incorrect material and mass,                                      5,5
+0,3D Annotations missing/incorrect,                                 10,10
+1,All required sketches present,                                    40,40
+1,Iso sketch has issues,                                            10,10
+1,Ortho sketch has issues,                                          10,10
+1,Ortho sketch does not follow correct layout,                      10,10
+1,Incorrect scale,                                                  10,10
+1,View name labels are present,                                     5,5
+1,Model names not present for each model,                           5,5
+1,File format not PDF,                                              5,5
+1,Messy sketches,                                                   5,5
+2,Incorrect image(s) (not according to requirements),               90,90
+2,File format not PDF,                                              10,10
+3,Incorrect piston file,                                            90,90
+3,Color not changed,                                                10,10
