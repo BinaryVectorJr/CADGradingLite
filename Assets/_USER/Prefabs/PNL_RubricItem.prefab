@@ -388,7 +388,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2584270265955945308}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 657165233079758730}
+        m_TargetAssemblyTypeName: CurrentRubricPanel, Assembly-CSharp
+        m_MethodName: IncreaseByOne
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &3456276803722547834
 GameObject:
   m_ObjectHideFlags: 0
@@ -777,7 +789,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3024923195645991427}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 657165233079758730}
+        m_TargetAssemblyTypeName: CurrentRubricPanel, Assembly-CSharp
+        m_MethodName: DecreaseByOne
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4039794999982838757
 GameObject:
   m_ObjectHideFlags: 0
@@ -1032,7 +1056,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3140716035397952498}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 657165233079758730}
+        m_TargetAssemblyTypeName: CurrentRubricPanel, Assembly-CSharp
+        m_MethodName: SetZero
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5925883641206703174
 GameObject:
   m_ObjectHideFlags: 0
@@ -1522,7 +1558,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7834153222203901063}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 657165233079758730}
+        m_TargetAssemblyTypeName: CurrentRubricPanel, Assembly-CSharp
+        m_MethodName: SetHalf
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8984050175971383647
 GameObject:
   m_ObjectHideFlags: 0
@@ -1534,6 +1582,7 @@ GameObject:
   - component: {fileID: 6998426517480016447}
   - component: {fileID: 3728181828840151831}
   - component: {fileID: 4913065269273567132}
+  - component: {fileID: 657165233079758730}
   m_Layer: 5
   m_Name: PNL_RubricItem
   m_TagString: Untagged
@@ -1603,3 +1652,23 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &657165233079758730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8984050175971383647}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b23fbbab159553c47b7e712f281d560b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ErrorDesc: {fileID: 1441595900879559054}
+  ErrorTotal: {fileID: 4446589849048917098}
+  ErrorAchieved: {fileID: 3194701117411046192}
+  PanelButtons:
+  - {fileID: 4596683386874620445}
+  - {fileID: 4671089918411917116}
+  - {fileID: 3319726283169073814}
+  - {fileID: 1169449708447611552}

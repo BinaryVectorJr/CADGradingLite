@@ -11,6 +11,9 @@ public class RubricManager : MonoBehaviour
     [SerializeField]
     private GameObject rubricPrefab;
 
+    [SerializeField]
+    private TMP_Dropdown rubricTypeDropdown;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,7 +24,14 @@ public class RubricManager : MonoBehaviour
         {
             tempGO = GameObject.Instantiate(rubricPrefab);
             tempGO.transform.name = DataParser.dpInstance.rubricDatasetElements[i].error_item_desc.ToString() + " | " + DataParser.dpInstance.rubricDatasetElements[i].error_item_total_points;
-            tempGO.GetComponentInChildren<TMP_Text>().text = tempGO.transform.name;
+            if(tempGO.GetComponentInChildren<TMP_Text>().name == "TXT_ErrDesc")
+            {
+                tempGO.GetComponentInChildren<TMP_Text>().text = tempGO.transform.name;
+            }
+            if(tempGO.GetComponentInChildren<TMP_Text>().name == "TXT_ErrorTotal")
+            {
+                tempGO.GetComponentInChildren<TMP_Text>().text = DataParser.dpInstance.rubricDatasetElements[i].error_item_total_points.ToString();
+            }
             tempGO.transform.SetParent(rubricParentModal.transform);
             tempGO = null;
         }
