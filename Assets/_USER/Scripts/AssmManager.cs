@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AssmManager : MonoBehaviour
 {
@@ -10,6 +11,12 @@ public class AssmManager : MonoBehaviour
 
     [SerializeField]
     private GameObject assignmentPrefab;
+
+    [SerializeField]
+    private Button assignmentSelectorButton;
+
+    [SerializeField]
+    private RubricManager currentRubricManager;
 
     // Start is called before the first frame update
     void Start()
@@ -31,5 +38,10 @@ public class AssmManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    void AssignmentSelected()
+    {
+
     }
 }

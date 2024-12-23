@@ -8,6 +8,7 @@ using UnityEngine;
 [System.Serializable]
 public class AssignmentDataElement
 {
+    public int assm_type;
     public int week_no;
     public int assm_no;
     public string assm_name;
@@ -106,9 +107,9 @@ public class DataParser : MonoBehaviour
             var assmDatasetContentPart = assmDatasetLines[i].Split(',');
 
             // Validation query
-            if(assmDatasetContentPart.Length % 6 != 0)
+            if(assmDatasetContentPart.Length % 7 != 0)
             {
-                Debug.LogError("Atleast 6 comma separated values needed!"); //TODO - make this dynamic
+                Debug.LogError("Atleast 7 comma separated values needed!"); //TODO - make this dynamic
                 return;
             }
 
@@ -148,12 +149,13 @@ public class DataParser : MonoBehaviour
     {
         return new AssignmentDataElement
         {
-            week_no = int.TryParse(assmDatasetLine[0], out var x1) ? x1:0,
-            assm_no = int.TryParse(assmDatasetLine[1], out var x2) ? x2:0,
-            assm_name = assmDatasetLine[2],
-            total_points = int.TryParse(assmDatasetLine[3], out var x3) ? x3:0,
-            avail_date = assmDatasetLine[4],
-            due_date = assmDatasetLine[5]
+            assm_type = int.TryParse(assmDatasetLine[0], out var x0) ? x0:0,    // Primary Key
+            week_no = int.TryParse(assmDatasetLine[1], out var x1) ? x1:0,
+            assm_no = int.TryParse(assmDatasetLine[2], out var x2) ? x2:0,
+            assm_name = assmDatasetLine[3],
+            total_points = int.TryParse(assmDatasetLine[4], out var x3) ? x3:0,
+            avail_date = assmDatasetLine[5],
+            due_date = assmDatasetLine[6]
         };
     }
 
@@ -161,9 +163,9 @@ public class DataParser : MonoBehaviour
     {
         return new RubricDataElement
         {
-            assm_type = int.TryParse(rubricDatasetLine[0], out var y1) ? y1:0,
+            assm_type = int.TryParse(rubricDatasetLine[0], out var y0) ? y0:0,  // Primary Key
             error_item_desc = rubricDatasetLine[1],
-            error_item_total_points = float.TryParse(rubricDatasetLine[2], out var y2) ? y2:0,error_item_achieved_points = float.TryParse(rubricDatasetLine[3], out var y3) ? y3:0
+            error_item_total_points = float.TryParse(rubricDatasetLine[2], out var y1) ? y1:0,error_item_achieved_points = float.TryParse(rubricDatasetLine[3], out var y2) ? y2:0
         };
     }
 }
