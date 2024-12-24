@@ -7,13 +7,13 @@ using UnityEngine.UI;
 public class CurrentRubricPanel : MonoBehaviour
 {
     [SerializeField]
-    private TMP_Text ErrorDesc;
+    public TMP_Text ErrorDesc;
 
     [SerializeField]
-    private TMP_Text ErrorTotal;
+    public TMP_Text ErrorTotal;
 
     [SerializeField]
-    private TMP_Text ErrorAchieved;
+    public TMP_Text ErrorAchieved;
 
     [SerializeField]
     private Button[] PanelButtons;
@@ -38,7 +38,7 @@ public class CurrentRubricPanel : MonoBehaviour
 
     public void SetHalf()
     {
-        ErrorAchieved.text = Mathf.Clamp((int.Parse(ErrorTotal.text)/2),0,int.Parse(ErrorTotal.text)).ToString();
+        ErrorAchieved.text = Mathf.Clamp((Mathf.CeilToInt(float.Parse(ErrorTotal.text)/2)),0,Mathf.CeilToInt(float.Parse(ErrorTotal.text)/2)).ToString();
     }
 
     public void IncreaseByOne(int val)

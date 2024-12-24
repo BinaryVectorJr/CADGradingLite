@@ -21,17 +21,7 @@ public class AssmManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        int temp = DataParser.dpInstance.assmLineCount;
-        GameObject tempGO = null;
-
-        for(int i=0; i<temp; i++)
-        {
-            tempGO = GameObject.Instantiate(assignmentPrefab);
-            tempGO.transform.name = DataParser.dpInstance.assmDatasetElements[i].week_no.ToString() + " | " + DataParser.dpInstance.assmDatasetElements[i].assm_no;
-            tempGO.GetComponentInChildren<TMP_Text>().text = tempGO.transform.name;
-            tempGO.transform.SetParent(parentModal.transform);
-            tempGO = null;
-        }
+        SetupAssignmentButtons();
     }
 
     // Update is called once per frame
@@ -40,8 +30,33 @@ public class AssmManager : MonoBehaviour
         
     }
 
-    void AssignmentSelected()
+    void SetupAssignmentButtons()
     {
+        int tempCountOfButtons = DataParser.dpInstance.assmLineCount;
+        GameObject tempButtonGO = null;
 
+        for(int i=0; i<tempCountOfButtons; i++)
+        {   
+            tempButtonGO = GameObject.Instantiate(assignmentPrefab);
+            tempButtonGO.transform.name = DataParser.dpInstance.assmDatasetElements[i].week_no.ToString("D2") + " | " + DataParser.dpInstance.assmDatasetElements[i].assm_no;
+            tempButtonGO.GetComponentInChildren<TMP_Text>().text = tempButtonGO.transform.name;
+            tempButtonGO.GetComponent<AssignmentType>().assignmentTypeCode = DataParser.dpInstance.assmDatasetElements[i].assm_type;
+            tempButtonGO.transform.SetParent(parentModal.transform);
+            tempButtonGO = null;
+        }
+
+        foreach(Transform child in parentModal.transform)
+        {
+            child.GetComponent<Button>().onClick.AddListener(() => onButtonClick(child.gameObject));
+        }
+    }
+
+    void onButtonClick(GameObject _button)
+    {
+        assignmentSelectorButton.GetComponentInChildren<TMP_Text>().text = _button.gameObject.name;
+        currentRubricManager.rubricTypeDropdown.value = _button.GetComponent<AssignmentType>().assignmentTypeCode;
+        GameManager.gmInstance.PersistHideModals(0);
+        GameManager.gmInstance.PersistShowModals(1);
+        currentRubricManager.ChangeRubrics();
     }
 }

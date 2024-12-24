@@ -12,7 +12,7 @@ public class RubricManager : MonoBehaviour
     private GameObject rubricPrefab;
 
     [SerializeField]
-    private TMP_Dropdown rubricTypeDropdown;
+    public TMP_Dropdown rubricTypeDropdown;
 
     // Start is called before the first frame update
     void Start()
@@ -34,24 +34,19 @@ public class RubricManager : MonoBehaviour
         }
 
         int tempRubric = DataParser.dpInstance.rubricLineCount;
-        GameObject tempGO = null;
+        GameObject tempRubricGO = null;
 
         for(int i=0; i<tempRubric; i++)
         {
             if(DataParser.dpInstance.rubricDatasetElements[i].assm_type == rubricTypeDropdown.value)
             {
-                tempGO = GameObject.Instantiate(rubricPrefab);
-                tempGO.transform.name = DataParser.dpInstance.rubricDatasetElements[i].error_item_desc.ToString() + " | " + DataParser.dpInstance.rubricDatasetElements[i].error_item_total_points;
-                if(tempGO.GetComponentInChildren<TMP_Text>().name == "TXT_ErrDesc")
-                {
-                    tempGO.GetComponentInChildren<TMP_Text>().text = tempGO.transform.name;
-                }
-                if(tempGO.GetComponentInChildren<TMP_Text>().name == "TXT_ErrorTotal")
-                {
-                    tempGO.GetComponentInChildren<TMP_Text>().text = DataParser.dpInstance.rubricDatasetElements[i].error_item_total_points.ToString();
-                }
-                tempGO.transform.SetParent(rubricParentModal.transform);
-                tempGO = null;
+                tempRubricGO = GameObject.Instantiate(rubricPrefab);
+                tempRubricGO.GetComponent<CurrentRubricPanel>().ErrorDesc.text = DataParser.dpInstance.rubricDatasetElements[i].error_item_desc.ToString();
+                tempRubricGO.GetComponent<CurrentRubricPanel>().ErrorTotal.text = DataParser.dpInstance.rubricDatasetElements[i].error_item_total_points.ToString();
+                tempRubricGO.GetComponent<CurrentRubricPanel>().ErrorAchieved.text = DataParser.dpInstance.rubricDatasetElements[i].error_item_achieved_points.ToString();
+                tempRubricGO.transform.name = DataParser.dpInstance.rubricDatasetElements[i].error_item_desc.ToString();
+                tempRubricGO.transform.SetParent(rubricParentModal.transform);
+                tempRubricGO = null;
             }
         }
     }
