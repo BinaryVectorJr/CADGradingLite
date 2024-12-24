@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,6 +19,9 @@ public class CurrentRubricPanel : MonoBehaviour
     [SerializeField]
     private Button[] PanelButtons;
 
+    public Color defaultColor;
+    public Color changedColor;
+
     void OnValidate()
     {
         ErrorDesc = this.gameObject.transform.Find("TXT_ErrDesc").GetComponent<TMP_Text>();
@@ -29,6 +33,18 @@ public class CurrentRubricPanel : MonoBehaviour
         PanelButtons[2] = this.gameObject.transform.Find("IncreaseDecrease").GetChild(0).GetComponent<Button>();
         PanelButtons[3] = this.gameObject.transform.Find("IncreaseDecrease").GetChild(1).GetComponent<Button>();
         
+    }
+
+    void Update()
+    {
+        if(ErrorTotal.text != ErrorAchieved.text)
+        {
+            this.gameObject.GetComponent<Image>().color = changedColor;
+        }
+        else
+        {
+            this.gameObject.GetComponent<Image>().color = defaultColor;
+        }
     }
 
     public void SetZero()

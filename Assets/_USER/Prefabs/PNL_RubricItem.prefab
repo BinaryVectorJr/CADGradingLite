@@ -548,7 +548,7 @@ GameObject:
   - component: {fileID: 3194701117411046192}
   m_Layer: 5
   m_Name: TXT_ErrorAchieved
-  m_TagString: Untagged
+  m_TagString: AchievedScore
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1635,7 +1635,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.9808103, b: 0, a: 0.7764706}
+  m_Color: {r: 1, g: 0.9367131, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1672,3 +1672,5 @@ MonoBehaviour:
   - {fileID: 4671089918411917116}
   - {fileID: 3319726283169073814}
   - {fileID: 1169449708447611552}
+  defaultColor: {r: 1, g: 0.9367131, b: 0, a: 1}
+  changedColor: {r: 1, g: 0.52691036, b: 0, a: 1}
