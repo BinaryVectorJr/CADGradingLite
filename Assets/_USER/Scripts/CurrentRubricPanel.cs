@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public class CurrentRubricPanel : MonoBehaviour
 {
+    public int panelID = 0;
+
     [SerializeField]
     public TMP_Text ErrorDesc;
 
@@ -32,7 +34,6 @@ public class CurrentRubricPanel : MonoBehaviour
         PanelButtons[1] = this.gameObject.transform.Find("CalcControlGroup").GetChild(1).GetComponent<Button>();
         PanelButtons[2] = this.gameObject.transform.Find("IncreaseDecrease").GetChild(0).GetComponent<Button>();
         PanelButtons[3] = this.gameObject.transform.Find("IncreaseDecrease").GetChild(1).GetComponent<Button>();
-        
     }
 
     void Update()
@@ -40,6 +41,7 @@ public class CurrentRubricPanel : MonoBehaviour
         if(ErrorTotal.text != ErrorAchieved.text)
         {
             this.gameObject.GetComponent<Image>().color = changedColor;
+            
         }
         else
         {
@@ -50,20 +52,28 @@ public class CurrentRubricPanel : MonoBehaviour
     public void SetZero()
     {
         ErrorAchieved.text = Mathf.Clamp((int.Parse(ErrorTotal.text)-int.Parse(ErrorTotal.text)),0,int.Parse(ErrorTotal.text)).ToString();
+        RubricManager.rbmInstance.UpdateScore();
+        RubricManager.rbmInstance.currentScores[panelID]=int.Parse(ErrorAchieved.text);
     }
 
     public void SetHalf()
     {
         ErrorAchieved.text = Mathf.Clamp((Mathf.CeilToInt(float.Parse(ErrorTotal.text)/2)),0,Mathf.CeilToInt(float.Parse(ErrorTotal.text)/2)).ToString();
+        RubricManager.rbmInstance.UpdateScore();
+        RubricManager.rbmInstance.currentScores[panelID]=int.Parse(ErrorAchieved.text);
     }
 
     public void IncreaseByOne(int val)
     {
         ErrorAchieved.text = Mathf.Clamp((int.Parse(ErrorAchieved.text)+val),0,int.Parse(ErrorTotal.text)).ToString();
+        RubricManager.rbmInstance.UpdateScore();
+        RubricManager.rbmInstance.currentScores[panelID]=int.Parse(ErrorAchieved.text);
     }
 
     public void DecreaseByOne(int val)
     {
         ErrorAchieved.text = Mathf.Clamp((int.Parse(ErrorAchieved.text)-val),0,int.Parse(ErrorTotal.text)).ToString();
+        RubricManager.rbmInstance.UpdateScore();
+        RubricManager.rbmInstance.currentScores[panelID]=int.Parse(ErrorAchieved.text);
     }
 }

@@ -886,7 +886,7 @@ GameObject:
   - component: {fileID: 509708769}
   m_Layer: 0
   m_Name: RubricManager
-  m_TagString: Untagged
+  m_TagString: RubricManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -923,7 +923,8 @@ MonoBehaviour:
   rubricTypeDropdown: {fileID: 873116981}
   rubricTotalScore: {fileID: 813424808}
   rubricFinalFeedback: {fileID: 161022948}
-  scores: 
+  currentScores: 
+  currentSum: 0
 --- !u!1 &569056003
 GameObject:
   m_ObjectHideFlags: 0
@@ -1691,7 +1692,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 509708769}
         m_TargetAssemblyTypeName: RubricManager, Assembly-CSharp
-        m_MethodName: UpdateScore
+        m_MethodName: CopyScoreToClipboard
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
