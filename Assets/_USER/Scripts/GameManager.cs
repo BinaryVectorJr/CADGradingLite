@@ -5,6 +5,8 @@ using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.IO;
+using System.Diagnostics;
 
 public class GameManager : MonoBehaviour
 {
@@ -26,6 +28,7 @@ public class GameManager : MonoBehaviour
     public List<Button> allButtons = new List<Button>();
 
     public string tagToTrack = "Modal";
+    public string folderPath = "E:/Projects/1-Unity/CADGradingLite/Assets/_USER";
 
 
     void Awake()
@@ -121,7 +124,8 @@ public class GameManager : MonoBehaviour
         LoadPanels();
         //print(scenesList[sceneNumber].name.ToString());
     }
-
+    
+    // Not being used currently, but can be used as a switcher
     public void LaunchModals(int _modalNumber)
     {
         if(modalPanels[_modalNumber].gameObject != null)
@@ -165,6 +169,10 @@ public class GameManager : MonoBehaviour
         {
             OnPanelChangeClick("PNL_AssignmentSelector");
         }
+        if(_btn.transform.name == "BTN_Directory")
+        {
+            OnDirectoryRefreshClick();
+        }
     }
 
     void OnSceneChangeClick(string _sceneName)
@@ -184,5 +192,19 @@ public class GameManager : MonoBehaviour
     void OnQuitButtonClick()
     {
         Application.Quit();
+    }
+
+    void OnDirectoryRefreshClick()
+    {
+        if (Directory.Exists(folderPath))
+        {
+            // Open Windows Explorer to the specified folder
+            Application.OpenURL(@"file://"+folderPath);
+            OnPanelChangeClick("PNL_Directory");
+        }
+        else
+        {
+
+        }
     }
 }
