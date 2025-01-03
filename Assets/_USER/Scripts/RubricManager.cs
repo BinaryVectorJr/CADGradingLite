@@ -25,6 +25,7 @@ public class RubricManager : MonoBehaviour
     public Button rubricFinalFeedback;
 
     public List<int> currentScores;
+    public List<string> currentFeedback;
     public int currentSum = 0;
 
     void Awake()
@@ -90,6 +91,7 @@ public class RubricManager : MonoBehaviour
         }
 
         currentScores.Clear();
+        currentFeedback.Clear();
     }
 
     public void UpdateScore()
@@ -112,11 +114,16 @@ public class RubricManager : MonoBehaviour
 
     public void CopyScoreToClipboard()
     {
+        // Copy the integer score text to the clipboard
         GUIUtility.systemCopyBuffer = currentSum.ToString();
     }
 
-    public void UpdateScoreInList()
+    public void CopyFeedbackToClipboard()
     {
+        // Join the list items into a single string, separated by newlines
+        string joinedText = string.Join("\n", currentFeedback);
 
+        // Copy the joined text to the clipboard
+        GUIUtility.systemCopyBuffer = joinedText;
     }
 }

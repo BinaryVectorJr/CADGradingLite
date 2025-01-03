@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEditor.PackageManager;
 using UnityEngine;
@@ -54,6 +55,10 @@ public class CurrentRubricPanel : MonoBehaviour
         ErrorAchieved.text = Mathf.Clamp((int.Parse(ErrorTotal.text)-int.Parse(ErrorTotal.text)),0,int.Parse(ErrorTotal.text)).ToString();
         RubricManager.rbmInstance.UpdateScore();
         RubricManager.rbmInstance.currentScores[panelID]=int.Parse(ErrorAchieved.text);
+        if (!RubricManager.rbmInstance.currentFeedback.Any(s => s.Equals(ErrorDesc.text, System.StringComparison.OrdinalIgnoreCase)))
+        {
+            RubricManager.rbmInstance.currentFeedback.Add(ErrorDesc.text);
+        }
     }
 
     public void SetHalf()
