@@ -211,7 +211,7 @@ GameObject:
   - component: {fileID: 269588710}
   - component: {fileID: 269588709}
   m_Layer: 5
-  m_Name: BTN_GradingTool
+  m_Name: BTN_RegularGrading
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -280,19 +280,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 269588710}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1492641281}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: SwitchScenes
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &269588710
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -825,116 +813,236 @@ MonoBehaviour:
   _assignmentDatasetFile: {fileID: 4900000, guid: 3edd8c886f144ae4082c18644d65057a, type: 3}
   _rubricDatasetFile: {fileID: 4900000, guid: 721ee21b56d93674d989053e79b22ea1, type: 3}
   _assmDatasetLines:
-  - 01,1,Introduction To Course,100,available,due
-  - 01,2,NX Interface,100,available,due
-  - 01,3,Introduction To Course,100,available,due
-  - 01,4,NX Interface,100,available,due
-  - 02,1,Introduction To Course,100,available,due
-  - 02,2,NX Interface,100,available,due
-  - 02,3,Introduction To Course,100,available,due
-  - 02,4,NX Interface,100,available,due
-  - 03,1,Introduction To Course,100,available,due
-  - 03,2,NX Interface,100,available,due
-  - 03,3,Introduction To Course,100,available,due
-  - 03,4,NX Interface,100,available,due
-  - 04,1,Introduction To Course,100,available,due
-  - 04,2,NX Interface,100,available,due
-  - 04,3,Introduction To Course,100,available,due
-  - 04,4,NX Interface,100,available,due
+  - 2,01,1,Introduction To Course (GA),100,available,due
+  - 2,01,2,Setup Accelerator Academy (GA),100,available,due
+  - 3,01,3,CAD Interface (GA),100,available,due
+  - 1,01,4,Hand Sketch Primitives (DIY),100,available,due
+  - 2,01,5,Setup Autodesk Fusion,100,available,due
+  - 0,02,1,Sketching in CAD with Constraints (GA),100,available,due
+  - 0,02,2,Rubber Seal in NX (GA),100,available,due
+  - 1,02,3,Hand Sketch Iso-to-Ortho 1,100,available,due
+  - 0,03,1,Coupler (GA),100,available,due
+  - 0,03,2,Butterfly Valve Retainer (DIY),100,available,due
+  - 1,03,3,Hand Sketch Iso-to-Ortho 2,100,available,due
+  - 0,04,1,Caster Frame (GA),100,available,due
+  - 0,04,2,Butterfly Valve Arm (DIY),100,available,due
+  - 0,04,3,Butterfly Valve Shaft (DIY),100,available,due
+  - 2,04,4,Fusion Rubber Seal,100,available,due
+  - 0,05,1,Sprinkler Stake (GA),100,available,due
+  - 0,05,2,Butterfly Valve Elbow (DIY),100,available,due
+  - 1,05,3,Hand Sketch Iso-to-ortho 4,100,available,due
+  - 0,05,4,Air Filter Cover (EC),100,available,due
+  - 0,06,1,Design for Reuse (GA),100,available,due
+  - 0,06,2,Butterfly Valve Body (DIY),100,available,due
+  - 0,06,3,Practice Practical,100,available,due
+  - 0,06,4,Wall Cover Part Families (EC),100,available,due
+  - 0,08,1,Spindle Assembly (GA),100,available,due
+  - 0,08,2,Butterfly Valve Assembly (DIY),100,available,due
+  - 2,08,3,Fusion Spindle Assembly (GA),100,available,due
+  - 0,09,1,Cart Assembly (DIY),100,available,due
+  - 2,10,1,Discussions,100,available,due
+  - 0,10,2,Introduction to Engineering Documentation (GA),100,available,due
   _assmDatasetElements:
-  - week_no: 1
+  - assm_type: 2
+    week_no: 1
     assm_no: 1
-    assm_name: Introduction To Course
+    assm_name: Introduction To Course (GA)
     total_points: 100
     avail_date: available
     due_date: due
-  - week_no: 1
+  - assm_type: 2
+    week_no: 1
     assm_no: 2
-    assm_name: NX Interface
+    assm_name: Setup Accelerator Academy (GA)
     total_points: 100
     avail_date: available
     due_date: due
-  - week_no: 1
+  - assm_type: 3
+    week_no: 1
     assm_no: 3
-    assm_name: Introduction To Course
+    assm_name: CAD Interface (GA)
     total_points: 100
     avail_date: available
     due_date: due
-  - week_no: 1
+  - assm_type: 1
+    week_no: 1
     assm_no: 4
-    assm_name: NX Interface
+    assm_name: Hand Sketch Primitives (DIY)
     total_points: 100
     avail_date: available
     due_date: due
-  - week_no: 2
+  - assm_type: 2
+    week_no: 1
+    assm_no: 5
+    assm_name: Setup Autodesk Fusion
+    total_points: 100
+    avail_date: available
+    due_date: due
+  - assm_type: 0
+    week_no: 2
     assm_no: 1
-    assm_name: Introduction To Course
+    assm_name: Sketching in CAD with Constraints (GA)
     total_points: 100
     avail_date: available
     due_date: due
-  - week_no: 2
+  - assm_type: 0
+    week_no: 2
     assm_no: 2
-    assm_name: NX Interface
+    assm_name: Rubber Seal in NX (GA)
     total_points: 100
     avail_date: available
     due_date: due
-  - week_no: 2
+  - assm_type: 1
+    week_no: 2
     assm_no: 3
-    assm_name: Introduction To Course
+    assm_name: Hand Sketch Iso-to-Ortho 1
     total_points: 100
     avail_date: available
     due_date: due
-  - week_no: 2
-    assm_no: 4
-    assm_name: NX Interface
-    total_points: 100
-    avail_date: available
-    due_date: due
-  - week_no: 3
+  - assm_type: 0
+    week_no: 3
     assm_no: 1
-    assm_name: Introduction To Course
+    assm_name: Coupler (GA)
     total_points: 100
     avail_date: available
     due_date: due
-  - week_no: 3
+  - assm_type: 0
+    week_no: 3
     assm_no: 2
-    assm_name: NX Interface
+    assm_name: Butterfly Valve Retainer (DIY)
     total_points: 100
     avail_date: available
     due_date: due
-  - week_no: 3
+  - assm_type: 1
+    week_no: 3
     assm_no: 3
-    assm_name: Introduction To Course
+    assm_name: Hand Sketch Iso-to-Ortho 2
     total_points: 100
     avail_date: available
     due_date: due
-  - week_no: 3
-    assm_no: 4
-    assm_name: NX Interface
-    total_points: 100
-    avail_date: available
-    due_date: due
-  - week_no: 4
+  - assm_type: 0
+    week_no: 4
     assm_no: 1
-    assm_name: Introduction To Course
+    assm_name: Caster Frame (GA)
     total_points: 100
     avail_date: available
     due_date: due
-  - week_no: 4
+  - assm_type: 0
+    week_no: 4
     assm_no: 2
-    assm_name: NX Interface
+    assm_name: Butterfly Valve Arm (DIY)
     total_points: 100
     avail_date: available
     due_date: due
-  - week_no: 4
+  - assm_type: 0
+    week_no: 4
     assm_no: 3
-    assm_name: Introduction To Course
+    assm_name: Butterfly Valve Shaft (DIY)
     total_points: 100
     avail_date: available
     due_date: due
-  - week_no: 4
+  - assm_type: 2
+    week_no: 4
     assm_no: 4
-    assm_name: NX Interface
+    assm_name: Fusion Rubber Seal
+    total_points: 100
+    avail_date: available
+    due_date: due
+  - assm_type: 0
+    week_no: 5
+    assm_no: 1
+    assm_name: Sprinkler Stake (GA)
+    total_points: 100
+    avail_date: available
+    due_date: due
+  - assm_type: 0
+    week_no: 5
+    assm_no: 2
+    assm_name: Butterfly Valve Elbow (DIY)
+    total_points: 100
+    avail_date: available
+    due_date: due
+  - assm_type: 1
+    week_no: 5
+    assm_no: 3
+    assm_name: Hand Sketch Iso-to-ortho 4
+    total_points: 100
+    avail_date: available
+    due_date: due
+  - assm_type: 0
+    week_no: 5
+    assm_no: 4
+    assm_name: Air Filter Cover (EC)
+    total_points: 100
+    avail_date: available
+    due_date: due
+  - assm_type: 0
+    week_no: 6
+    assm_no: 1
+    assm_name: Design for Reuse (GA)
+    total_points: 100
+    avail_date: available
+    due_date: due
+  - assm_type: 0
+    week_no: 6
+    assm_no: 2
+    assm_name: Butterfly Valve Body (DIY)
+    total_points: 100
+    avail_date: available
+    due_date: due
+  - assm_type: 0
+    week_no: 6
+    assm_no: 3
+    assm_name: Practice Practical
+    total_points: 100
+    avail_date: available
+    due_date: due
+  - assm_type: 0
+    week_no: 6
+    assm_no: 4
+    assm_name: Wall Cover Part Families (EC)
+    total_points: 100
+    avail_date: available
+    due_date: due
+  - assm_type: 0
+    week_no: 8
+    assm_no: 1
+    assm_name: Spindle Assembly (GA)
+    total_points: 100
+    avail_date: available
+    due_date: due
+  - assm_type: 0
+    week_no: 8
+    assm_no: 2
+    assm_name: Butterfly Valve Assembly (DIY)
+    total_points: 100
+    avail_date: available
+    due_date: due
+  - assm_type: 2
+    week_no: 8
+    assm_no: 3
+    assm_name: Fusion Spindle Assembly (GA)
+    total_points: 100
+    avail_date: available
+    due_date: due
+  - assm_type: 0
+    week_no: 9
+    assm_no: 1
+    assm_name: Cart Assembly (DIY)
+    total_points: 100
+    avail_date: available
+    due_date: due
+  - assm_type: 2
+    week_no: 10
+    assm_no: 1
+    assm_name: Discussions
+    total_points: 100
+    avail_date: available
+    due_date: due
+  - assm_type: 0
+    week_no: 10
+    assm_no: 2
+    assm_name: Introduction to Engineering Documentation (GA)
     total_points: 100
     avail_date: available
     due_date: due
@@ -948,7 +1056,7 @@ MonoBehaviour:
   - 0,Color not changed,5,5
   - 0,Incorrect material and mass,5,5
   - 0,3D Annotations missing/incorrect,10,10
-  - 1,All required sketches present,40
+  - 1,All required sketches present,40,40
   - 1,Iso sketch has issues,10,10
   - 1,Ortho sketch has issues,10,10
   - 1,Ortho sketch does not follow correct layout,10,10
@@ -998,59 +1106,59 @@ MonoBehaviour:
     error_item_desc: 3D Annotations missing/incorrect
     error_item_total_points: 10
     error_item_achieved_points: 10
-  - assm_type: 0
-    error_item_desc: 
-    error_item_total_points: 0
-    error_item_achieved_points: 0
-  - assm_type: 0
-    error_item_desc: 
-    error_item_total_points: 0
-    error_item_achieved_points: 0
-  - assm_type: 0
-    error_item_desc: 
-    error_item_total_points: 0
-    error_item_achieved_points: 0
-  - assm_type: 0
-    error_item_desc: 
-    error_item_total_points: 0
-    error_item_achieved_points: 0
-  - assm_type: 0
-    error_item_desc: 
-    error_item_total_points: 0
-    error_item_achieved_points: 0
-  - assm_type: 0
-    error_item_desc: 
-    error_item_total_points: 0
-    error_item_achieved_points: 0
-  - assm_type: 0
-    error_item_desc: 
-    error_item_total_points: 0
-    error_item_achieved_points: 0
-  - assm_type: 0
-    error_item_desc: 
-    error_item_total_points: 0
-    error_item_achieved_points: 0
-  - assm_type: 0
-    error_item_desc: 
-    error_item_total_points: 0
-    error_item_achieved_points: 0
-  - assm_type: 0
-    error_item_desc: 
-    error_item_total_points: 0
-    error_item_achieved_points: 0
-  - assm_type: 0
-    error_item_desc: 
-    error_item_total_points: 0
-    error_item_achieved_points: 0
-  - assm_type: 0
-    error_item_desc: 
-    error_item_total_points: 0
-    error_item_achieved_points: 0
-  - assm_type: 0
-    error_item_desc: 
-    error_item_total_points: 0
-    error_item_achieved_points: 0
-  assmLineCount: 16
+  - assm_type: 1
+    error_item_desc: All required sketches present
+    error_item_total_points: 40
+    error_item_achieved_points: 40
+  - assm_type: 1
+    error_item_desc: Iso sketch has issues
+    error_item_total_points: 10
+    error_item_achieved_points: 10
+  - assm_type: 1
+    error_item_desc: Ortho sketch has issues
+    error_item_total_points: 10
+    error_item_achieved_points: 10
+  - assm_type: 1
+    error_item_desc: Ortho sketch does not follow correct layout
+    error_item_total_points: 10
+    error_item_achieved_points: 10
+  - assm_type: 1
+    error_item_desc: Incorrect scale
+    error_item_total_points: 10
+    error_item_achieved_points: 10
+  - assm_type: 1
+    error_item_desc: View name labels are present
+    error_item_total_points: 5
+    error_item_achieved_points: 5
+  - assm_type: 1
+    error_item_desc: Model names not present for each model
+    error_item_total_points: 5
+    error_item_achieved_points: 5
+  - assm_type: 1
+    error_item_desc: File format not PDF
+    error_item_total_points: 5
+    error_item_achieved_points: 5
+  - assm_type: 1
+    error_item_desc: Messy sketches
+    error_item_total_points: 5
+    error_item_achieved_points: 5
+  - assm_type: 2
+    error_item_desc: Incorrect image(s) (not according to requirements)
+    error_item_total_points: 90
+    error_item_achieved_points: 90
+  - assm_type: 2
+    error_item_desc: File format not PDF
+    error_item_total_points: 10
+    error_item_achieved_points: 10
+  - assm_type: 3
+    error_item_desc: Incorrect piston file
+    error_item_total_points: 90
+    error_item_achieved_points: 90
+  - assm_type: 3
+    error_item_desc: Color not changed
+    error_item_total_points: 10
+    error_item_achieved_points: 10
+  assmLineCount: 29
   rubricLineCount: 22
 --- !u!1 &787713839
 GameObject:
@@ -1514,7 +1622,7 @@ GameObject:
   - component: {fileID: 1456113764}
   - component: {fileID: 1456113763}
   m_Layer: 5
-  m_Name: BTN_DueDateCalc
+  m_Name: BTN_ProjectGrading
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1583,19 +1691,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1456113764}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1492641281}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: LaunchModals
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1456113764
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1691,7 +1787,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Due Date Calculator
+  m_text: Project Grading
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1812,13 +1908,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ce299a4831ec5b48a97f714bdcc5610, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentState: 0
   scenesList:
   - {fileID: 102900000, guid: c08d426142332d344bc53060660a59ff, type: 3}
   - {fileID: 102900000, guid: 7af1c1dd3af78ad4a8a4653d9b0a9adf, type: 3}
-  modalPanels:
-  - {fileID: 134999980}
-  - {fileID: 627212987}
-  buttonTexts: []
+  modalPanels: []
+  allButtons: []
+  tagToTrack: Modal
 --- !u!1 &1539779054
 GameObject:
   m_ObjectHideFlags: 0
@@ -1876,7 +1972,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Grading Tool
+  m_text: Regular Grading
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2205,19 +2301,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1761276771}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1492641281}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: Quit
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1761276771
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2605,19 +2689,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2055884329}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1492641281}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: LaunchModals
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &2055884329
 MonoBehaviour:
   m_ObjectHideFlags: 0

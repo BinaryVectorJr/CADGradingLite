@@ -2826,19 +2826,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1456113764}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1492641281}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: LaunchModals
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1456113764
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3130,14 +3118,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ce299a4831ec5b48a97f714bdcc5610, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentState: 0
   scenesList:
   - {fileID: 102900000, guid: c08d426142332d344bc53060660a59ff, type: 3}
   - {fileID: 102900000, guid: 7af1c1dd3af78ad4a8a4653d9b0a9adf, type: 3}
   modalPanels:
   - {fileID: 134999980}
   - {fileID: 174923364}
-  buttonTexts:
-  - {fileID: 1480322744}
+  allButtons: []
+  tagToTrack: Modal
 --- !u!1 &1543615639
 GameObject:
   m_ObjectHideFlags: 0
@@ -3540,19 +3529,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1761276771}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1492641281}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: SwitchScenes
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1761276771
 MonoBehaviour:
   m_ObjectHideFlags: 0
