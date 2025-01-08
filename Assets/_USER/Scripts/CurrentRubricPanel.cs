@@ -35,6 +35,7 @@ public class CurrentRubricPanel : MonoBehaviour
         PanelButtons[1] = this.gameObject.transform.Find("CalcControlGroup").GetChild(1).GetComponent<Button>();
         PanelButtons[2] = this.gameObject.transform.Find("IncreaseDecrease").GetChild(0).GetComponent<Button>();
         PanelButtons[3] = this.gameObject.transform.Find("IncreaseDecrease").GetChild(1).GetComponent<Button>();
+        PanelButtons[4] = this.gameObject.transform.Find("BTN_Reset").GetComponent<Button>();
     }
 
     void Update()
@@ -78,6 +79,13 @@ public class CurrentRubricPanel : MonoBehaviour
     public void DecreaseByOne(int val)
     {
         ErrorAchieved.text = Mathf.Clamp((int.Parse(ErrorAchieved.text)-val),0,int.Parse(ErrorTotal.text)).ToString();
+        RubricManager.rbmInstance.UpdateScore();
+        RubricManager.rbmInstance.currentScores[panelID]=int.Parse(ErrorAchieved.text);
+    }
+
+    public void ResetScore()
+    {
+        ErrorAchieved.text = ErrorTotal.text;
         RubricManager.rbmInstance.UpdateScore();
         RubricManager.rbmInstance.currentScores[panelID]=int.Parse(ErrorAchieved.text);
     }
