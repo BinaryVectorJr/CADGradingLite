@@ -8,6 +8,7 @@ TagManager:
   - ModalButton
   - AchievedScore
   - RubricManager
+  - PathInput
   layers:
   - Default
   - TransparentFX

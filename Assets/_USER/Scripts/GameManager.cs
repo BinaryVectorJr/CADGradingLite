@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.IO;
 using System.Diagnostics;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -28,8 +29,9 @@ public class GameManager : MonoBehaviour
     public List<Button> allButtons = new List<Button>();
 
     public string tagToTrack = "Modal";
-    public string folderPath = "E:/Projects/1-Unity/CADGradingLite/Assets/_USER";
-
+    public string assmFilePath = "E:/Projects/1-Unity/CADGradingLite/Assets/_USER/weekly-assms.txt";
+    public string rubricFilePath = "E:/Projects/1-Unity/CADGradingLite/Assets/_USER/grading-rubric.txt";
+    public string projectFilePath = "E:/Projects/1-Unity/CADGradingLite/Assets/_USER/project.txt";
 
     void Awake()
     {
@@ -143,12 +145,22 @@ public class GameManager : MonoBehaviour
 
     public void PersistShowModals(int _modalNumber)
     {
-        modalPanels[_modalNumber].gameObject.SetActive(true);
+        if(modalPanels[_modalNumber].gameObject.activeSelf == false)
+        {
+            modalPanels[_modalNumber].gameObject.SetActive(true);
+        }
+        else
+        {
+            modalPanels[_modalNumber].gameObject.SetActive(false);
+        }
     }
 
     public void PersistHideModals(int _modalNumber)
     {
-        modalPanels[_modalNumber].gameObject.SetActive(false);
+        if(modalPanels[_modalNumber].gameObject.activeSelf == true)
+        {
+            modalPanels[_modalNumber].gameObject.SetActive(false);
+        }
     }
 
     void OnButtonClick(Button _btn)
@@ -169,9 +181,13 @@ public class GameManager : MonoBehaviour
         {
             OnPanelChangeClick("PNL_AssignmentSelector");
         }
-        if(_btn.transform.name == "BTN_Directory")
+        if(_btn.transform.name == "BTN_Data")
         {
             OnDirectoryRefreshClick();
+        }
+        if(_btn.transform.name == "BTN_SetupData")
+        {
+            OnLoadDataClick();
         }
     }
 
@@ -196,15 +212,24 @@ public class GameManager : MonoBehaviour
 
     void OnDirectoryRefreshClick()
     {
-        if (Directory.Exists(folderPath))
-        {
-            // Open Windows Explorer to the specified folder
-            Application.OpenURL(@"file://"+folderPath);
-            OnPanelChangeClick("PNL_Directory");
-        }
-        else
-        {
+        currentState = GameState.LOAD_FILES;
+        OnPanelChangeClick("PNL_Directory");
+        // if (Directory.Exists(folderPath))
+        // {
+        //     // Open Windows Explorer to the specified folder
+        //     Application.OpenURL(@"file://"+folderPath);
+        //     OnPanelChangeClick("PNL_Directory");
+        // }
+        // else
+        // {
 
-        }
+        // }
+    }
+
+    void OnLoadDataClick()
+    {
+        currentState = GameState.MAIN_MENU;
+        int index = modalPanels.FindIndex(scene => scene.name.Equals("PNL_Directory"));
+        PersistHideModals(index);
     }
 }
