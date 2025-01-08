@@ -1,16 +1,29 @@
-01,1,Introduction To Course,100,available,due
-01,2,NX Interface,100,available,due
-01,3,Introduction To Course,100,available,due
-01,4,NX Interface,100,available,due
-02,1,Introduction To Course,100,available,due
-02,2,NX Interface,100,available,due
-02,3,Introduction To Course,100,available,due
-02,4,NX Interface,100,available,due
-03,1,Introduction To Course,100,available,due
-03,2,NX Interface,100,available,due
-03,3,Introduction To Course,100,available,due
-03,4,NX Interface,100,available,due
-04,1,Introduction To Course,100,available,due
-04,2,NX Interface,100,available,due
-04,3,Introduction To Course,100,available,due
-04,4,NX Interface,100,available,due
+2,01,1,Introduction To Course (GA),100,available,due
+2,01,2,Setup Accelerator Academy (GA),100,available,due
+3,01,3,CAD Interface (GA),100,available,due
+1,01,4,Hand Sketch Primitives (DIY),100,available,due
+2,01,5,Setup Autodesk Fusion,100,available,due
+0,02,1,Sketching in CAD with Constraints (GA),100,available,due
+0,02,2,Rubber Seal in NX (GA),100,available,due
+1,02,3,Hand Sketch Iso-to-Ortho 1,100,available,due
+0,03,1,Coupler (GA),100,available,due
+0,03,2,Butterfly Valve Retainer (DIY),100,available,due
+1,03,3,Hand Sketch Iso-to-Ortho 2,100,available,due
+0,04,1,Caster Frame (GA),100,available,due
+0,04,2,Butterfly Valve Arm (DIY),100,available,due
+0,04,3,Butterfly Valve Shaft (DIY),100,available,due
+2,04,4,Fusion Rubber Seal,100,available,due
+0,05,1,Sprinkler Stake (GA),100,available,due
+0,05,2,Butterfly Valve Elbow (DIY),100,available,due
+1,05,3,Hand Sketch Iso-to-ortho 4,100,available,due
+0,05,4,Air Filter Cover (EC),100,available,due
+0,06,1,Design for Reuse (GA),100,available,due
+0,06,2,Butterfly Valve Body (DIY),100,available,due
+0,06,3,Practice Practical,100,available,due
+0,06,4,Wall Cover Part Families (EC),100,available,due
+0,08,1,Spindle Assembly (GA),100,available,due
+0,08,2,Butterfly Valve Assembly (DIY),100,available,due
+2,08,3,Fusion Spindle Assembly (GA),100,available,due
+0,09,1,Cart Assembly (DIY),100,available,due
+2,10,1,Discussions,100,available,due
+0,10,2,Introduction to Engineering Documentation (GA),100,available,due

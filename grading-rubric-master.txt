@@ -7,7 +7,7 @@
 0,Color not changed,5,5
 0,Incorrect material and mass,5,5
 0,3D Annotations missing/incorrect,10,10
-1,All required sketches present,40
+1,All required sketches present,40,40
 1,Iso sketch has issues,10,10
 1,Ortho sketch has issues,10,10
 1,Ortho sketch does not follow correct layout,10,10
