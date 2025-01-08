@@ -189,6 +189,11 @@ public class GameManager : MonoBehaviour
         {
             OnLoadDataClick();
         }
+        if(_btn.transform.name == "BTN_CloseDir")
+        {
+            int index = modalPanels.FindIndex(scene => scene.name.Equals("PNL_Directory"));
+            PersistShowModals(index);
+        }
     }
 
     void OnSceneChangeClick(string _sceneName)
@@ -230,6 +235,6 @@ public class GameManager : MonoBehaviour
     {
         currentState = GameState.MAIN_MENU;
         int index = modalPanels.FindIndex(scene => scene.name.Equals("PNL_Directory"));
-        PersistHideModals(index);
+        PersistShowModals(index);
     }
 }
