@@ -155,12 +155,14 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void PersistShowModals2(int _modalNumber)
+    {
+        modalPanels[_modalNumber].gameObject.SetActive(true);
+    }
+
     public void PersistHideModals(int _modalNumber)
     {
-        if(modalPanels[_modalNumber].gameObject.activeSelf == true)
-        {
-            modalPanels[_modalNumber].gameObject.SetActive(false);
-        }
+        modalPanels[_modalNumber].gameObject.SetActive(false);
     }
 
     void OnButtonClick(Button _btn)

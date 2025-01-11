@@ -1,4 +1,4 @@
-2,01,1,Introduction To Course (GA),100,available,due
+4,01,1,Introduction To Course (GA),100,available,due
 2,01,2,Setup Accelerator Academy (GA),100,available,due
 3,01,3,CAD Interface (GA),100,available,due
 1,01,4,Hand Sketch Primitives (DIY),100,available,due

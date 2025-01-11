@@ -1978,6 +1978,8 @@ MonoBehaviour:
       m_Image: {fileID: 0}
     - m_Text: Reupload
       m_Image: {fileID: 0}
+    - m_Text: Introduction
+      m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -3127,6 +3129,9 @@ MonoBehaviour:
   - {fileID: 174923364}
   allButtons: []
   tagToTrack: Modal
+  assmFilePath: E:/Projects/1-Unity/CADGradingLite/Assets/_USER/weekly-assms.txt
+  rubricFilePath: E:/Projects/1-Unity/CADGradingLite/Assets/_USER/grading-rubric.txt
+  projectFilePath: E:/Projects/1-Unity/CADGradingLite/Assets/_USER/project.txt
 --- !u!1 &1543615639
 GameObject:
   m_ObjectHideFlags: 0

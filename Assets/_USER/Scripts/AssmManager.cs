@@ -56,7 +56,7 @@ public class AssmManager : MonoBehaviour
         assignmentSelectorButton.GetComponentInChildren<TMP_Text>().text = _button.gameObject.name;
         currentRubricManager.rubricTypeDropdown.value = _button.GetComponent<AssignmentType>().assignmentTypeCode;
         GameManager.gmInstance.PersistHideModals(0);
-        GameManager.gmInstance.PersistShowModals(1);
+        GameManager.gmInstance.PersistShowModals2(1);
         currentRubricManager.ChangeRubrics();
     }
 }

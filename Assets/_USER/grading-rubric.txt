@@ -20,3 +20,4 @@
 2,File format not PDF,10,10
 3,Incorrect piston file,90,90
 3,Color not changed,10,10
+4,Name of part,2,2

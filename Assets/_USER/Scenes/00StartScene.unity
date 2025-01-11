@@ -1951,7 +1951,7 @@ MonoBehaviour:
   _assignmentDatasetFile: {fileID: 4900000, guid: 3edd8c886f144ae4082c18644d65057a, type: 3}
   _rubricDatasetFile: {fileID: 4900000, guid: 721ee21b56d93674d989053e79b22ea1, type: 3}
   _assmDatasetLines:
-  - 2,01,1,Introduction To Course (GA),100,available,due
+  - 4,01,1,Introduction To Course (GA),100,available,due
   - 2,01,2,Setup Accelerator Academy (GA),100,available,due
   - 3,01,3,CAD Interface (GA),100,available,due
   - 1,01,4,Hand Sketch Primitives (DIY),100,available,due
@@ -1981,7 +1981,7 @@ MonoBehaviour:
   - 2,10,1,Discussions,100,available,due
   - 0,10,2,Introduction to Engineering Documentation (GA),100,available,due
   _assmDatasetElements:
-  - assm_type: 2
+  - assm_type: 4
     week_no: 1
     assm_no: 1
     assm_name: Introduction To Course (GA)
@@ -2207,6 +2207,7 @@ MonoBehaviour:
   - 2,File format not PDF,10,10
   - 3,Incorrect piston file,90,90
   - 3,Color not changed,10,10
+  - 4,Name of part,2,2
   _rubricDatasetElements:
   - assm_type: 0
     error_item_desc: Sketches are under-defined/over-defined
@@ -2296,8 +2297,12 @@ MonoBehaviour:
     error_item_desc: Color not changed
     error_item_total_points: 10
     error_item_achieved_points: 10
+  - assm_type: 4
+    error_item_desc: Name of part
+    error_item_total_points: 2
+    error_item_achieved_points: 2
   assmLineCount: 29
-  rubricLineCount: 22
+  rubricLineCount: 23
 --- !u!1 &787713839
 GameObject:
   m_ObjectHideFlags: 0
