@@ -67,6 +67,10 @@ public class CurrentRubricPanel : MonoBehaviour
         ErrorAchieved.text = Mathf.Clamp((Mathf.CeilToInt(float.Parse(ErrorTotal.text)/2)),0,Mathf.CeilToInt(float.Parse(ErrorTotal.text)/2)).ToString();
         RubricManager.rbmInstance.UpdateScore();
         RubricManager.rbmInstance.currentScores[panelID]=int.Parse(ErrorAchieved.text);
+        if (!RubricManager.rbmInstance.currentFeedback.Any(s => s.Equals(ErrorDesc.text, System.StringComparison.OrdinalIgnoreCase)))
+        {
+            RubricManager.rbmInstance.currentFeedback.Add(ErrorDesc.text);
+        }
     }
 
     public void IncreaseByOne(int val)
@@ -74,6 +78,17 @@ public class CurrentRubricPanel : MonoBehaviour
         ErrorAchieved.text = Mathf.Clamp((int.Parse(ErrorAchieved.text)+val),0,int.Parse(ErrorTotal.text)).ToString();
         RubricManager.rbmInstance.UpdateScore();
         RubricManager.rbmInstance.currentScores[panelID]=int.Parse(ErrorAchieved.text);
+        if(string.Equals(ErrorAchieved.text,ErrorTotal.text))
+        {
+            ResetScore();
+        }
+        else
+        {
+            if (!RubricManager.rbmInstance.currentFeedback.Any(s => s.Equals(ErrorDesc.text, System.StringComparison.OrdinalIgnoreCase)))
+            {
+                RubricManager.rbmInstance.currentFeedback.Add(ErrorDesc.text);
+            }
+        }
     }
 
     public void DecreaseByOne(int val)
@@ -81,6 +96,17 @@ public class CurrentRubricPanel : MonoBehaviour
         ErrorAchieved.text = Mathf.Clamp((int.Parse(ErrorAchieved.text)-val),0,int.Parse(ErrorTotal.text)).ToString();
         RubricManager.rbmInstance.UpdateScore();
         RubricManager.rbmInstance.currentScores[panelID]=int.Parse(ErrorAchieved.text);
+        if(string.Equals(ErrorAchieved.text,ErrorTotal.text))
+        {
+            ResetScore();
+        }
+        else
+        {
+            if (!RubricManager.rbmInstance.currentFeedback.Any(s => s.Equals(ErrorDesc.text, System.StringComparison.OrdinalIgnoreCase)))
+            {
+                RubricManager.rbmInstance.currentFeedback.Add(ErrorDesc.text);
+            }
+        }
     }
 
     public void ResetScore()
@@ -88,5 +114,9 @@ public class CurrentRubricPanel : MonoBehaviour
         ErrorAchieved.text = ErrorTotal.text;
         RubricManager.rbmInstance.UpdateScore();
         RubricManager.rbmInstance.currentScores[panelID]=int.Parse(ErrorAchieved.text);
+        if (RubricManager.rbmInstance.currentFeedback.Any(s => s.Equals(ErrorDesc.text, System.StringComparison.OrdinalIgnoreCase)))
+        {
+            RubricManager.rbmInstance.currentFeedback.RemoveAll(item => item == ErrorDesc.text);
+        }
     }
 }

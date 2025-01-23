@@ -1,23 +1,78 @@
-0,Sketches are under-defined/over-defined,20,20
-0,User expressions missing/non-functional,20,20
-0,Part cannot be morphed as intended,20,20
-0,Incorrect dimensioning scheme (not according to requirements),10,10
-0,Required features not present,5,5
-0,Features not renamed in Part Hierarchy,5,5
-0,Color not changed,5,5
-0,Incorrect material and mass,5,5
-0,3D Annotations missing/incorrect,10,10
-1,All required sketches present,40,40
-1,Iso sketch has issues,10,10
-1,Ortho sketch has issues,10,10
-1,Ortho sketch does not follow correct layout,10,10
-1,Incorrect scale,10,10
-1,View name labels are present,5,5
-1,Model names not present for each model,5,5
-1,File format not PDF,5,5
-1,Messy sketches,5,5
+0,Name of MFET Part Item,2,2
+0,Description of MFET Part Item,2,2
+0,Attachment has valid .PRT file,25,25
+0,Attachment renamed acc. to course convention,1,1
+0,Model-MFET template used,5,5
+0,All sketches are fully defined,20,20
+0,Two working user expressions (0pts if less than 2),10,10
+0,Model morphs correctly after modifying expressions (0pts if even one thing breaks),10,10
+0,All required features present,5,5
+0,All features in part hierarchy renamed,5,5
+0,Correct mass obtained by applying correct material (tol. +-0.1g),5,5
+0,Color of part changed,5,5
+0,JT file generated,5,5
+1,Name of MFET Document Item,2,2
+1,Description of MFET Document Item,2,2
+1,Attachment has valid .PDF file,25,25
+1,Attachment has been renamed according to course specification,1,1
+1,Correct Orthographic Sketches (5 per view),15,15
+1,Correct Isometric Sketch,10,10
+1,Correct dimensions,10,10
+1,Correct scale,10,10
+1,All appropriate solid lines & dashed lines & and center lines present,10,10
+1,Layout of ortho sketches acc. to convention (Top-Front-Right),10,10
+1,Model names present for both iso and ortho sketch,5,5
 2,Incorrect image(s) (not according to requirements),90,90
 2,File format not PDF,10,10
-3,Incorrect piston file,90,90
-3,Color not changed,10,10
-4,Name of part,2,2
+3,Name of MFET Document item,2,2
+3,Description of MFET Document Item,2,2
+3,Release Status = Validation,20,20
+3,Attachment has valid .PDF file ,20,20
+3,Attachment has been renamed according to course specification,1,1
+3,Screenshot of Current Membership (Step 8),20,20
+3,Screenshot of Video content (Step 11a),20,20
+3,Screenshot contains relevant information,5,5
+3,File submitted as a .PDF,10,10
+4,Name of MFET Part item,2,2
+4,Description of MFET Part Item,2,2
+4,Release Status = Validation,20,20
+4,Attachment has valid .PRT file,20,20
+4,Attachment has been renamed according to course specification,1,1
+4,Correct file used (Piston.prt),35,35
+4,JT file generated,10,10
+4,Color of piston changed,10,10
+5,Name of MFET Document item,2,2
+5,Description of MFET Document Item,2,2
+5,Release Status = Validation,20,20
+5,Attachment has valid .PDF file ,20,20
+5,Attachment has been renamed according to course specification,1,1
+5,Four sets of ortho sketches correctly done,20,20
+5,Four iso sketches properly done,20,20
+5,All appropriate solid lines & dashed lines & and center lines present,5,5
+5,Layout of orthographic sketches is according to convention (Top-Front-Right),5,5
+5,Model names present for each ortho and iso model,5,5
+6,Name of MFET Part item,2,2
+6,Description of MFET Part Item,2,2
+6,Attachment has valid .PRT file,25,25
+6,Attachment has been renamed according to course specification,1,1
+6,Model-MFET Template used,5,5
+6,Happy Cube Puzzle on RIGHT plane,10,10
+6,T-Slot sketch on TOP plane,10,10
+6,All sketches are fully defined (even 1 sketch wrong = 0),20,20
+6,All features in part hierarchy renamed appropriately,5,5
+6,Puzzle piece only 2 dimensions used,5,5
+6,Puzzle piece has one dimension reference the other dimension,5,5
+6,T-slot has three mirror lines used,5,5
+6,JT file generated,5,5
+7,Name of MFET Part item,2,2
+7,Description of MFET Part Item,2,2
+7,Attachment has valid .PRT file,25,25
+7,Attachment has been renamed according to course specification,1,1
+7,Model-MFET Template used,5,5
+7,All sketches are fully defined (even 1 sketch wrong = 0),20,20
+7,Extrude feature used corrctly,10,10
+7,Pattern feature used correctly,10,10
+7,Hole feature used correctly,10,10
+7,All features in part hierarchy renamed appropriately,5,5
+7,Correct mass obtained due to correct material (tol. +-0.1g),5,5
+7,JT file generated,5,5

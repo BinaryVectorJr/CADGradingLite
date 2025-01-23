@@ -1,10 +1,10 @@
-4,01,1,Introduction To Course (GA),100,available,due
-2,01,2,Setup Accelerator Academy (GA),100,available,due
-3,01,3,CAD Interface (GA),100,available,due
-1,01,4,Hand Sketch Primitives (DIY),100,available,due
+2,01,1,Introduction To Course (GA),100,available,due
+3,01,2,Setup Accelerator Academy (GA),100,available,due
+4,01,3,CAD Interface (GA),100,available,due
+5,01,4,Hand Sketch Primitives (DIY),100,available,due
 2,01,5,Setup Autodesk Fusion,100,available,due
-0,02,1,Sketching in CAD with Constraints (GA),100,available,due
-0,02,2,Rubber Seal in NX (GA),100,available,due
+6,02,1,Sketching in CAD with Constraints (GA),100,available,due
+7,02,2,Rubber Seal in NX (GA),100,available,due
 1,02,3,Hand Sketch Iso-to-Ortho 1,100,available,due
 0,03,1,Coupler (GA),100,available,due
 0,03,2,Butterfly Valve Retainer (DIY),100,available,due
