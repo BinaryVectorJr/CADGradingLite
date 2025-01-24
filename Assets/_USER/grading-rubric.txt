@@ -1,78 +1,78 @@
-0,Name of MFET Part Item,2,2
-0,Description of MFET Part Item,2,2
-0,Attachment has valid .PRT file,25,25
-0,Attachment renamed acc. to course convention,1,1
-0,Model-MFET template used,5,5
-0,All sketches are fully defined,20,20
-0,Two working user expressions (0pts if less than 2),10,10
-0,Model morphs correctly after modifying expressions (0pts if even one thing breaks),10,10
-0,All required features present,5,5
-0,All features in part hierarchy renamed,5,5
-0,Correct mass obtained by applying correct material (tol. +-0.1g),5,5
-0,Color of part changed,5,5
-0,JT file generated,5,5
-1,Name of MFET Document Item,2,2
-1,Description of MFET Document Item,2,2
-1,Attachment has valid .PDF file,25,25
-1,Attachment has been renamed according to course specification,1,1
-1,Correct Orthographic Sketches (5 per view),15,15
-1,Correct Isometric Sketch,10,10
-1,Correct dimensions,10,10
-1,Correct scale,10,10
-1,All appropriate solid lines & dashed lines & and center lines present,10,10
-1,Layout of ortho sketches acc. to convention (Top-Front-Right),10,10
-1,Model names present for both iso and ortho sketch,5,5
+0,Incorrect Name of MFET Part Item,2,2
+0,Incorrect Description of MFET Part Item,2,2
+0,Attachment does not have valid .PRT file,25,25
+0,Attachment not named according to course convention,1,1
+0,Model-MFET template not used,5,5
+0,One (or more) sketches are not fully defined (even 1 sketch wrong = 0),20,20
+0,One (or more) user expressions not present,10,10
+0,Model does not morph correctly (automatic 0 if less than req. user expressions),10,10
+0,Required features are not present,5,5
+0,Required features are not renamed in Part Hierarchy,5,5
+0,Incorrect mass or material (tol. +-0.1g),5,5
+0,Color of part not changed,5,5
+0,JT file not generated,5,5
+1,Incorrect Name of MFET Document Item,2,2
+1,Incorrect Description of MFET Document Item,2,2
+1,Attachment does not have valid .PDF file,25,25
+1,Attachment not named according to course specification,1,1
+1,Erorr(s) in Orthographic Sketches (5 per view),15,15
+1,Error(s) Isometric Sketch,10,10
+1,Incorrect dimensions,10,10
+1,Incorrect scale,10,10
+1,Missing appropriate lines (solid/dashed/center),10,10
+1,Layout of ortho sketches not following course convention (Top-Front-Right),10,10
+1,Model names missing under sketches (iso/ortho),5,5
 2,Incorrect image(s) (not according to requirements),90,90
-2,File format not PDF,10,10
-3,Name of MFET Document item,2,2
-3,Description of MFET Document Item,2,2
-3,Release Status = Validation,20,20
-3,Attachment has valid .PDF file ,20,20
-3,Attachment has been renamed according to course specification,1,1
-3,Screenshot of Current Membership (Step 8),20,20
-3,Screenshot of Video content (Step 11a),20,20
-3,Screenshot contains relevant information,5,5
-3,File submitted as a .PDF,10,10
-4,Name of MFET Part item,2,2
-4,Description of MFET Part Item,2,2
-4,Release Status = Validation,20,20
-4,Attachment has valid .PRT file,20,20
-4,Attachment has been renamed according to course specification,1,1
-4,Correct file used (Piston.prt),35,35
-4,JT file generated,10,10
-4,Color of piston changed,10,10
-5,Name of MFET Document item,2,2
-5,Description of MFET Document Item,2,2
-5,Release Status = Validation,20,20
-5,Attachment has valid .PDF file ,20,20
-5,Attachment has been renamed according to course specification,1,1
-5,Four sets of ortho sketches correctly done,20,20
-5,Four iso sketches properly done,20,20
-5,All appropriate solid lines & dashed lines & and center lines present,5,5
-5,Layout of orthographic sketches is according to convention (Top-Front-Right),5,5
-5,Model names present for each ortho and iso model,5,5
-6,Name of MFET Part item,2,2
-6,Description of MFET Part Item,2,2
-6,Attachment has valid .PRT file,25,25
-6,Attachment has been renamed according to course specification,1,1
-6,Model-MFET Template used,5,5
-6,Happy Cube Puzzle on RIGHT plane,10,10
-6,T-Slot sketch on TOP plane,10,10
-6,All sketches are fully defined (even 1 sketch wrong = 0),20,20
-6,All features in part hierarchy renamed appropriately,5,5
-6,Puzzle piece only 2 dimensions used,5,5
-6,Puzzle piece has one dimension reference the other dimension,5,5
-6,T-slot has three mirror lines used,5,5
-6,JT file generated,5,5
-7,Name of MFET Part item,2,2
-7,Description of MFET Part Item,2,2
-7,Attachment has valid .PRT file,25,25
-7,Attachment has been renamed according to course specification,1,1
-7,Model-MFET Template used,5,5
-7,All sketches are fully defined (even 1 sketch wrong = 0),20,20
-7,Extrude feature used corrctly,10,10
-7,Pattern feature used correctly,10,10
-7,Hole feature used correctly,10,10
-7,All features in part hierarchy renamed appropriately,5,5
-7,Correct mass obtained due to correct material (tol. +-0.1g),5,5
-7,JT file generated,5,5
+2,File format not .PDF,10,10
+3,Incorrect Name of MFET Document item,2,2
+3,Incorrect Description of MFET Document Item,2,2
+3,Release Status is not Validation,20,20
+3,Attachment does not have valid .PDF file ,20,20
+3,Attachment not named according to course specification,1,1
+3,No Screenshot of Current Membership (Step 8),20,20
+3,No Screenshot of Video content (Step 11a),20,20
+3,Screenshot contains missing information,5,5
+3,File not submitted as a .PDF,10,10
+4,Incorrect Name of MFET Part item,2,2
+4,Incorrect Description of MFET Part Item,2,2
+4,Release Status is not Validation,20,20
+4,Attachment does not have valid .PRT file,20,20
+4,Attachment not named according to course specification,1,1
+4,Incorrect .PRT file used,35,35
+4,Color of piston not changed,10,10
+4,JT file not generated,10,10
+5,Incorrect Name of MFET Document item,2,2
+5,Incorrect Description of MFET Document Item,2,2
+5,Release Status is not Validation,20,20
+5,Attachment does not have valid .PDF file ,20,20
+5,Attachment not named according to course specification,1,1
+5,Issues with one or more ortho sketches (each set is 5 pts),20,20
+5,Issues with one or more iso sketches (each is 5 pts),20,20
+5,Missing appropriate lines (solid/dashed/center),5,5
+5,Layout of ortho sketches not following course convention (Top-Front-Right),5,5
+5,Model names missing under sketches (iso/ortho),5,5
+6,Incorrect Name of MFET Part item,2,2
+6,Incorrect Description of MFET Part Item,2,2
+6,Attachment does not have valid .PRT file,25,25
+6,Attachment not named according to course specification,1,1
+6,Model-MFET Template not used,5,5
+6,Happy Cube Puzzle not on RIGHT plane,10,10
+6,T-Slot sketch not on TOP plane,10,10
+6,One (or more) sketches are not fully defined (even 1 sketch wrong = 0),20,20
+6,Required features are not renamed in Part Hierarchy,5,5
+6,Puzzle piece has more than 2 dimensions used,5,5
+6,Puzzle piece does not have one dimension referring to another,5,5
+6,T-slot does not have three mirror centerlines used,5,5
+6,JT file not generated,5,5
+7,Incorrect Name of MFET Part item,2,2
+7,Incorrect Description of MFET Part Item,2,2
+7,Attachment does not have valid .PRT file,25,25
+7,Attachment not named according to course specification,1,1
+7,Model-MFET Template not used,5,5
+7,One (or more) sketches are not fully defined (even 1 sketch wrong = 0),20,20
+7,Extrude feature not used corrctly,10,10
+7,Pattern feature not used correctly,10,10
+7,Hole feature not used correctly,10,10
+7,Required features are not renamed in Part Hierarchy,5,5
+7,Incorrect mass/material (tol. +-0.1g),5,5
+7,JT file not generated,5,5

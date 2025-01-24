@@ -1972,13 +1972,19 @@ MonoBehaviour:
     m_Options:
     - m_Text: Part
       m_Image: {fileID: 0}
-    - m_Text: Document
+    - m_Text: Regular HS
       m_Image: {fileID: 0}
-    - m_Text: Image
+    - m_Text: Screenshot Image
       m_Image: {fileID: 0}
-    - m_Text: Reupload
+    - m_Text: Screenshot External
       m_Image: {fileID: 0}
-    - m_Text: Introduction
+    - m_Text: Part Reupload
+      m_Image: {fileID: 0}
+    - m_Text: Primitives HS
+      m_Image: {fileID: 0}
+    - m_Text: Part NX Sketch
+      m_Image: {fileID: 0}
+    - m_Text: Part Rubber Seal
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3121,9 +3127,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
-  scenesList:
-  - {fileID: 102900000, guid: c08d426142332d344bc53060660a59ff, type: 3}
-  - {fileID: 102900000, guid: 7af1c1dd3af78ad4a8a4653d9b0a9adf, type: 3}
   modalPanels:
   - {fileID: 134999980}
   - {fileID: 174923364}
@@ -3132,6 +3135,8 @@ MonoBehaviour:
   assmFilePath: E:/Projects/1-Unity/CADGradingLite/Assets/_USER/weekly-assms.txt
   rubricFilePath: E:/Projects/1-Unity/CADGradingLite/Assets/_USER/grading-rubric.txt
   projectFilePath: E:/Projects/1-Unity/CADGradingLite/Assets/_USER/project.txt
+  mainMenuSceneAddress: 
+  gradingSceneAddress: 
 --- !u!1 &1543615639
 GameObject:
   m_ObjectHideFlags: 0

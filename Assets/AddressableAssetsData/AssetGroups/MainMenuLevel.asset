@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: MainMenuLevel
+  m_EditorClassIdentifier: 
+  m_GroupName: MainMenuLevel
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 12f08d27b2226074d9aab65e569dcbab
+  m_SerializeEntries:
+  - m_GUID: 50d46584e1e0ed4469037d5e1603fb62
+    m_Address: Assets/_USER/Prefabs/00Canvas.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7af1c1dd3af78ad4a8a4653d9b0a9adf
+    m_Address: Assets/_USER/Scenes/01GradingScene.unity
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - gamescene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c08d426142332d344bc53060660a59ff
+    m_Address: Assets/_USER/Scenes/00StartScene.unity
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - gamescene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e7a387d4d8e52be4ab422a629400f9f4
+    m_Address: Assets/_USER/Prefabs/overseer.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 0cff0ce18b2ce134db074a56b5434325, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 76188d51bedfa6447bc2bac221641a73, type: 2}
+    - {fileID: 11400000, guid: 9a5cee6f5aa7d934497bfdeafe1c3620, type: 2}

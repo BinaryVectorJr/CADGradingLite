@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
-using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -53,23 +52,27 @@ public class CurrentRubricPanel : MonoBehaviour
 
     public void SetZero()
     {
-        ErrorAchieved.text = Mathf.Clamp((int.Parse(ErrorTotal.text)-int.Parse(ErrorTotal.text)),0,int.Parse(ErrorTotal.text)).ToString();
+        int _tempErrAchieved = Mathf.Clamp((int.Parse(ErrorTotal.text)-int.Parse(ErrorTotal.text)),0,int.Parse(ErrorTotal.text));
+        ErrorAchieved.text = _tempErrAchieved.ToString();
+        int _tempErrTotal = int.Parse(ErrorTotal.text);
         RubricManager.rbmInstance.UpdateScore();
         RubricManager.rbmInstance.currentScores[panelID]=int.Parse(ErrorAchieved.text);
-        if (!RubricManager.rbmInstance.currentFeedback.Any(s => s.Equals(ErrorDesc.text, System.StringComparison.OrdinalIgnoreCase)))
+        if (!RubricManager.rbmInstance.currentFeedback.Any(s => s.Contains(ErrorDesc.text, System.StringComparison.OrdinalIgnoreCase)))
         {
-            RubricManager.rbmInstance.currentFeedback.Add(ErrorDesc.text);
+            RubricManager.rbmInstance.currentFeedback.Add("DEDUCTION: " + ErrorDesc.text + " (-" + (_tempErrTotal-_tempErrAchieved).ToString() +")");
         }
     }
 
     public void SetHalf()
     {
-        ErrorAchieved.text = Mathf.Clamp((Mathf.CeilToInt(float.Parse(ErrorTotal.text)/2)),0,Mathf.CeilToInt(float.Parse(ErrorTotal.text)/2)).ToString();
+        int _tempErrAchieved = Mathf.Clamp((Mathf.CeilToInt(float.Parse(ErrorTotal.text)/2)),0,Mathf.CeilToInt(float.Parse(ErrorTotal.text)/2));
+        ErrorAchieved.text = _tempErrAchieved.ToString();
+        int _tempErrTotal = int.Parse(ErrorTotal.text);
         RubricManager.rbmInstance.UpdateScore();
         RubricManager.rbmInstance.currentScores[panelID]=int.Parse(ErrorAchieved.text);
-        if (!RubricManager.rbmInstance.currentFeedback.Any(s => s.Equals(ErrorDesc.text, System.StringComparison.OrdinalIgnoreCase)))
+        if (!RubricManager.rbmInstance.currentFeedback.Any(s => s.Contains(ErrorDesc.text, System.StringComparison.OrdinalIgnoreCase)))
         {
-            RubricManager.rbmInstance.currentFeedback.Add(ErrorDesc.text);
+            RubricManager.rbmInstance.currentFeedback.Add("DEDUCTION: " + ErrorDesc.text + " (-" + (_tempErrTotal-_tempErrAchieved).ToString() +")");
         }
     }
 
@@ -84,9 +87,9 @@ public class CurrentRubricPanel : MonoBehaviour
         }
         else
         {
-            if (!RubricManager.rbmInstance.currentFeedback.Any(s => s.Equals(ErrorDesc.text, System.StringComparison.OrdinalIgnoreCase)))
+            if (!RubricManager.rbmInstance.currentFeedback.Any(s => s.Contains(ErrorDesc.text, System.StringComparison.OrdinalIgnoreCase)))
             {
-                RubricManager.rbmInstance.currentFeedback.Add(ErrorDesc.text);
+                RubricManager.rbmInstance.currentFeedback.Add("DEDUCTION: " + ErrorDesc.text);
             }
         }
     }
@@ -102,9 +105,9 @@ public class CurrentRubricPanel : MonoBehaviour
         }
         else
         {
-            if (!RubricManager.rbmInstance.currentFeedback.Any(s => s.Equals(ErrorDesc.text, System.StringComparison.OrdinalIgnoreCase)))
+            if (!RubricManager.rbmInstance.currentFeedback.Any(s => s.Contains(ErrorDesc.text, System.StringComparison.OrdinalIgnoreCase)))
             {
-                RubricManager.rbmInstance.currentFeedback.Add(ErrorDesc.text);
+                RubricManager.rbmInstance.currentFeedback.Add("DEDUCTION: " + ErrorDesc.text);
             }
         }
     }
@@ -114,9 +117,9 @@ public class CurrentRubricPanel : MonoBehaviour
         ErrorAchieved.text = ErrorTotal.text;
         RubricManager.rbmInstance.UpdateScore();
         RubricManager.rbmInstance.currentScores[panelID]=int.Parse(ErrorAchieved.text);
-        if (RubricManager.rbmInstance.currentFeedback.Any(s => s.Equals(ErrorDesc.text, System.StringComparison.OrdinalIgnoreCase)))
+        if (RubricManager.rbmInstance.currentFeedback.Any(s => s.Contains(ErrorDesc.text, System.StringComparison.OrdinalIgnoreCase)))
         {
-            RubricManager.rbmInstance.currentFeedback.RemoveAll(item => item == ErrorDesc.text);
+            RubricManager.rbmInstance.currentFeedback.RemoveAll(item => item.Contains(ErrorDesc.text));
         }
     }
 }

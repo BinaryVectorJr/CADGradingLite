@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7813827121503627404
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6973873183487369585}
+  - component: {fileID: 8948577526074077656}
+  m_Layer: 0
+  m_Name: overseer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6973873183487369585
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7813827121503627404}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8948577526074077656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7813827121503627404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ce299a4831ec5b48a97f714bdcc5610, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentState: 0
+  scenesList:
+  - {fileID: 102900000, guid: c08d426142332d344bc53060660a59ff, type: 3}
+  - {fileID: 102900000, guid: 7af1c1dd3af78ad4a8a4653d9b0a9adf, type: 3}
+  modalPanels: []
+  allButtons: []
+  tagToTrack: Modal
+  assmFilePath: E:/Projects/1-Unity/CADGradingLite/Assets/_USER
+  rubricFilePath: E:/Projects/1-Unity/CADGradingLite/Assets/_USER/grading-rubric.txt
+  projectFilePath: E:/Projects/1-Unity/CADGradingLite/Assets/_USER/project.txt
+  mainMenuSceneAddress: Assets/_USER/Scenes/00StartScene.unity
+  gradingSceneAddress: Assets/_USER/Scenes/01GradingScene.unity
