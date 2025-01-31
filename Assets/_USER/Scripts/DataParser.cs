@@ -33,8 +33,9 @@ public class DataParser : MonoBehaviour
     public static DataParser dpInstance;
 
     [Header("Required")]
-    [SerializeField] TextAsset _assignmentDatasetFile;
-    [SerializeField] TextAsset _rubricDatasetFile;
+    public TextAsset _assignmentDatasetFile;
+    public TextAsset _rubricDatasetFile;
+    public TextAsset _projectDatasetFile;
 
     [Header("Assignment Dataset")]
     [SerializeField] string[] _assmDatasetLines;
@@ -49,14 +50,14 @@ public class DataParser : MonoBehaviour
     public int rubricLineCount = 0;
 
     // Setting up the properties of the Assignment TextAsset, so as to make it read-only from external files
-    public TextAsset assmDatasetFile {get => _assignmentDatasetFile; private set => _assignmentDatasetFile = value;}
-    public string[] assmDatasetLines {get => _assmDatasetLines; private set => _assmDatasetLines = value;}
-    public AssignmentDataElement[] assmDatasetElements {get => _assmDatasetElements; private set => _assmDatasetElements = value;}
+    public TextAsset assmDatasetFile; //{get => _assignmentDatasetFile; private set => _assignmentDatasetFile = value;}
+    public string[] assmDatasetLines; //{get => _assmDatasetLines; private set => _assmDatasetLines = value;}
+    public AssignmentDataElement[] assmDatasetElements; //{get => _assmDatasetElements; private set => _assmDatasetElements = value;}
 
     // Setting up the properties of the Rubric TextAsset, so as to make it read-only from external files
-    public TextAsset rubricDatasetFile {get => _rubricDatasetFile; private set => _rubricDatasetFile = value;}
-    public string[] rubricDatasetLines {get => _rubricDatasetLines; private set => _rubricDatasetLines = value;}
-    public RubricDataElement[] rubricDatasetElements {get => _rubricDatasetElements; private set => _rubricDatasetElements = value;}
+    public TextAsset rubricDatasetFile; //{get => _rubricDatasetFile; private set => _rubricDatasetFile = value;}
+    public string[] rubricDatasetLines; //{get => _rubricDatasetLines; private set => _rubricDatasetLines = value;}
+    public RubricDataElement[] rubricDatasetElements; //{get => _rubricDatasetElements; private set => _rubricDatasetElements = value;}
 
     // Creating a singleton
     private void Awake()
@@ -75,8 +76,8 @@ public class DataParser : MonoBehaviour
 
     void OnValidate()
     {
-        ValidateAssignmentTextAsset();
-        ValidateRubricTextAsset();
+        //ValidateAssignmentTextAsset();
+        //ValidateRubricTextAsset();
     }
 
     // Start is called before the first frame update
@@ -91,10 +92,11 @@ public class DataParser : MonoBehaviour
         
     }
 
-    void ValidateAssignmentTextAsset()
+    public void ValidateAssignmentTextAsset(TextAsset _assignmentDatasetFile)
     {
         // From the loaded txt file, we extract one line using the NEWLINE delimiter, as a row, and set it into an array of lines
 
+        assmDatasetFile = _assignmentDatasetFile;
         assmDatasetLines = assmDatasetFile ? assmDatasetFile.text.Split(new[] {Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries):null;
 
         assmLineCount = assmDatasetLines.Length;
@@ -118,10 +120,34 @@ public class DataParser : MonoBehaviour
         }
     }
 
-    void ValidateRubricTextAsset()
+    public void ValidateAssignmentTextAsset(string[] _assmDatasetLines)
+    {
+        assmLineCount = _assmDatasetLines.Length;
+        assmDatasetElements = new AssignmentDataElement[_assmDatasetLines.Length];
+
+        // For each entry in the line
+        for (int i=0; i< assmLineCount; i++)
+        {
+            // Once line is extracted, further split into constituents using the "comma" delimiter, into an array
+            var assmDatasetContentPart = _assmDatasetLines[i].Split(',');
+
+            // Validation query
+            if(assmDatasetContentPart.Length % 7 != 0)
+            {
+                Debug.LogError("Atleast 7 comma separated values needed!"); //TODO - make this dynamic
+                return;
+            }
+
+            // Set the fileds for each element of array of classes
+            assmDatasetElements[i] = SetAssmDataElementValues(assmDatasetContentPart);
+        }
+    }
+
+    public void ValidateRubricTextAsset(TextAsset _rubricDatasetFile)
     {
         // From the loaded txt file, we extract one line using the NEWLINE delimiter, as a row, and set it into an array of lines
 
+        rubricDatasetFile = _rubricDatasetFile;
         rubricDatasetLines = rubricDatasetFile ? rubricDatasetFile.text.Split(new[] {Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries):null;
 
         rubricLineCount = rubricDatasetLines.Length;
@@ -132,6 +158,29 @@ public class DataParser : MonoBehaviour
         {
             // Once line is extracted, further split into constituents using the "comma" delimiter, into an array
             var rubricDatasetContentPart = rubricDatasetLines[i].Split(',');
+
+            // Validation query
+            if(rubricDatasetContentPart.Length % 4 != 0)
+            {
+                Debug.LogError("Atleast 4 comma separated values needed!"); //TODO - make this dynamic
+                return;
+            }
+
+            // Set the fileds for each element of array of classes
+            rubricDatasetElements[i] = SetRubricDataElementValues(rubricDatasetContentPart);
+        }
+    }
+
+    public void ValidateRubricTextAsset(string[] _rubricDatasetLines)
+    {
+        rubricLineCount = _rubricDatasetLines.Length;
+        rubricDatasetElements = new RubricDataElement[_rubricDatasetLines.Length];
+
+        // For each entry in the line
+        for (int i=0; i< rubricLineCount; i++)
+        {
+            // Once line is extracted, further split into constituents using the "comma" delimiter, into an array
+            var rubricDatasetContentPart = _rubricDatasetLines[i].Split(',');
 
             // Validation query
             if(rubricDatasetContentPart.Length % 4 != 0)

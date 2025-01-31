@@ -17,10 +17,22 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 12f08d27b2226074d9aab65e569dcbab
   m_SerializeEntries:
+  - m_GUID: 3edd8c886f144ae4082c18644d65057a
+    m_Address: Assets/_USER/DataSource/weekly-assms.txt
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - datasource
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 50d46584e1e0ed4469037d5e1603fb62
     m_Address: Assets/_USER/Prefabs/00Canvas.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 721ee21b56d93674d989053e79b22ea1
+    m_Address: Assets/_USER/DataSource/grading-rubric.txt
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - datasource
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7af1c1dd3af78ad4a8a4653d9b0a9adf
     m_Address: Assets/_USER/Scenes/01GradingScene.unity
@@ -38,6 +50,12 @@ MonoBehaviour:
     m_Address: Assets/_USER/Prefabs/overseer.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ff76146109e2da34e945962d20c169c7
+    m_Address: Assets/_USER/DataSource/project.txt
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - datasource
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 0cff0ce18b2ce134db074a56b5434325, type: 2}

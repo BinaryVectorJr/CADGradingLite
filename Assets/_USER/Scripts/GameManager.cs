@@ -4,12 +4,15 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEngine.ResourceManagement.ResourceLocations;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.IO;
 using System.Diagnostics;
 using TMPro;
 using UnityEngine.ResourceManagement.ResourceProviders;
+using UnityEngine.Analytics;
+using System.Runtime.CompilerServices;
 
 public class GameManager : MonoBehaviour
 {
@@ -31,13 +34,19 @@ public class GameManager : MonoBehaviour
     public List<Button> allButtons = new List<Button>();
 
     public string tagToTrack = "Modal";
-    public string assmFilePath = "E:/Projects/1-Unity/CADGradingLite/Assets/_USER/weekly-assms.txt";
-    public string rubricFilePath = "E:/Projects/1-Unity/CADGradingLite/Assets/_USER/grading-rubric.txt";
-    public string projectFilePath = "E:/Projects/1-Unity/CADGradingLite/Assets/_USER/project.txt";
     
     // This string should match the address you set in Addressables for the scene
     public string mainMenuSceneAddress;     // Main menu scene which should already be loaded
     public string gradingSceneAddress;      // Secondary scene for grading
+
+    public string assmFilePath;
+    public string rubricFilePath;
+    public string projectFilePath;
+    public string[] addressableTextFileAddresses;
+
+    private string folderPath; 
+
+
     private AsyncOperationHandle<SceneInstance> sceneHandle;
 
     void Awake()
@@ -61,6 +70,8 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        folderPath = Path.Combine(Application.persistentDataPath,"GradingToolData");
+        folderPath = folderPath.Replace('/', '\\');
         LoadScene(mainMenuSceneAddress);
     }
 
@@ -282,7 +293,27 @@ public class GameManager : MonoBehaviour
     void OnDirectoryRefreshClick()
     {
         currentState = GameState.LOAD_FILES;
-        OnPanelChangeClick("PNL_Directory");
+
+        // Check if the folder exists
+        if (!Directory.Exists(folderPath))
+        {
+            // If the directory doesn't exist, create it
+            Directory.CreateDirectory(folderPath);
+        }
+            
+        // Then check the platform and open the folder accordingly
+        #if UNITY_STANDALONE_WIN
+            folderPath = folderPath.Replace('/', '\\');
+            OpenFolderWindows(folderPath);
+        #elif UNITY_STANDALONE_OSX || UNITY_EDITOR_OSX
+            OpenFolderMacOS(folderPath);
+        #elif UNITY_STANDALONE_LINUX
+            OpenFolderLinux(folderPath);
+        #endif
+
+        LoadAndCopyAddressables();
+
+        // OnPanelChangeClick("PNL_Directory");
         // if (Directory.Exists(folderPath))
         // {
         //     // Open Windows Explorer to the specified folder
@@ -300,5 +331,100 @@ public class GameManager : MonoBehaviour
         currentState = GameState.MAIN_MENU;
         int index = modalPanels.FindIndex(scene => scene.name.Equals("PNL_Directory"));
         PersistShowModals(index);
+    }
+
+    void LoadAndCopyAddressables()
+    {
+        // Loop through each Addressable asset address in the array
+        foreach (var address in addressableTextFileAddresses)
+        {
+            // Load each text file asynchronously
+            Addressables.LoadAssetAsync<TextAsset>(address).Completed += (handle) =>
+            {
+                if (handle.Status == AsyncOperationStatus.Succeeded)
+                {
+                    TextAsset textAsset = handle.Result;
+
+                    // Define the destination folder and file name
+                    string destinationFolder = folderPath;
+                    string destinationPath = Path.Combine(destinationFolder, $"{handle.Result.name}.txt");
+
+                    if (!File.Exists(destinationPath))
+                    {
+                        // Ensure the destination folder exists
+                        if (!Directory.Exists(destinationFolder))
+                        {
+                            Directory.CreateDirectory(destinationFolder);
+                        }
+
+                        // Write the content of the text file to the destination path
+                        File.WriteAllText(destinationPath, textAsset.text);
+
+                        UnityEngine.Debug.Log($"Text file '{address}' copied to: {destinationPath}");
+
+                        if(handle.Result.name == "weekly-assms")
+                        {
+                            DataParser.dpInstance._assignmentDatasetFile = textAsset;
+                            DataParser.dpInstance.ValidateAssignmentTextAsset(textAsset);
+                        }
+                        else if (handle.Result.name == "grading-rubric")
+                        {
+                            DataParser.dpInstance._rubricDatasetFile = textAsset;
+                            DataParser.dpInstance.ValidateRubricTextAsset(textAsset);
+                        }
+                        else if (handle.Result.name == "project")
+                        {
+                            DataParser.dpInstance._projectDatasetFile = textAsset;
+                        }
+                    }
+                    else
+                    {
+                        if(handle.Result.name == "weekly-assms")
+                        {
+                            string[] assms = File.ReadAllLines(destinationPath);
+                            DataParser.dpInstance.ValidateAssignmentTextAsset(assms);
+                        }
+                        else if (handle.Result.name == "grading-rubric")
+                        {
+                            string[] rubs = File.ReadAllLines(destinationPath);
+                            DataParser.dpInstance.ValidateRubricTextAsset(rubs);
+                        }
+                        else if (handle.Result.name == "project")
+                        {
+                            DataParser.dpInstance._projectDatasetFile = textAsset;
+                        }
+
+                        UnityEngine.Debug.Log($"Files already exist: {address}");
+                        return;
+                    }
+                }
+                else
+                {
+                    UnityEngine.Debug.LogError($"Failed to load Addressable text file: {address}");
+                }
+            };
+        }
+    }
+
+    // Windows: Open the folder using Process.Start
+    private void OpenFolderWindows(string folderPath)
+    {
+        // Escape spaces in the path
+        string escapedPath = folderPath.Replace(" ", "^ ");
+        Process.Start("explorer.exe", escapedPath);
+    }
+
+    // macOS: Open the folder using `open` command
+    private void OpenFolderMacOS(string folderPath)
+    {
+        string escapedPath = folderPath.Replace(" ", "\\ ");
+        Process.Start("open", escapedPath);
+    }
+
+    // Linux: Open the folder using `xdg-open`
+    private void OpenFolderLinux(string folderPath)
+    {
+        string escapedPath = folderPath.Replace(" ", "\\ ");
+        Process.Start("xdg-open", escapedPath);
     }
 }

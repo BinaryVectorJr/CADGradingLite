@@ -45,14 +45,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
-  scenesList:
-  - {fileID: 102900000, guid: c08d426142332d344bc53060660a59ff, type: 3}
-  - {fileID: 102900000, guid: 7af1c1dd3af78ad4a8a4653d9b0a9adf, type: 3}
   modalPanels: []
   allButtons: []
   tagToTrack: Modal
-  assmFilePath: E:/Projects/1-Unity/CADGradingLite/Assets/_USER
-  rubricFilePath: E:/Projects/1-Unity/CADGradingLite/Assets/_USER/grading-rubric.txt
-  projectFilePath: E:/Projects/1-Unity/CADGradingLite/Assets/_USER/project.txt
   mainMenuSceneAddress: Assets/_USER/Scenes/00StartScene.unity
   gradingSceneAddress: Assets/_USER/Scenes/01GradingScene.unity
+  assmFilePath: Assets/_USER/DataSource/weekly-assms.txt
+  rubricFilePath: Assets/_USER/DataSource/grading-rubric.txt
+  projectFilePath: Assets/_USER/DataSource/project.txt
+  addressableTextFileAddresses:
+  - Assets/_USER/DataSource/weekly-assms.txt
+  - Assets/_USER/DataSource/grading-rubric.txt
+  - Assets/_USER/DataSource/project.txt

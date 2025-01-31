@@ -1,7 +1,4 @@
-0,Incorrect Name of MFET Part Item,2,2
-0,Incorrect Description of MFET Part Item,2,2
-0,Attachment does not have valid .PRT file,25,25
-0,Attachment not named according to course convention,1,1
+0,Attachment does not have valid .PRT file,30,30
 0,Model-MFET template not used,5,5
 0,One (or more) sketches are not fully defined (even 1 sketch wrong = 0),20,20
 0,One (or more) user expressions not present,10,10
@@ -11,10 +8,7 @@
 0,Incorrect mass or material (tol. +-0.1g),5,5
 0,Color of part not changed,5,5
 0,JT file not generated,5,5
-1,Incorrect Name of MFET Document Item,2,2
-1,Incorrect Description of MFET Document Item,2,2
-1,Attachment does not have valid .PDF file,25,25
-1,Attachment not named according to course specification,1,1
+1,Attachment does not have valid .PDF file,30,30
 1,Erorr(s) in Orthographic Sketches (5 per view),15,15
 1,Error(s) Isometric Sketch,10,10
 1,Incorrect dimensions,10,10
