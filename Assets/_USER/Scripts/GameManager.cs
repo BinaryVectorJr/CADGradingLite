@@ -248,6 +248,10 @@ public class GameManager : MonoBehaviour
         {
             OnPanelChangeClick("PNL_AssignmentSelector");
         }
+        if(_btn.transform.name == "BTN_CloseAssm")
+        {
+            OnPanelChangeClick2("PNL_AssignmentSelector");
+        }
         if(_btn.transform.name == "BTN_Data")
         {
             OnDirectoryRefreshClick();
@@ -283,6 +287,13 @@ public class GameManager : MonoBehaviour
         // Use FindIndex to find the index based on the name
         int index = modalPanels.FindIndex(scene => scene.name.Equals(_panelName));
         PersistShowModals(index);
+    }
+
+    void OnPanelChangeClick2(string _panelName)
+    {
+        // Use FindIndex to find the index based on the name
+        int index = modalPanels.FindIndex(scene => scene.name.Equals(_panelName));
+        PersistHideModals(index);
     }
 
     void OnQuitButtonClick()
