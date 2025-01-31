@@ -8,8 +8,9 @@ The program then loads in this data dynamically at runtime, and populates the da
 The applet also provides a functionality to edit the data in the text files. If the files are detected by the app, then it pulls in the data from there, otherwise it creates the default .TXT files for use.
 
 # Details
-Created Using: Unity 2022.3.54f1
-Final Build Size: 71 MB (28 MB zipped)
+- Created Using: Unity 2022.3.54f1 with Windows Build Support (IL2CPP)
+- Final Build Size: 71 MB (28 MB zipped)
+- Last Update: 31 January, 2025
 
 # Package Dependencies
 Packages Used:
