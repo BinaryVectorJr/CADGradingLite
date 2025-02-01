@@ -26,15 +26,15 @@ public class CurrentRubricPanel : MonoBehaviour
 
     void OnValidate()
     {
-        ErrorDesc = this.gameObject.transform.Find("TXT_ErrDesc").GetComponent<TMP_Text>();
-        ErrorTotal = this.gameObject.transform.Find("TXT_ErrorTotal").GetComponent<TMP_Text>();
-        ErrorAchieved = this.gameObject.transform.Find("TXT_ErrorAchieved").GetComponent<TMP_Text>();
+        ErrorDesc = this.gameObject.transform.Find("Group/TXT_ErrDesc").GetComponent<TMP_Text>();
+        ErrorTotal = this.gameObject.transform.Find("Group/TXT_ErrorTotal").GetComponent<TMP_Text>();
+        ErrorAchieved = this.gameObject.transform.Find("Group/IncreaseDecrease/TXT_ErrorAchieved").GetComponent<TMP_Text>();
 
-        PanelButtons[0] = this.gameObject.transform.Find("CalcControlGroup").GetChild(0).GetComponent<Button>();
-        PanelButtons[1] = this.gameObject.transform.Find("CalcControlGroup").GetChild(1).GetComponent<Button>();
-        PanelButtons[2] = this.gameObject.transform.Find("IncreaseDecrease").GetChild(0).GetComponent<Button>();
-        PanelButtons[3] = this.gameObject.transform.Find("IncreaseDecrease").GetChild(1).GetComponent<Button>();
-        PanelButtons[4] = this.gameObject.transform.Find("BTN_Reset").GetComponent<Button>();
+        PanelButtons[0] = this.gameObject.transform.Find("Group/CalcControlGroup").GetChild(0).GetComponent<Button>();
+        PanelButtons[1] = this.gameObject.transform.Find("Group/CalcControlGroup").GetChild(1).GetComponent<Button>();
+        PanelButtons[2] = this.gameObject.transform.Find("Group/IncreaseDecrease").GetChild(0).GetComponent<Button>();
+        PanelButtons[3] = this.gameObject.transform.Find("Group/IncreaseDecrease").GetChild(1).GetComponent<Button>();
+        PanelButtons[4] = this.gameObject.transform.Find("Group/BTN_Reset").GetComponent<Button>();
     }
 
     void Update()

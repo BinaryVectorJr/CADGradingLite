@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using TMPro;
 using UnityEngine;
@@ -97,19 +98,52 @@ public class RubricManager : MonoBehaviour
     public void UpdateScore()
     {
         int sum = 0;
+
         foreach(Transform child in rubricParentModal.transform)
         {
-            foreach(Transform childchild in child)
+            GameObject res2 = FindTagInHierarchy(child.transform,"AchievedScore");
+
+            if(res2 != null)
             {
-                if(childchild.tag == "AchievedScore")
-                {
-                    sum += Mathf.CeilToInt(float.TryParse(childchild.GetComponent<TMP_Text>().text, out var y1) ? y1:0);
-                }
+                sum += Mathf.CeilToInt(float.TryParse(res2.GetComponent<TMP_Text>().text, out var y1) ? y1:0);
             }
+            else
+            {
+                sum += 0;
+            }
+            // foreach(Transform childchild in child)
+            // {
+                
+            //     // if(childchild.tag == "AchievedScore")
+            //     // {
+            //     //     sum += Mathf.CeilToInt(float.TryParse(childchild.GetComponent<TMP_Text>().text, out var y1) ? y1:0);
+            //     // }
+            // }
         }
 
         rubricTotalScore.GetComponentInChildren<TMP_Text>().text = sum.ToString();
         currentSum = sum;
+    }
+
+    GameObject FindTagInHierarchy(Transform _parentTransform, string _tag)
+    {
+        if(_parentTransform.CompareTag(_tag))
+        {
+            return _parentTransform.gameObject;
+        }
+
+        // Recursion check
+        foreach (Transform child in _parentTransform)
+        {
+            GameObject result = FindTagInHierarchy(child,_tag);
+            if(result != null)
+            {
+                return result;      // Return as soon as gameobject with tag was found
+            }
+        }
+
+        // If not found return null
+        return null;
     }
 
     public void CopyScoreToClipboard()

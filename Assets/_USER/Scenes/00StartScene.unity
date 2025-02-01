@@ -330,12 +330,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _assignmentDatasetFile: {fileID: 0}
   _rubricDatasetFile: {fileID: 0}
+  _projectDatasetFile: {fileID: 0}
   _assmDatasetLines: []
   _assmDatasetElements: []
   _rubricDatasetLines: []
   _rubricDatasetElements: []
   assmLineCount: 0
   rubricLineCount: 0
+  assmDatasetFile: {fileID: 0}
+  assmDatasetLines: []
+  assmDatasetElements: []
+  rubricDatasetFile: {fileID: 0}
+  rubricDatasetLines: []
+  rubricDatasetElements: []
 --- !u!114 &1492641281 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8948577526074077656, guid: e7a387d4d8e52be4ab422a629400f9f4, type: 3}
