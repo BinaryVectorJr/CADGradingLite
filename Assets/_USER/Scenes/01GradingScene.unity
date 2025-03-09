@@ -2479,6 +2479,20 @@ MonoBehaviour:
       m_Image: {fileID: 0}
     - m_Text: Part Rubber Seal
       m_Image: {fileID: 0}
+    - m_Text: Part Families
+      m_Image: {fileID: 0}
+    - m_Text: Practice Practical
+      m_Image: {fileID: 0}
+    - m_Text: Assembly Guided
+      m_Image: {fileID: 0}
+    - m_Text: Assembly DIY
+      m_Image: {fileID: 0}
+    - m_Text: Assembly Multi-Level
+      m_Image: {fileID: 0}
+    - m_Text: Discussion
+      m_Image: {fileID: 0}
+    - m_Text: Design Documentation
+      m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:

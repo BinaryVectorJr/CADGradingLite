@@ -1,22 +1,99 @@
-0,Sketches are under-defined/over-defined,20,20
-0,User expressions missing/non-functional,20,20
-0,Part cannot be morphed as intended,20,20
-0,Incorrect dimensioning scheme (not according to requirements),10,10
-0,Required features not present,5,5
-0,Features not renamed in Part Hierarchy,5,5
-0,Color not changed,5,5
-0,Incorrect material and mass,5,5
-0,3D Annotations missing/incorrect,10,10
-1,All required sketches present,40,40
-1,Iso sketch has issues,10,10
-1,Ortho sketch has issues,10,10
-1,Ortho sketch does not follow correct layout,10,10
+0,Attachment does not have valid .PRT file,30,30
+0,Model-MFET template not used,5,5
+0,One (or more) sketches are not fully defined (even 1 sketch wrong = 0),20,20
+0,One (or more) user expressions not present,10,10
+0,Model does not morph correctly (automatic 0 if less than req. user expressions),10,10
+0,Required features are not present,5,5
+0,Required features are not renamed in Part Hierarchy,5,5
+0,Incorrect mass or material (tol. +-0.1g),5,5
+0,Color of part not changed,5,5
+0,JT file not generated,5,5
+1,Attachment does not have valid .PDF file,30,30
+1,Erorr(s) in Orthographic Sketches (5 per view),15,15
+1,Error(s) Isometric Sketch,10,10
+1,Incorrect dimensions,10,10
 1,Incorrect scale,10,10
-1,View name labels are present,5,5
-1,Model names not present for each model,5,5
-1,File format not PDF,5,5
-1,Messy sketches,5,5
+1,Missing appropriate lines (solid/dashed/center),10,10
+1,Layout of ortho sketches not following course convention (Top-Front-Right),10,10
+1,Model names missing under sketches (iso/ortho),5,5
 2,Incorrect image(s) (not according to requirements),90,90
-2,File format not PDF,10,10
-3,Incorrect piston file,90,90
-3,Color not changed,10,10
+2,File format not .PDF,10,10
+3,Release Status is not Validation,25,25
+3,Attachment does not have valid .PDF file ,20,20
+3,No Screenshot of Current Membership (Step 8),20,20
+3,No Screenshot of Video content (Step 11a),20,20
+3,Screenshot contains missing information,5,5
+3,File not submitted as a .PDF,10,10
+4,Release Status is not Validation,25,25
+4,Attachment does not have valid .PRT file,20,20
+4,Incorrect .PRT file used,35,35
+4,Color of piston not changed,10,10
+4,JT file not generated,10,10
+5,Release Status is not Validation,25,25
+5,Attachment does not have valid .PDF file,20,20
+5,Issues with one or more ortho sketches (each set is 5 pts),20,20
+5,Issues with one or more iso sketches (each is 5 pts),20,20
+5,Missing appropriate lines (solid/dashed/center),5,5
+5,Layout of ortho sketches not following course convention (Top-Front-Right),5,5
+5,Model names missing under sketches (iso/ortho),5,5
+6,Attachment does not have valid .PRT file,30,30
+6,Model-MFET Template not used,5,5
+6,Happy Cube Puzzle not on RIGHT plane,10,10
+6,T-Slot sketch not on TOP plane,10,10
+6,One (or more) sketches are not fully defined (even 1 sketch wrong = 0),20,20
+6,Required features are not renamed in Part Hierarchy,5,5
+6,Puzzle piece has more than 2 dimensions used,5,5
+6,Puzzle piece does not have one dimension referring to another,5,5
+6,T-slot does not have three mirror centerlines used,5,5
+6,JT file not generated,5,5
+7,Attachment does not have valid .PRT file,30,30
+7,Model-MFET Template not used,5,5
+7,One (or more) sketches are not fully defined (even 1 sketch wrong = 0),20,20
+7,Extrude feature not used corrctly,10,10
+7,Pattern feature not used correctly,10,10
+7,Hole feature not used correctly,10,10
+7,Required features are not renamed in Part Hierarchy,5,5
+7,Incorrect mass/material (tol. +-0.1g),5,5
+7,JT file not generated,5,5
+8,Attachment does not have valid .PRT file,30,30
+8,Model-MFET template not used,5,5
+8,One (or more) sketches are not fully defined (even 1 sketch wrong = 0),20,20
+8,One (or more) user expressions not present,10,10
+8,Model does not morph using Part Families (automatic 0 if less than req. user expressions),10,10
+8,Required features are not present,5,5
+8,Required features are not renamed in Part Hierarchy,5,5
+8,Incorrect mass or material (tol. +-0.1g),5,5
+8,Color of part not changed,5,5
+8,JT file not generated,5,5
+9,Part not on Teamcenter,100,100
+10,Attachment does not have valid .PRT file,30,30
+10,Assembly-MFET template not used,5,5
+10,Not all component parts present (total parts should be 5),40,40
+10,Constraints are incorrect,5,5
+10,INST-Spindle not constrained using Distance Constraint,5,5
+10,Assembly Navigator contains errors (red x marks),5,5
+10,Section view (Y-Plane) not created,5,5
+10,JT file not generated,5,5
+11,Attachment does not have valid .PRT file,30,30
+11,Assembly-MFET template not used,5,5
+11,Not all user created parts (5) or Instructor parts (7) present,50,50
+11,Constraints are incorrect,5,5
+11,Assembly Navigator contains errors (red x marks),5,5
+11,JT file not generated,5,5
+12,Attachment does not have valid .PRT file,30,30
+12,Assembly-MFET template not used,5,5
+12,All sub-assemblies not present (4 should be created and 6 should be used),40,40
+12,Not all Instructor parts used for the sub-assemblies,5,5
+12,Product structure is not 3 levels,5,5
+12,Constraints are incorrect,5,5
+12,Assembly Navigator contains errors (red x marks),5,5
+12,JT file not generated,5,5
+13,Grade on Brightspace,100,100
+14,Attachment does not have valid .PRT file,30,30
+14,Model-MFET template not used,5,5
+14,One (or more) sketches are not fully defined (even 1 sketch wrong = 0),10,10
+14,One of 4 views (TOP or FRONT or SIDE or corrected ISO) not in 2D Drawing,10,10
+14,2D PDF not under "Attachments" tab,10,10
+14,3D PDF not under "Attachments" tab,10,10
+14,Missing 3D annotations (20 needed in total),20,20
+14,3D Annotations correctly distributed over all 3 views,5,5
