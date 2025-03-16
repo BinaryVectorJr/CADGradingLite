@@ -1,5 +1,4 @@
-0,P9,BASE ASSEMBLY,100,available,due
-0,P9,ENGINE,100,available,due
-0,P9,CYLINDER,100,available,due
-0,P9,INST-Base,30,available,due
-0,P9,BASE ASSEMBLY Progress Screenshot,20,available,due
+91,BASE ASSEMBLY,3,Component,250,0,09,1,CYLINDER,100,available,due
+92,BASE ASSEMBLY,3,Component,250,0,09,2,ENGINE BODY,100,available,due
+93,BASE ASSEMBLY,3,Provided,250,15,09,3,INST-Base,30,available,due
+94,BASE ASSEMBLY,3,Screenshot,250,16,09,4,Base Assembly Screenshot,20,available,due

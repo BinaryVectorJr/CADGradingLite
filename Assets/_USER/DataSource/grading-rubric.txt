@@ -97,3 +97,5 @@
 14,3D PDF not under "Attachments" tab,10,10
 14,Missing 3D annotations (20 needed in total),20,20
 14,3D Annotations correctly distributed over all 3 views,5,5
+15,Instructor part not used,30,30
+16,Screenshot has issues,20,20

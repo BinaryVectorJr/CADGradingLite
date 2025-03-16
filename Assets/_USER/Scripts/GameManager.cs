@@ -406,6 +406,7 @@ public class GameManager : MonoBehaviour
                         else if (handle.Result.name == "project")
                         {
                             DataParser.dpInstance._projectDatasetFile = textAsset;
+                            DataParser.dpInstance.ValidateProjectTextAsset(textAsset);
                         }
                     }
                     else
@@ -422,7 +423,8 @@ public class GameManager : MonoBehaviour
                         }
                         else if (handle.Result.name == "project")
                         {
-                            DataParser.dpInstance._projectDatasetFile = textAsset;
+                            string[] projs = File.ReadAllLines(destinationPath);
+                            DataParser.dpInstance.ValidateProjectTextAsset(projs);
                         }
 
                         UnityEngine.Debug.Log($"Files already exist: {address}");
