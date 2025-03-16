@@ -2493,6 +2493,10 @@ MonoBehaviour:
       m_Image: {fileID: 0}
     - m_Text: Design Documentation
       m_Image: {fileID: 0}
+    - m_Text: INST Part
+      m_Image: {fileID: 0}
+    - m_Text: Progress Screenshot
+      m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -3641,6 +3645,7 @@ MonoBehaviour:
   tagToTrack: Modal
   mainMenuSceneAddress: 
   gradingSceneAddress: 
+  projectSceneAddress: 
   assmFilePath: E:/Projects/1-Unity/CADGradingLite/Assets/_USER/weekly-assms.txt
   rubricFilePath: E:/Projects/1-Unity/CADGradingLite/Assets/_USER/grading-rubric.txt
   projectFilePath: E:/Projects/1-Unity/CADGradingLite/Assets/_USER/project.txt

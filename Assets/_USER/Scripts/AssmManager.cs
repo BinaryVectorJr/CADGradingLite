@@ -21,7 +21,15 @@ public class AssmManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SetupAssignmentButtons();
+        // Setup buttons when "Select Assignment" button is clicked in Grading Scenes
+        if(GameManager.gmInstance.currentState == GameManager.GameState.REGULAR_GRADING)
+        {
+            SetupAssignmentButtons();
+        }
+        else if (GameManager.gmInstance.currentState == GameManager.GameState.PROJECT_GRADING)
+        {
+            SetupProjectButtons();
+        }
     }
 
     // Update is called once per frame
@@ -43,6 +51,27 @@ public class AssmManager : MonoBehaviour
             tempButtonGO.GetComponent<AssignmentType>().assignmentTypeCode = DataParser.dpInstance.assmDatasetElements[i].assm_type;
             tempButtonGO.transform.SetParent(parentModal.transform);
             tempButtonGO = null;
+        }
+
+        foreach(Transform child in parentModal.transform)
+        {
+            child.GetComponent<Button>().onClick.AddListener(() => onButtonClick(child.gameObject));
+        }
+    }
+
+    void SetupProjectButtons()
+    {
+        int tempCountOfButtons2 = DataParser.dpInstance.projectLineCount;
+        GameObject tempButtonGO2 = null;
+
+        for(int i=0; i<tempCountOfButtons2; i++)
+        {   
+            tempButtonGO2 = GameObject.Instantiate(assignmentPrefab);
+            tempButtonGO2.transform.name = DataParser.dpInstance.projectDatasetElements[i].project_name.ToString();
+            tempButtonGO2.GetComponentInChildren<TMP_Text>().text = tempButtonGO2.transform.name;
+            tempButtonGO2.GetComponent<AssignmentType>().assignmentTypeCode = DataParser.dpInstance.projectDatasetElements[i].project_component_assignment_data.assm_type;
+            tempButtonGO2.transform.SetParent(parentModal.transform);
+            tempButtonGO2 = null;
         }
 
         foreach(Transform child in parentModal.transform)
