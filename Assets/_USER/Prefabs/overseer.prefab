@@ -50,6 +50,7 @@ MonoBehaviour:
   tagToTrack: Modal
   mainMenuSceneAddress: Assets/_USER/Scenes/00StartScene.unity
   gradingSceneAddress: Assets/_USER/Scenes/01GradingScene.unity
+  projectSceneAddress: Assets/_USER/Scenes/02ProjectScene.unity
   assmFilePath: Assets/_USER/DataSource/weekly-assms.txt
   rubricFilePath: Assets/_USER/DataSource/grading-rubric.txt
   projectFilePath: Assets/_USER/DataSource/project.txt

@@ -46,6 +46,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - gamescene
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d9a4d3f53b2fc8749946b27774e793e7
+    m_Address: Assets/_USER/Scenes/02ProjectScene.unity
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - gamescene
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e7a387d4d8e52be4ab422a629400f9f4
     m_Address: Assets/_USER/Prefabs/overseer.prefab
     m_ReadOnly: 0

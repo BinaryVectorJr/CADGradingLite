@@ -55,3 +55,45 @@
 7,Required features are not renamed in Part Hierarchy,5,5
 7,Incorrect mass/material (tol. +-0.1g),5,5
 7,JT file not generated,5,5
+8,Attachment does not have valid .PRT file,30,30
+8,Model-MFET template not used,5,5
+8,One (or more) sketches are not fully defined (even 1 sketch wrong = 0),20,20
+8,One (or more) user expressions not present,10,10
+8,Model does not morph using Part Families (automatic 0 if less than req. user expressions),10,10
+8,Required features are not present,5,5
+8,Required features are not renamed in Part Hierarchy,5,5
+8,Incorrect mass or material (tol. +-0.1g),5,5
+8,Color of part not changed,5,5
+8,JT file not generated,5,5
+9,Part not on Teamcenter,100,100
+10,Attachment does not have valid .PRT file,30,30
+10,Assembly-MFET template not used,5,5
+10,Not all component parts present (total parts should be 5),40,40
+10,Constraints are incorrect,5,5
+10,INST-Spindle not constrained using Distance Constraint,5,5
+10,Assembly Navigator contains errors (red x marks),5,5
+10,Section view (Y-Plane) not created,5,5
+10,JT file not generated,5,5
+11,Attachment does not have valid .PRT file,30,30
+11,Assembly-MFET template not used,5,5
+11,Not all user created parts (5) or Instructor parts (7) present,50,50
+11,Constraints are incorrect,5,5
+11,Assembly Navigator contains errors (red x marks),5,5
+11,JT file not generated,5,5
+12,Attachment does not have valid .PRT file,30,30
+12,Assembly-MFET template not used,5,5
+12,All sub-assemblies not present (4 should be created and 6 should be used),40,40
+12,Not all Instructor parts used for the sub-assemblies,5,5
+12,Product structure is not 3 levels,5,5
+12,Constraints are incorrect,5,5
+12,Assembly Navigator contains errors (red x marks),5,5
+12,JT file not generated,5,5
+13,Grade on Brightspace,100,100
+14,Attachment does not have valid .PRT file,30,30
+14,Model-MFET template not used,5,5
+14,One (or more) sketches are not fully defined (even 1 sketch wrong = 0),10,10
+14,One of 4 views (TOP or FRONT or SIDE or corrected ISO) not in 2D Drawing,10,10
+14,2D PDF not under "Attachments" tab,10,10
+14,3D PDF not under "Attachments" tab,10,10
+14,Missing 3D annotations (20 needed in total),20,20
+14,3D Annotations correctly distributed over all 3 views,5,5

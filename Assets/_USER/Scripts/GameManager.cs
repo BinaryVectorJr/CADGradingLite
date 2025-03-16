@@ -38,6 +38,7 @@ public class GameManager : MonoBehaviour
     // This string should match the address you set in Addressables for the scene
     public string mainMenuSceneAddress;     // Main menu scene which should already be loaded
     public string gradingSceneAddress;      // Secondary scene for grading
+    public string projectSceneAddress;      // Third scene for grading
 
     public string assmFilePath;
     public string rubricFilePath;
@@ -240,6 +241,10 @@ public class GameManager : MonoBehaviour
         {
             OnSceneChangeClick("01GradingScene");;
         }
+        if(_btn.transform.name == "BTN_ProjectGrading")
+        {
+            OnSceneChangeClick("02ProjectScene");;
+        }
         if(_btn.transform.name == "BTN_Quit")
         {
             OnQuitButtonClick();
@@ -248,9 +253,17 @@ public class GameManager : MonoBehaviour
         {
             OnPanelChangeClick("PNL_AssignmentSelector");
         }
+        if(_btn.transform.name == "BTN_ChangeAssmProject")
+        {
+            OnPanelChangeClick("PNL_AssignmentSelectorProject");
+        }
         if(_btn.transform.name == "BTN_CloseAssm")
         {
             OnPanelChangeClick2("PNL_AssignmentSelector");
+        }
+        if(_btn.transform.name == "BTN_CloseAssmProject")
+        {
+            OnPanelChangeClick2("PNL_AssignmentSelectorProject");
         }
         if(_btn.transform.name == "BTN_Data")
         {
@@ -275,10 +288,17 @@ public class GameManager : MonoBehaviour
         if(_sceneName == "00StartScene")
         {
             LoadScene(mainMenuSceneAddress);
+            gmInstance.currentState = GameState.MAIN_MENU;
         }
         else if(_sceneName == "01GradingScene")
         {
             LoadScene(gradingSceneAddress);
+            gmInstance.currentState = GameState.REGULAR_GRADING;
+        }
+        else if(_sceneName == "02ProjectScene")
+        {
+            LoadScene(projectSceneAddress);
+            gmInstance.currentState = GameState.PROJECT_GRADING;
         }
     }
 
