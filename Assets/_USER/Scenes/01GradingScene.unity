@@ -4582,7 +4582,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentModal: {fileID: 2025450016}
+  componentModal: {fileID: 0}
   assignmentPrefab: {fileID: 3310052040313701398, guid: e2b5bca6a930f1647b2dfca26995c764, type: 3}
+  projectPrefab: {fileID: 3310052040313701398, guid: 3f8d309949c34d149b7e1536c243c352, type: 3}
   assignmentSelectorButton: {fileID: 1456113763}
   currentRubricManager: {fileID: 509708769}
 --- !u!1 &1980682938

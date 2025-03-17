@@ -17,6 +17,9 @@ public class AssmManager : MonoBehaviour
     private GameObject assignmentPrefab;
 
     [SerializeField]
+    private GameObject projectPrefab;
+
+    [SerializeField]
     private Button assignmentSelectorButton;
 
     [SerializeField]
@@ -109,7 +112,7 @@ public class AssmManager : MonoBehaviour
         {
             for(int i=0; i<tempCountOfButtons2; i++)
             {   
-                tempButtonGO2 = GameObject.Instantiate(assignmentPrefab);
+                tempButtonGO2 = GameObject.Instantiate(projectPrefab);
                 tempButtonGO2.transform.name = DataParser.dpInstance.projectDatasetElements[i].project_name.ToString() + " | " + DataParser.dpInstance.projectDatasetElements[i].project_component_assignment_data.assm_name.ToString();
                 tempButtonGO2.GetComponentInChildren<TMP_Text>().text = tempButtonGO2.transform.name;
                 tempButtonGO2.GetComponent<AssignmentType>().assignmentTypeCode = DataParser.dpInstance.projectDatasetElements[i].project_component_assignment_data.assm_type;
@@ -133,6 +136,7 @@ public class AssmManager : MonoBehaviour
     {
         if(GameManager.gmInstance.currentState == GameManager.GameState.REGULAR_GRADING)
         {
+            RubricManager.rbmInstance.currentAssignmentButton = _button.GetComponent<Button>();
             assignmentSelectorButton.GetComponentInChildren<TMP_Text>().text = _button.gameObject.name;
             currentRubricManager.rubricTypeDropdown.value = _button.GetComponent<AssignmentType>().assignmentTypeCode;
             GameManager.gmInstance.PersistHideModals(0);
@@ -141,6 +145,7 @@ public class AssmManager : MonoBehaviour
         }
         if (GameManager.gmInstance.currentState == GameManager.GameState.PROJECT_GRADING)
         {
+            RubricManager.rbmInstance.currentAssignmentButton = _button.GetComponent<Button>();
             currentRubricManager.rubricTypeDropdown.value = _button.GetComponent<AssignmentType>().assignmentTypeCode;
             currentRubricManager.ChangeRubrics();
         }
@@ -151,6 +156,7 @@ public class AssmManager : MonoBehaviour
         if (GameManager.gmInstance.currentState == GameManager.GameState.PROJECT_GRADING)
         {
             GameManager.gmInstance.PersistHideModals(2);
+            GameManager.gmInstance.PersistShowModals2(1);
             SetupProjectButtons2(_button.gameObject.name);
         }
     }

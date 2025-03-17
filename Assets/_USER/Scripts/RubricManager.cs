@@ -25,6 +25,8 @@ public class RubricManager : MonoBehaviour
     [SerializeField]
     public Button rubricFinalFeedback;
 
+    public Button currentAssignmentButton;
+
     public List<int> currentScores;
     public List<string> currentFeedback;
     public int currentSum = 0;
@@ -58,9 +60,13 @@ public class RubricManager : MonoBehaviour
         // Each panel has a temporary ID when it is generated and is on-screen
         // This enables us to assign dynamic IDs to each panel, as the rubrics update based on assignment type
         int currentPanelID = 0;
-        if(rubricParentModal.transform.childCount > 0)
+        if(rubricParentModal.transform.childCount > 0 && GameManager.gmInstance.currentState == GameManager.GameState.REGULAR_GRADING)
         {
-            ClearPanel();
+            ClearPanel(1,1);
+        }
+        else if (rubricParentModal.transform.childCount > 0 && GameManager.gmInstance.currentState == GameManager.GameState.PROJECT_GRADING)
+        {
+            ClearPanel(1,0);
         }
 
         int tempCountRubricItems = DataParser.dpInstance.rubricLineCount;
@@ -84,15 +90,22 @@ public class RubricManager : MonoBehaviour
         }
     }
 
-    public void ClearPanel()
+    public void ClearPanel(int _clearScores, int _clearFeedback)
     {
         foreach(Transform child in rubricParentModal.transform)
         {
             Destroy(child.gameObject);
         }
 
-        currentScores.Clear();
-        currentFeedback.Clear();
+        if(_clearScores == 1)
+        {
+            currentScores.Clear();
+        }
+
+        if(_clearFeedback == 1)
+        {
+            currentFeedback.Clear();
+        }
     }
 
     public void UpdateScore()
