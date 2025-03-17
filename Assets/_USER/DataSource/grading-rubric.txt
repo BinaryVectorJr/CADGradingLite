@@ -99,3 +99,4 @@
 14,3D Annotations correctly distributed over all 3 views,5,5
 15,Instructor part not used,30,30
 16,Screenshot has issues,20,20
+17,Errors in assembly,100,100

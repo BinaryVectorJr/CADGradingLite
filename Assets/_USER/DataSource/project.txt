@@ -1,4 +1,5 @@
-91,BASE ASSEMBLY,3,Component,250,0,09,1,CYLINDER,100,available,due
-92,BASE ASSEMBLY,3,Component,250,0,09,2,ENGINE BODY,100,available,due
-93,BASE ASSEMBLY,3,Provided,250,15,09,3,INST-Base,30,available,due
-94,BASE ASSEMBLY,3,Screenshot,250,16,09,4,Base Assembly Screenshot,20,available,due
+90,BASE ASSEMBLY,3,Component,250,17,09,0,BASE ASSEMBLY,250,available,due
+91,BASE ASSEMBLY,3,Component,100,0,09,1,CYLINDER,100,available,due
+92,BASE ASSEMBLY,3,Component,100,0,09,2,ENGINE BODY,100,available,due
+93,BASE ASSEMBLY,3,Provided,30,15,09,3,INST-Base,30,available,due
+94,BASE ASSEMBLY,3,Screenshot,20,16,09,4,Base Assembly Screenshot,20,available,due

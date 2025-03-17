@@ -33,7 +33,7 @@ public class ProjectDataElement
     public string project_name;
     public int project_components_count;
     public string project_component_type;
-    public float project_total_points;
+    public float component_total_points;
     public AssignmentDataElement project_component_assignment_data;
 }
 
@@ -306,7 +306,7 @@ public class DataParser : MonoBehaviour
             project_name = projectDatasetLine[1],
             project_components_count = int.TryParse(projectDatasetLine[2], out var z1) ? z1:0,
             project_component_type = projectDatasetLine[3],
-            project_total_points = float.TryParse(projectDatasetLine[4], out var z2) ? z2:0,
+            component_total_points = float.TryParse(projectDatasetLine[4], out var z2) ? z2:0,
             project_component_assignment_data = new AssignmentDataElement 
             {
                 assm_type = int.TryParse(projectDatasetLine[5], out var z3) ? z3:0,    // Primary Key of assignment
