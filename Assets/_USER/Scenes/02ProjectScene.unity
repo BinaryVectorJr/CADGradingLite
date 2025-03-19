@@ -1419,6 +1419,7 @@ MonoBehaviour:
   currentAssignmentButton: {fileID: 0}
   currentScores: 
   currentFeedback: []
+  currentComponentScores: []
   currentSum: 0
 --- !u!1 &569056003
 GameObject:

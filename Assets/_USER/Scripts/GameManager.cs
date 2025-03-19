@@ -300,6 +300,9 @@ public class GameManager : MonoBehaviour
             LoadScene(projectSceneAddress);
             gmInstance.currentState = GameState.PROJECT_GRADING;
         }
+
+        //DataParser.dpInstance.ValidateAssignmentWithRubrics();
+        DataParser.dpInstance.RubricSetter();
     }
 
     void OnPanelChangeClick(string _panelName)
@@ -408,6 +411,7 @@ public class GameManager : MonoBehaviour
                             DataParser.dpInstance._projectDatasetFile = textAsset;
                             DataParser.dpInstance.ValidateProjectTextAsset(textAsset);
                         }
+
                     }
                     else
                     {
@@ -430,6 +434,7 @@ public class GameManager : MonoBehaviour
                         UnityEngine.Debug.Log($"Files already exist: {address}");
                         return;
                     }
+
                 }
                 else
                 {

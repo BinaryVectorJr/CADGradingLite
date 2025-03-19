@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -117,6 +118,22 @@ public class AssmManager : MonoBehaviour
                 tempButtonGO2.GetComponentInChildren<TMP_Text>().text = tempButtonGO2.transform.name;
                 tempButtonGO2.GetComponent<AssignmentType>().assignmentTypeCode = DataParser.dpInstance.projectDatasetElements[i].project_component_assignment_data.assm_type;
                 tempButtonGO2.transform.SetParent(componentModal.transform);
+
+                // WORKS BUT SCORES UPDATE FOR ALL
+                if(currentRubricManager.currentComponentScores.Count == 0)
+                {
+                    currentRubricManager.currentComponentScores.Add(new RubricManager.ProjectComponentScoresElement(DataParser.dpInstance.projectDatasetElements[i].project_id,0,currentRubricManager.currentScores));
+                }
+                else if (currentRubricManager.currentComponentScores.Any(complist => complist.component_id == DataParser.dpInstance.projectDatasetElements[i].project_id))
+                {
+                    Debug.Log("EXISTS");
+                }
+                else
+                {
+                    RubricManager.rbmInstance.currentComponentScores.Add(new RubricManager.ProjectComponentScoresElement(DataParser.dpInstance.projectDatasetElements[i].project_id,0,currentRubricManager.currentScores));
+                }
+                
+
                 tempButtonGO2 = null;
             }
 

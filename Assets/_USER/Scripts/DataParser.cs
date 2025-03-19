@@ -1,8 +1,39 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Schema;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UIElements;
+
+[System.Serializable]
+public class RubricDataElement
+{
+    public int assm_type;
+    public string error_item_desc;
+    public float error_item_total_points;
+    public float error_item_achieved_points;
+
+    public RubricDataElement(int _assm_type, string _error_item_desc, float _error_item_total_points, float _error_item_achieved_points)
+    {
+        assm_type = _assm_type;
+        error_item_desc = _error_item_desc;
+        error_item_total_points = _error_item_total_points;
+        error_item_achieved_points = _error_item_achieved_points;
+    }
+}
+
+// [System.Serializable]
+// public class RubricDataListL1
+// {
+//     public List<RubricDataElement> sameAssmRubrics;
+
+//     public RubricDataListL1()
+//     {
+//         sameAssmRubrics = new List<RubricDataElement>();
+//     }
+// }
 
 // Class Item to Store the Dataset
 [System.Serializable]
@@ -18,13 +49,18 @@ public class AssignmentDataElement
 }
 
 [System.Serializable]
-public class RubricDataElement
+public class AssignmentWithRubric
 {
-    public int assm_type;
-    public string error_item_desc;
-    public float error_item_total_points;
-    public float error_item_achieved_points;
+    public AssignmentDataElement assignment_data;
+    public RubricDataElement[] rubric_data;
+
+    public AssignmentWithRubric(AssignmentDataElement _assm, RubricDataElement[] _rubs)
+    {
+        assignment_data = _assm;
+        rubric_data = _rubs;
+    }
 }
+
 
 [System.Serializable]
 public class ProjectDataElement
@@ -80,6 +116,27 @@ public class DataParser : MonoBehaviour
     public string[] projectDatasetLines; //{get => _rubricDatasetLines; private set => _rubricDatasetLines = value;}
     public ProjectDataElement[] projectDatasetElements; //{get => _rubricDatasetElements; private set => _rubricDatasetElements = value;}
 
+    // [SerializeField]
+    // public List<RubricDataElement> SameAssignmentTypeRubricsL1 = new List<RubricDataElement>();
+
+    // [SerializeField]
+    // public RubricDataListL1 SameAssignmentTypeRubricsL1 = new RubricDataListL1();
+
+    // // [SerializeField]
+    // // public List<List<RubricDataElement>> TypeRubricsL0 = new List<List<RubricDataElement>>();
+
+    // [SerializeField]
+    // public List<RubricDataListL1> TypeRubricsL0 = new List<RubricDataListL1>();
+
+    [SerializeField]
+    public List<AssignmentWithRubric> assignmentWithRubricElements = new List<AssignmentWithRubric>();
+
+    [SerializeField]
+    public RubricDataElement[][] groupedRubricsByType;
+
+    [SerializeField]
+    public RubricDataElement[][] finalGroupedArray;
+
     // Creating a singleton
     private void Awake()
     {
@@ -104,66 +161,13 @@ public class DataParser : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-    }
 
-    // ASSIGNMENT
-
-    public void ValidateAssignmentTextAsset(TextAsset _assignmentDatasetFile)
-    {
-        // From the loaded txt file, we extract one line using the NEWLINE delimiter, as a row, and set it into an array of lines
-
-        assmDatasetFile = _assignmentDatasetFile;
-        assmDatasetLines = assmDatasetFile ? assmDatasetFile.text.Split(new[] {Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries):null;
-
-        assmLineCount = assmDatasetLines.Length;
-        assmDatasetElements = new AssignmentDataElement[assmDatasetLines.Length];
-
-        // For each entry in the line
-        for (int i=0; i< assmLineCount; i++)
-        {
-            // Once line is extracted, further split into constituents using the "comma" delimiter, into an array
-            var assmDatasetContentPart = assmDatasetLines[i].Split(',');
-
-            // Validation query
-            if(assmDatasetContentPart.Length % 7 != 0)
-            {
-                Debug.LogError("Atleast 7 comma separated values needed!"); //TODO - make this dynamic
-                return;
-            }
-
-            // Set the fileds for each element of array of classes
-            assmDatasetElements[i] = SetAssmDataElementValues(assmDatasetContentPart);
-        }
-    }
-
-    public void ValidateAssignmentTextAsset(string[] _assmDatasetLines)
-    {
-        assmLineCount = _assmDatasetLines.Length;
-        assmDatasetElements = new AssignmentDataElement[_assmDatasetLines.Length];
-
-        // For each entry in the line
-        for (int i=0; i< assmLineCount; i++)
-        {
-            // Once line is extracted, further split into constituents using the "comma" delimiter, into an array
-            var assmDatasetContentPart = _assmDatasetLines[i].Split(',');
-
-            // Validation query
-            if(assmDatasetContentPart.Length % 7 != 0)
-            {
-                Debug.LogError("Atleast 7 comma separated values needed!"); //TODO - make this dynamic
-                return;
-            }
-
-            // Set the fileds for each element of array of classes
-            assmDatasetElements[i] = SetAssmDataElementValues(assmDatasetContentPart);
-        }
     }
 
     // RUBRIC
@@ -216,6 +220,106 @@ public class DataParser : MonoBehaviour
 
             // Set the fileds for each element of array of classes
             rubricDatasetElements[i] = SetRubricDataElementValues(rubricDatasetContentPart);
+        }
+
+        Dictionary<int, List<RubricDataElement>> groupedRubricsDict = new Dictionary<int, List<RubricDataElement>>();
+
+        // Group elements by assm_type
+        foreach(var item in rubricDatasetElements)
+        {
+            if(!groupedRubricsDict.ContainsKey(item.assm_type))
+            {
+                groupedRubricsDict[item.assm_type] = new List<RubricDataElement>();
+            }
+            groupedRubricsDict[item.assm_type].Add(item);
+        }
+
+        // Sort Dictionary
+        List<int> sortedKeys = new List<int>(groupedRubricsDict.Keys);
+        sortedKeys.Sort();
+
+        // Convert grouped dictionary to final array
+        finalGroupedArray = new RubricDataElement[sortedKeys.Count][];
+        for(int i=0; i< sortedKeys.Count; i++)
+        {
+            finalGroupedArray[i] = groupedRubricsDict[sortedKeys[i]].ToArray();
+        }
+
+        // Display the result in the console
+        foreach (var group in finalGroupedArray)
+        {
+            Debug.Log("Group with assm type = " + group[0].assm_type + ":");
+            foreach (var item in group)
+            {
+                Debug.Log("  assm type = " + item.assm_type);
+            }
+        }
+
+    }
+
+    public void RubricSetter()
+    {
+        for(int i = 0; i<assmDatasetElements.Length; i++)
+        {
+            assignmentWithRubricElements.Add(new AssignmentWithRubric(assmDatasetElements[i],finalGroupedArray[assmDatasetElements[i].assm_type]));
+        }
+        // foreach(var item in assmDatasetElements)
+        // {
+        //     assignmentWithRubricElements.Add(new AssignmentWithRubric(assmDatasetElements[item.assm_type],finalGroupedArray[item.assm_type]));
+        // }
+    }
+
+    // ASSIGNMENT
+
+    public void ValidateAssignmentTextAsset(TextAsset _assignmentDatasetFile)
+    {
+        // From the loaded txt file, we extract one line using the NEWLINE delimiter, as a row, and set it into an array of lines
+
+        assmDatasetFile = _assignmentDatasetFile;
+        assmDatasetLines = assmDatasetFile ? assmDatasetFile.text.Split(new[] {Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries):null;
+
+        assmLineCount = assmDatasetLines.Length;
+        assmDatasetElements = new AssignmentDataElement[assmDatasetLines.Length];
+
+        // For each entry in the line
+        for (int i=0; i< assmLineCount; i++)
+        {
+            // Once line is extracted, further split into constituents using the "comma" delimiter, into an array
+            var assmDatasetContentPart = assmDatasetLines[i].Split(',');
+
+            // Validation query
+            if(assmDatasetContentPart.Length % 7 != 0)
+            {
+                Debug.LogError("Atleast 7 comma separated values needed!"); //TODO - make this dynamic
+                return;
+            }
+
+            // Set the fileds for each element of array of classes
+            assmDatasetElements[i] = SetAssmDataElementValues(assmDatasetContentPart);
+        }
+        
+    }
+
+    public void ValidateAssignmentTextAsset(string[] _assmDatasetLines)
+    {
+        assmLineCount = _assmDatasetLines.Length;
+        assmDatasetElements = new AssignmentDataElement[_assmDatasetLines.Length];
+
+        // For each entry in the line
+        for (int i=0; i< assmLineCount; i++)
+        {
+            // Once line is extracted, further split into constituents using the "comma" delimiter, into an array
+            var assmDatasetContentPart = _assmDatasetLines[i].Split(',');
+
+            // Validation query
+            if(assmDatasetContentPart.Length % 7 != 0)
+            {
+                Debug.LogError("Atleast 7 comma separated values needed!"); //TODO - make this dynamic
+                return;
+            }
+
+            // Set the fileds for each element of array of classes
+            assmDatasetElements[i] = SetAssmDataElementValues(assmDatasetContentPart);
         }
     }
 
@@ -272,7 +376,86 @@ public class DataParser : MonoBehaviour
         }
     }
 
+    // public List<RubricDataElement> tempSameAssmRubrics = new List<RubricDataElement>();
+    // public void ValidateAssignmentWithRubrics()
+    // {
+    //     int rubricIndex = 0;
+    //     foreach(AssignmentDataElement assm in assmDatasetElements)
+    //     {
+    //         tempSameAssmRubrics.Clear();
+    //         // foreach(RubricDataElement rub in rubricDatasetElements)
+    //         // {
+    //         //     if(assm.assm_type == rub.assm_type)
+    //         //     {
+    //         //         tempSameAssmRubrics.Add(rub);
+    //         //     }
+    //         // }
+
+    //         // for(int i=0; i<rubricDatasetElements.Length; i++)
+    //         // {
+    //         //     if(assm.assm_type == rubricDatasetElements[i].assm_type)
+    //         //     {
+    //         //         tempSameAssmRubrics.Add(rubricDatasetElements[i]);
+    //         //     }
+    //         // }
+
+    //         assignmentWithRubricElements.Add(SetAssignmentWithRubricValues(assm,tempSameAssmRubrics));
+
+    //         rubricIndex++;
+    //     }
+
+    //     if(assignmentWithRubricElements.)
+    //     {
+    //         if(assignmentWithRubricElements == rubricDatasetElements.)
+    //         assmr.rubric_data.AddRange(rubricDatasetElements.Where(n=>n.assm_type == assmr.assignment_data.assm_type));
+    //     }
+
+    //     // foreach(AssignmentWithRubric assmr in assignmentWithRubricElements)
+    //     // {
+    //     //     tempSameAssmRubrics.Clear();
+    //     //     foreach(RubricDataElement rub in rubricDatasetElements)
+    //     //     {
+    //     //         if(assmr.assignment_data.assm_type == rub.assm_type)
+    //     //         {
+    //     //             assmr.rubric_data.Add(rub);
+    //     //         }
+    //     //     }
+
+    //     //     // for(int i=0; i<rubricDatasetElements.Length; i++)
+    //     //     // {
+    //     //     //     if(assm.assm_type == rubricDatasetElements[i].assm_type)
+    //     //     //     {
+    //     //     //         tempSameAssmRubrics.Add(rubricDatasetElements[i]);
+    //     //     //     }
+    //     //     // }
+
+    //     //     // assignmentWithRubricElements.Add(SetAssignmentWithRubricValues(assm,tempSameAssmRubrics));
+
+    //     //     // rubricIndex++;
+    //     // }
+    // }
+
     // SETTING VALUES
+
+    RubricDataElement SetRubricDataElementValues(string[] rubricDatasetLine)
+    {
+        return new RubricDataElement(
+            int.TryParse(rubricDatasetLine[0], out var y0) ? y0:0,  // Primary Key
+            rubricDatasetLine[1],
+            float.TryParse(rubricDatasetLine[2], out var y1) ? y1:0, 
+            float.TryParse(rubricDatasetLine[3], out var y2) ? y2:0)
+        {
+            // assm_type = int.TryParse(rubricDatasetLine[0], out var y3) ? y3:0,  // Primary Key
+            // error_item_desc = rubricDatasetLine[1],
+            // error_item_total_points = float.TryParse(rubricDatasetLine[2], out var y4) ? y4:0
+            // error_item_achieved_points = float.TryParse(rubricDatasetLine[3], out var y5) ? y5:0
+            
+            assm_type = y0,
+            error_item_desc = rubricDatasetLine[1],
+            error_item_total_points = y1,
+            error_item_achieved_points = y2
+        };
+    }
 
     AssignmentDataElement SetAssmDataElementValues(string[] assmDatasetLine)
     {
@@ -284,18 +467,18 @@ public class DataParser : MonoBehaviour
             assm_name = assmDatasetLine[3],
             total_points = int.TryParse(assmDatasetLine[4], out var x3) ? x3:0,
             avail_date = assmDatasetLine[5],
-            due_date = assmDatasetLine[6]
+            due_date = assmDatasetLine[6],
         };
     }
 
-    RubricDataElement SetRubricDataElementValues(string[] rubricDatasetLine)
+    AssignmentWithRubric SetAssignmentWithRubricValues(AssignmentDataElement _assm, RubricDataElement[] _rubric)
     {
-        return new RubricDataElement
+        return new AssignmentWithRubric(_assm,_rubric)
         {
-            assm_type = int.TryParse(rubricDatasetLine[0], out var y0) ? y0:0,  // Primary Key
-            error_item_desc = rubricDatasetLine[1],
-            error_item_total_points = float.TryParse(rubricDatasetLine[2], out var y1) ? y1:0,error_item_achieved_points = float.TryParse(rubricDatasetLine[3], out var y2) ? y2:0
+            assignment_data = _assm,
+            rubric_data = _rubric
         };
+
     }
 
     ProjectDataElement SetProjectDataElementValues(string[] projectDatasetLine)
@@ -307,7 +490,7 @@ public class DataParser : MonoBehaviour
             project_components_count = int.TryParse(projectDatasetLine[2], out var z1) ? z1:0,
             project_component_type = projectDatasetLine[3],
             component_total_points = float.TryParse(projectDatasetLine[4], out var z2) ? z2:0,
-            project_component_assignment_data = new AssignmentDataElement 
+            project_component_assignment_data = new AssignmentDataElement
             {
                 assm_type = int.TryParse(projectDatasetLine[5], out var z3) ? z3:0,    // Primary Key of assignment
                 week_no = int.TryParse(projectDatasetLine[6], out var z4) ? z4:0,
@@ -319,4 +502,33 @@ public class DataParser : MonoBehaviour
             }
         };
     }
+
+    //     // Function to display the contents of var2
+    // void DisplayNestedContents()
+    // {
+    //     // // Iterate through var2 and display each group
+    //     // foreach (var group in TypeRubricsL0)
+    //     // {
+    //     //     string groupContents = string.Join(", ", group.Select(item => item.assm_type.ToString()));
+    //     //     Debug.Log("Group: " + groupContents);
+    //     // }
+
+    //     for (int i = 0; i < TypeRubricsL0.Count; i++)
+    //     {
+    //         // Display the index of the outer list
+    //         Debug.Log($"Outer List {i + 1}:");
+
+    //         // Get the inner List<MyClass>
+    //         // List<RubricDataElement> innerList = TypeRubricsL0[i];
+
+    //         RubricDataListL1 innerList = TypeRubricsL0[i];
+
+    //         // Iterate through each element in the inner list and display their values
+    //         for (int j = 0; j < innerList.sameAssmRubrics.Count; j++)
+    //         {
+    //             RubricDataElement item = innerList.sameAssmRubrics[j];
+    //             Debug.Log($"    Element {j + 1}: a = {item.assm_type}, b = {item.error_item_desc}");
+    //         }
+    //     }
+    // }
 }

@@ -28,7 +28,27 @@ public class RubricManager : MonoBehaviour
     public Button currentAssignmentButton;
 
     public List<int> currentScores;
+
     public List<string> currentFeedback;
+
+    [System.Serializable]
+    public class ProjectComponentScoresElement
+    {
+        public int component_id;
+        public int associated_panel_id;
+        public List<int> component_score;
+
+        public ProjectComponentScoresElement(int _componentID, int _panelID, List<int> _scores)
+        {
+            component_id = _componentID;
+            associated_panel_id = _panelID;
+            component_score = _scores;
+        }
+    }
+
+    [SerializeField]
+    public List<ProjectComponentScoresElement> currentComponentScores;
+
     public int currentSum = 0;
 
     void Awake()
