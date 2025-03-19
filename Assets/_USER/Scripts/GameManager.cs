@@ -302,7 +302,7 @@ public class GameManager : MonoBehaviour
         }
 
         //DataParser.dpInstance.ValidateAssignmentWithRubrics();
-        DataParser.dpInstance.RubricSetter();
+        //DataParser.dpInstance.RubricSetter();
     }
 
     void OnPanelChangeClick(string _panelName)
@@ -326,7 +326,7 @@ public class GameManager : MonoBehaviour
 
     void OnDirectoryRefreshClick()
     {
-        currentState = GameState.LOAD_FILES;
+        //currentState = GameState.LOAD_FILES;
 
         // Check if the folder exists
         if (!Directory.Exists(folderPath))
@@ -346,6 +346,7 @@ public class GameManager : MonoBehaviour
         #endif
 
         LoadAndCopyAddressables();
+        DataParser.dpInstance.RubricSetter();
 
         // OnPanelChangeClick("PNL_Directory");
         // if (Directory.Exists(folderPath))

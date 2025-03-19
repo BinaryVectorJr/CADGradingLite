@@ -73,6 +73,19 @@ public class ProjectDataElement
     public AssignmentDataElement project_component_assignment_data;
 }
 
+[System.Serializable]
+public class ProjectWithRubric
+{
+    public ProjectDataElement project_data;
+    public RubricDataElement[] rubric_data;
+
+    public ProjectWithRubric(ProjectDataElement _project,RubricDataElement[] _rubs)
+    {
+        project_data = _project;
+        rubric_data = _rubs;
+    }
+}
+
 public class DataParser : MonoBehaviour
 {
 
@@ -130,6 +143,9 @@ public class DataParser : MonoBehaviour
 
     [SerializeField]
     public List<AssignmentWithRubric> assignmentWithRubricElements = new List<AssignmentWithRubric>();
+
+    [SerializeField]
+    public List<ProjectWithRubric> projectWithRubricElements = new List<ProjectWithRubric>();
 
     [SerializeField]
     public RubricDataElement[][] groupedRubricsByType;
@@ -245,28 +261,35 @@ public class DataParser : MonoBehaviour
             finalGroupedArray[i] = groupedRubricsDict[sortedKeys[i]].ToArray();
         }
 
-        // Display the result in the console
-        foreach (var group in finalGroupedArray)
-        {
-            Debug.Log("Group with assm type = " + group[0].assm_type + ":");
-            foreach (var item in group)
-            {
-                Debug.Log("  assm type = " + item.assm_type);
-            }
-        }
+        // // Display the result in the console
+        // foreach (var group in finalGroupedArray)
+        // {
+        //     Debug.Log("Group with assm type = " + group[0].assm_type + ":");
+        //     foreach (var item in group)
+        //     {
+        //         Debug.Log("  assm type = " + item.assm_type);
+        //     }
+        // }
 
     }
 
     public void RubricSetter()
     {
-        for(int i = 0; i<assmDatasetElements.Length; i++)
+        if(assignmentWithRubricElements.Count == 0)
         {
-            assignmentWithRubricElements.Add(new AssignmentWithRubric(assmDatasetElements[i],finalGroupedArray[assmDatasetElements[i].assm_type]));
+            for(int i = 0; i<assmDatasetElements.Length; i++)
+            {
+                assignmentWithRubricElements.Add(new AssignmentWithRubric(assmDatasetElements[i],finalGroupedArray[assmDatasetElements[i].assm_type]));
+            }
         }
-        // foreach(var item in assmDatasetElements)
-        // {
-        //     assignmentWithRubricElements.Add(new AssignmentWithRubric(assmDatasetElements[item.assm_type],finalGroupedArray[item.assm_type]));
-        // }
+
+        if(projectWithRubricElements.Count == 0)
+        {
+            for(int i = 0; i<projectDatasetElements.Length; i++)
+            {
+                projectWithRubricElements.Add(new ProjectWithRubric(projectDatasetElements[i],finalGroupedArray[projectDatasetElements[i].project_component_assignment_data.assm_type]));
+            }
+        }
     }
 
     // ASSIGNMENT

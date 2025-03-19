@@ -1,5 +1,34 @@
-90,BASE ASSEMBLY,3,Component,250,17,09,0,BASE ASSEMBLY,250,available,due
-91,BASE ASSEMBLY,3,Component,100,0,09,1,CYLINDER,100,available,due
-92,BASE ASSEMBLY,3,Component,100,0,09,2,ENGINE BODY,100,available,due
-93,BASE ASSEMBLY,3,Provided,30,15,09,3,INST-Base,30,available,due
-94,BASE ASSEMBLY,3,Screenshot,20,16,09,4,Base Assembly Screenshot,20,available,due
+90,     BASE ASSEMBLY,              3,      Sub-Assembly,   250,    17,     09,0,BASE ASSEMBLY,250,available,due
+91,     BASE ASSEMBLY,              3,      Component,      100,    0,      09,1,CYLINDER,100,available,due
+92,     BASE ASSEMBLY,              3,      Component,      100,    0,      09,2,ENGINE BODY,100,available,due
+93,     BASE ASSEMBLY,              3,      Provided,       30,     15,     09,3,INST-LBE Base,30,available,due
+94,     BASE ASSEMBLY,              3,      Screenshot,     20,     16,     09,4,Base Assembly Screenshot,20,available,due
+100,    CRANK AND CAM ASSEMBLY,     2,      Sub-Assembly,   200,    17,     10,0,CRANK AND CAM ASSEMBLY,200,available,due
+101,    CRANK AND CAM ASSEMBLY,     2,      Component,      100,    0,      10,1,CRANK ARM AND CAM,100,available,due
+102,    CRANK AND CAM ASSEMBLY,     2,      PMI,            50,     18,     10,2,CRANK ARM Annotations,50,available,due
+103,    CRANK AND CAM ASSEMBLY,     2,      Provided,       30,     15,     10,3,INST-LBE Crankshaft,30,available,due
+104,    CRANK AND CAM ASSEMBLY,     2,      Screenshot,     20,     16,     10,4,Crank and Cam Assembly Screenshot,20,available,due
+110,    PISTON ASSEMBLY,            4,      Sub-Assembly,   400,    17,     11,0,PISTON ASSEMBLY,400,available,due
+111,    PISTON ASSEMBLY,            4,      Component,      100,    0,      11,1,PISTON,100,available,due
+112,    PISTON ASSEMBLY,            4,      Component,      100,    0,      11,2,WRIST PIN BRACKET,100,available,due
+113,    PISTON ASSEMBLY,            4,      Component,      100,    0,      11,3,CONNECTING ROD,100,available,due
+114,    PISTON ASSEMBLY,            4,      PMI,            50,     18,     11,4,CONNECTING ROD Annotations,50,available,due
+115,    PISTON ASSEMBLY,            4,      Provided,       30,     15,     11,5,INST-LBE Wrist Pin,30,available,due
+116,    PISTON ASSEMBLY,            4,      Screenshot,     20,     16,     11,6,Piston Assembly Screenshot,20,available,due
+120,    VALVE ASSEMBLY,             7,      Sub-Assembly,   500,    17,     12,0,VALVE ASSEMBLY,500,available,due
+121,    VALVE ASSEMBLY,             7,      Component,      100,    0,      12,1,VALVE FLAT SPRING,100,available,due
+122,    VALVE ASSEMBLY,             7,      Component,      100,    0,      12,2,VALVE SPRING PIN BRACKET,100,available,due
+123,    VALVE ASSEMBLY,             7,      Component,      100,    0,      12,3,VALVE,100,available,due
+124,    VALVE ASSEMBLY,             7,      Component,      100,    0,      12,4,CAM ROLLER FORK,100,available,due
+125,    VALVE ASSEMBLY,             7,      PMI,            50,     18,     12,5,CAM ROLLER FORK Annotations,50,available,due
+126,    VALVE ASSEMBLY,             7,      Provided,       10,     15,     12,6,INST-LBE Roller Bushing,10,available,due
+127,    VALVE ASSEMBLY,             7,      Provided,       10,     15,     12,7,INST-LBE CAM Roller,10,available,due
+128,    VALVE ASSEMBLY,             7,      Provided,       10,     15,     12,8,INST-LBE Valve Push Rod,10,available,due
+129,    VALVE ASSEMBLY,             7,      Screenshot,     20,     16,     12,9,Piston Assembly Screenshot,20,available,due
+130,    FUEL TANK ASSEMBLY,         4,      Sub-Assembly,   400,    17,     13,0,FUEL TANK ASSEMBLY,400,available,due
+131,    FUEL TANK ASSEMBLY,         4,      Component,      100,    0,      13,1,FUEL TANK,100,available,due
+132,    FUEL TANK ASSEMBLY,         4,      Component,      100,    0,      13,2,FUEL TANK LID,100,available,due
+133,    FUEL TANK ASSEMBLY,         4,      Component,      100,    0,      13,3,FUEL TANK BASE,100,available,due
+134,    FUEL TANK ASSEMBLY,         4,      PMI,            50,     18,     13,4,FUEL TANK BASE Annotations,50,available,due
+135,    FUEL TANK ASSEMBLY,         4,      Provided,       30,     15,     13,5,INST-LBE Fuel Tank Spout,30,available,due
+136,    FUEL TANK ASSEMBLY,         4,      Screenshot,     20,     16,     13,6,Fuel Tank Assembly Screenshot,20,available,due

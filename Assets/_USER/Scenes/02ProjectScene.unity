@@ -3117,6 +3117,8 @@ MonoBehaviour:
       m_Image: {fileID: 0}
     - m_Text: Project Subassembly
       m_Image: {fileID: 0}
+    - m_Text: Project PMI
+      m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:

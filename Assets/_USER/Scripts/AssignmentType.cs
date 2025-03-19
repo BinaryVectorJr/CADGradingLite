@@ -6,4 +6,10 @@ public class AssignmentType : MonoBehaviour
 {
     [SerializeField]
     public int assignmentTypeCode = 0;
+
+    [SerializeField]
+    public int projectID = 0;
+
+    [SerializeField]
+    public List<ProjectWithRubric> localProjectWithRubricData = new List<ProjectWithRubric>();
 }

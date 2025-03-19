@@ -67,25 +67,56 @@ public class AssmManager : MonoBehaviour
         }
     }
 
+    void onButtonClick1(GameObject _button)
+    {
+        if(GameManager.gmInstance.currentState == GameManager.GameState.REGULAR_GRADING)
+        {
+            RubricManager.rbmInstance.currentAssignmentButton = _button.GetComponent<Button>();
+            assignmentSelectorButton.GetComponentInChildren<TMP_Text>().text = _button.gameObject.name;
+            currentRubricManager.rubricTypeDropdown.value = _button.GetComponent<AssignmentType>().assignmentTypeCode;
+            GameManager.gmInstance.PersistHideModals(0);
+            GameManager.gmInstance.PersistShowModals2(1);
+            currentRubricManager.ChangeRubrics();
+        }
+
+        if (GameManager.gmInstance.currentState == GameManager.GameState.PROJECT_GRADING)
+        {
+            RubricManager.rbmInstance.currentAssignmentButton = _button.GetComponent<Button>();
+            currentRubricManager.rubricTypeDropdown.value = _button.GetComponent<AssignmentType>().assignmentTypeCode;
+            currentRubricManager.ChangeRubrics();
+        }
+    }
+
     void SetupProjectButtons()
     {
         int tempCountOfButtons2 = 0;
+        int currentIndex = 0;
+        List<int> indexList = new List<int>();
         GameObject tempButtonGO2 = null;
 
-        foreach (ProjectDataElement proj in DataParser.dpInstance.projectDatasetElements)
+        foreach (ProjectWithRubric proj in DataParser.dpInstance.projectWithRubricElements)
         {
-            if(proj.project_id % 10 == 0)
+            if(proj.project_data.project_id % 10 == 0)
             {
                 tempCountOfButtons2+=1;
+                // WORK VALIDATED: Debug.Log(proj.project_data.project_id);
+                indexList.Add(currentIndex);
+                // WORK VALIDATED: Debug.Log(currentIndex.ToString());
             }
+            currentIndex++;
         }
 
-        for(int i=0; i<tempCountOfButtons2; i++)
+        for(int i=0; i<indexList.Count; i++)
         {   
             tempButtonGO2 = GameObject.Instantiate(assignmentPrefab);
-            tempButtonGO2.transform.name = DataParser.dpInstance.projectDatasetElements[i].project_name.ToString();
+            tempButtonGO2.transform.name = DataParser.dpInstance.projectWithRubricElements[indexList[i]].project_data.project_name.ToString();
             tempButtonGO2.GetComponentInChildren<TMP_Text>().text = tempButtonGO2.transform.name;
-            tempButtonGO2.GetComponent<AssignmentType>().assignmentTypeCode = DataParser.dpInstance.projectDatasetElements[i].project_component_assignment_data.assm_type;
+
+            tempButtonGO2.GetComponent<AssignmentType>().assignmentTypeCode = DataParser.dpInstance.projectWithRubricElements[indexList[i]].project_data.project_component_assignment_data.assm_type;
+            tempButtonGO2.GetComponent<AssignmentType>().projectID = DataParser.dpInstance.projectWithRubricElements[indexList[i]].project_data.project_id;
+            tempButtonGO2.GetComponent<AssignmentType>().localProjectWithRubricData.Add(DataParser.dpInstance.projectWithRubricElements[indexList[i]]);
+
+
             tempButtonGO2.transform.SetParent(parentModal.transform);
             tempButtonGO2 = null;
         }
@@ -96,27 +127,46 @@ public class AssmManager : MonoBehaviour
         }
     }
 
+    void onButtonClick2(GameObject _button)
+    {
+        if (GameManager.gmInstance.currentState == GameManager.GameState.PROJECT_GRADING)
+        {
+            GameManager.gmInstance.PersistHideModals(2);
+            GameManager.gmInstance.PersistShowModals2(1);
+            SetupProjectButtons2(_button.gameObject.name);
+        }
+    }
+
     void SetupProjectButtons2(string _assignment_name)
     {
         int tempCountOfButtons2 = 0;
+        int currentIndex2 = 0;
+        List<int> indexList2 = new List<int>();
         GameObject tempButtonGO2 = null;
 
-        foreach (ProjectDataElement proj in DataParser.dpInstance.projectDatasetElements)
+        foreach (ProjectWithRubric proj in DataParser.dpInstance.projectWithRubricElements)
         {
-            if(_assignment_name == proj.project_name)
+            if(_assignment_name == proj.project_data.project_name)
             {
                 tempCountOfButtons2+=1;
+                indexList2.Add(currentIndex2);
             }
+            currentIndex2++;
         }
 
         if(componentModal.transform.childCount == 0)
         {
-            for(int i=0; i<tempCountOfButtons2; i++)
+            for(int i=0; i<indexList2.Count; i++)
             {   
                 tempButtonGO2 = GameObject.Instantiate(projectPrefab);
-                tempButtonGO2.transform.name = DataParser.dpInstance.projectDatasetElements[i].project_name.ToString() + " | " + DataParser.dpInstance.projectDatasetElements[i].project_component_assignment_data.assm_name.ToString();
+                tempButtonGO2.transform.name = DataParser.dpInstance.projectWithRubricElements[indexList2[i]].project_data.project_name.ToString() + " | " + DataParser.dpInstance.projectWithRubricElements[indexList2[i]].project_data.project_component_assignment_data.assm_name.ToString();
                 tempButtonGO2.GetComponentInChildren<TMP_Text>().text = tempButtonGO2.transform.name;
-                tempButtonGO2.GetComponent<AssignmentType>().assignmentTypeCode = DataParser.dpInstance.projectDatasetElements[i].project_component_assignment_data.assm_type;
+
+                tempButtonGO2.GetComponent<AssignmentType>().assignmentTypeCode = DataParser.dpInstance.projectWithRubricElements[indexList2[i]].project_data.project_component_assignment_data.assm_type;
+                tempButtonGO2.GetComponent<AssignmentType>().projectID = DataParser.dpInstance.projectWithRubricElements[indexList2[i]].project_data.project_id;
+                tempButtonGO2.GetComponent<AssignmentType>().localProjectWithRubricData.Add(DataParser.dpInstance.projectWithRubricElements[indexList2[i]]);
+
+                
                 tempButtonGO2.transform.SetParent(componentModal.transform);
 
                 // WORKS BUT SCORES UPDATE FOR ALL
@@ -149,32 +199,7 @@ public class AssmManager : MonoBehaviour
 
     }
 
-    void onButtonClick1(GameObject _button)
-    {
-        if(GameManager.gmInstance.currentState == GameManager.GameState.REGULAR_GRADING)
-        {
-            RubricManager.rbmInstance.currentAssignmentButton = _button.GetComponent<Button>();
-            assignmentSelectorButton.GetComponentInChildren<TMP_Text>().text = _button.gameObject.name;
-            currentRubricManager.rubricTypeDropdown.value = _button.GetComponent<AssignmentType>().assignmentTypeCode;
-            GameManager.gmInstance.PersistHideModals(0);
-            GameManager.gmInstance.PersistShowModals2(1);
-            currentRubricManager.ChangeRubrics();
-        }
-        if (GameManager.gmInstance.currentState == GameManager.GameState.PROJECT_GRADING)
-        {
-            RubricManager.rbmInstance.currentAssignmentButton = _button.GetComponent<Button>();
-            currentRubricManager.rubricTypeDropdown.value = _button.GetComponent<AssignmentType>().assignmentTypeCode;
-            currentRubricManager.ChangeRubrics();
-        }
-    }
 
-    void onButtonClick2(GameObject _button)
-    {
-        if (GameManager.gmInstance.currentState == GameManager.GameState.PROJECT_GRADING)
-        {
-            GameManager.gmInstance.PersistHideModals(2);
-            GameManager.gmInstance.PersistShowModals2(1);
-            SetupProjectButtons2(_button.gameObject.name);
-        }
-    }
+
+
 }

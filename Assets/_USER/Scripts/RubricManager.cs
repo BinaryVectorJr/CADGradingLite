@@ -80,33 +80,51 @@ public class RubricManager : MonoBehaviour
         // Each panel has a temporary ID when it is generated and is on-screen
         // This enables us to assign dynamic IDs to each panel, as the rubrics update based on assignment type
         int currentPanelID = 0;
-        if(rubricParentModal.transform.childCount > 0 && GameManager.gmInstance.currentState == GameManager.GameState.REGULAR_GRADING)
+        if(GameManager.gmInstance.currentState == GameManager.GameState.REGULAR_GRADING)
         {
             ClearPanel(1,1);
+            int tempCountRubricItems = DataParser.dpInstance.rubricLineCount;
+            GameObject tempRubricGO = null;
+
+            for(int i=0; i<tempCountRubricItems; i++)
+            {
+                if(DataParser.dpInstance.rubricDatasetElements[i].assm_type == rubricTypeDropdown.value)
+                {
+                    tempRubricGO = GameObject.Instantiate(rubricPrefab);
+                    tempRubricGO.GetComponent<CurrentRubricPanel>().panelID = currentPanelID;
+                    currentPanelID++;   // Updating the IDs based on order of generation
+                    tempRubricGO.GetComponent<CurrentRubricPanel>().ErrorDesc.text = DataParser.dpInstance.rubricDatasetElements[i].error_item_desc.ToString();
+                    tempRubricGO.GetComponent<CurrentRubricPanel>().ErrorTotal.text = DataParser.dpInstance.rubricDatasetElements[i].error_item_total_points.ToString();
+                    tempRubricGO.GetComponent<CurrentRubricPanel>().ErrorAchieved.text = DataParser.dpInstance.rubricDatasetElements[i].error_item_achieved_points.ToString();
+                    tempRubricGO.transform.name = DataParser.dpInstance.rubricDatasetElements[i].error_item_desc.ToString();
+                    tempRubricGO.transform.SetParent(rubricParentModal.transform);
+                    tempRubricGO = null;
+                    currentScores.Add(Mathf.CeilToInt(DataParser.dpInstance.rubricDatasetElements[i].error_item_achieved_points));
+                }
+            }
         }
-        else if (rubricParentModal.transform.childCount > 0 && GameManager.gmInstance.currentState == GameManager.GameState.PROJECT_GRADING)
+        else if (GameManager.gmInstance.currentState == GameManager.GameState.PROJECT_GRADING)
         {
             ClearPanel(1,0);
-        }
+            // int tempCountRubricItems = DataParser.dpInstance.rubricLineCount;
+            // GameObject tempRubricGO = null;
 
-        int tempCountRubricItems = DataParser.dpInstance.rubricLineCount;
-        GameObject tempRubricGO = null;
-
-        for(int i=0; i<tempCountRubricItems; i++)
-        {
-            if(DataParser.dpInstance.rubricDatasetElements[i].assm_type == rubricTypeDropdown.value)
-            {
-                tempRubricGO = GameObject.Instantiate(rubricPrefab);
-                tempRubricGO.GetComponent<CurrentRubricPanel>().panelID = currentPanelID;
-                currentPanelID++;   // Updating the IDs based on order of generation
-                tempRubricGO.GetComponent<CurrentRubricPanel>().ErrorDesc.text = DataParser.dpInstance.rubricDatasetElements[i].error_item_desc.ToString();
-                tempRubricGO.GetComponent<CurrentRubricPanel>().ErrorTotal.text = DataParser.dpInstance.rubricDatasetElements[i].error_item_total_points.ToString();
-                tempRubricGO.GetComponent<CurrentRubricPanel>().ErrorAchieved.text = DataParser.dpInstance.rubricDatasetElements[i].error_item_achieved_points.ToString();
-                tempRubricGO.transform.name = DataParser.dpInstance.rubricDatasetElements[i].error_item_desc.ToString();
-                tempRubricGO.transform.SetParent(rubricParentModal.transform);
-                tempRubricGO = null;
-                currentScores.Add(Mathf.CeilToInt(DataParser.dpInstance.rubricDatasetElements[i].error_item_achieved_points));
-            }
+            // for(int i=0; i<tempCountRubricItems; i++)
+            // {
+            //     if(DataParser.dpInstance.rubricDatasetElements[i].assm_type == rubricTypeDropdown.value)
+            //     {
+            //         tempRubricGO = GameObject.Instantiate(rubricPrefab);
+            //         tempRubricGO.GetComponent<CurrentRubricPanel>().panelID = currentPanelID;
+            //         currentPanelID++;   // Updating the IDs based on order of generation
+            //         tempRubricGO.GetComponent<CurrentRubricPanel>().ErrorDesc.text = DataParser.dpInstance.rubricDatasetElements[i].error_item_desc.ToString();
+            //         tempRubricGO.GetComponent<CurrentRubricPanel>().ErrorTotal.text = DataParser.dpInstance.rubricDatasetElements[i].error_item_total_points.ToString();
+            //         tempRubricGO.GetComponent<CurrentRubricPanel>().ErrorAchieved.text = DataParser.dpInstance.rubricDatasetElements[i].error_item_achieved_points.ToString();
+            //         tempRubricGO.transform.name = DataParser.dpInstance.rubricDatasetElements[i].error_item_desc.ToString();
+            //         tempRubricGO.transform.SetParent(rubricParentModal.transform);
+            //         tempRubricGO = null;
+            //         currentScores.Add(Mathf.CeilToInt(DataParser.dpInstance.rubricDatasetElements[i].error_item_achieved_points));
+            //     }
+            // }
         }
     }
 
