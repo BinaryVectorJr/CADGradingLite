@@ -83,7 +83,7 @@ public class AssmManager : MonoBehaviour
         {
             RubricManager.rbmInstance.currentAssignmentButton = _button.GetComponent<Button>();
             currentRubricManager.rubricTypeDropdown.value = _button.GetComponent<AssignmentType>().assignmentTypeCode;
-            currentRubricManager.ChangeRubrics();
+            currentRubricManager.ChangeRubricsProject(_button);
         }
     }
 

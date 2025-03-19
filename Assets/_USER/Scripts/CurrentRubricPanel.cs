@@ -61,6 +61,17 @@ public class CurrentRubricPanel : MonoBehaviour
         {
             RubricManager.rbmInstance.currentFeedback.Add(RubricManager.rbmInstance.currentAssignmentButton.name.ToString() + " - DEDUCTION: " + ErrorDesc.text + " (-" + (_tempErrTotal-_tempErrAchieved).ToString() +")");
         }
+        else
+        {
+            var indexOfFeedbackItem = RubricManager.rbmInstance.currentFeedback.Select((value,idx) => new {value,idx}).FirstOrDefault(x => x.value.Contains(ErrorDesc.text))?.idx;
+            
+            //WORKING VALIDATED: Debug.Log(indexOfFeedbackItem.Value.ToString());
+
+            if(indexOfFeedbackItem.HasValue)
+            {
+                RubricManager.rbmInstance.currentFeedback[indexOfFeedbackItem.Value] = RubricManager.rbmInstance.currentAssignmentButton.name.ToString() + " - DEDUCTION: " + ErrorDesc.text + " (-" + (_tempErrTotal-_tempErrAchieved).ToString() +")";
+            }
+        }
     }
 
     public void SetHalf()
@@ -73,6 +84,17 @@ public class CurrentRubricPanel : MonoBehaviour
         if (!RubricManager.rbmInstance.currentFeedback.Any(s => s.Contains(ErrorDesc.text, System.StringComparison.OrdinalIgnoreCase)))
         {
             RubricManager.rbmInstance.currentFeedback.Add(RubricManager.rbmInstance.currentAssignmentButton.name.ToString() + " - DEDUCTION: " + ErrorDesc.text + " (-" + (_tempErrTotal-_tempErrAchieved).ToString() +")");
+        }
+        else
+        {
+            var indexOfFeedbackItem = RubricManager.rbmInstance.currentFeedback.Select((value,idx) => new {value,idx}).FirstOrDefault(x => x.value.Contains(ErrorDesc.text))?.idx;
+
+            // WORKING VALIDATED: Debug.Log(indexOfFeedbackItem.Value.ToString());
+
+            if(indexOfFeedbackItem.HasValue)
+            {
+                RubricManager.rbmInstance.currentFeedback[indexOfFeedbackItem.Value] = RubricManager.rbmInstance.currentAssignmentButton.name.ToString() + " - DEDUCTION: " + ErrorDesc.text + " (-" + (_tempErrTotal-_tempErrAchieved).ToString() +")";
+            }
         }
     }
 
@@ -91,6 +113,17 @@ public class CurrentRubricPanel : MonoBehaviour
             {
                 RubricManager.rbmInstance.currentFeedback.Add(RubricManager.rbmInstance.currentAssignmentButton.name.ToString() + " - DEDUCTION: " + ErrorDesc.text);
             }
+            else
+            {
+                var indexOfFeedbackItem = RubricManager.rbmInstance.currentFeedback.Select((value,idx) => new {value,idx}).FirstOrDefault(x => x.value.Contains(ErrorDesc.text))?.idx;
+
+                // WORKING VALIDATED: Debug.Log(indexOfFeedbackItem.Value.ToString());
+
+                if(indexOfFeedbackItem.HasValue)
+                {
+                    RubricManager.rbmInstance.currentFeedback[indexOfFeedbackItem.Value] = RubricManager.rbmInstance.currentAssignmentButton.name.ToString() + " - DEDUCTION: " + ErrorDesc.text;
+                }
+            }
         }
     }
 
@@ -108,6 +141,17 @@ public class CurrentRubricPanel : MonoBehaviour
             if (!RubricManager.rbmInstance.currentFeedback.Any(s => s.Contains(ErrorDesc.text, System.StringComparison.OrdinalIgnoreCase)))
             {
                 RubricManager.rbmInstance.currentFeedback.Add(RubricManager.rbmInstance.currentAssignmentButton.name.ToString() + " - DEDUCTION: " + ErrorDesc.text);
+            }
+            else
+            {
+                var indexOfFeedbackItem = RubricManager.rbmInstance.currentFeedback.Select((value,idx) => new {value,idx}).FirstOrDefault(x => x.value.Contains(ErrorDesc.text))?.idx;
+
+                // WORKING VALIDATED: Debug.Log(indexOfFeedbackItem.Value.ToString());
+
+                if(indexOfFeedbackItem.HasValue)
+                {
+                    RubricManager.rbmInstance.currentFeedback[indexOfFeedbackItem.Value] = RubricManager.rbmInstance.currentAssignmentButton.name.ToString() + " - DEDUCTION: " + ErrorDesc.text;
+                }
             }
         }
     }
