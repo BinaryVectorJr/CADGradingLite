@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
+using System.Text.RegularExpressions;
 using TMPro;
 using UnityEditor.Animations;
 using UnityEditor.SceneManagement;
@@ -96,7 +98,7 @@ public class AssmManager : MonoBehaviour
             {
                 tempRubricItem = GameObject.Instantiate(RubricManager.rbmInstance.rubricPrefab,RubricManager.rbmInstance.rubricPrefab.transform.position,RubricManager.rbmInstance.rubricPrefab.transform.rotation,RubricManager.rbmInstance.rubricItemParent.transform);
                 tempRubricItem.GetComponent<CurrentRubricPanel>().panelID = i;
-                tempRubricItem.GetComponent<CurrentRubricPanel>().associatedAssignment = _button.GetComponent<AssignmentType>().localAssignmentWithRubric[0].assm_id;
+                tempRubricItem.GetComponent<CurrentRubricPanel>().localAssociatedAssignment = _button.GetComponent<AssignmentType>().localAssignmentWithRubric[0].assm_id;
                 tempRubricItem.GetComponent<CurrentRubricPanel>().associatedAssignmentButton = _button;
                 tempRubricItem.GetComponent<CurrentRubricPanel>().ResetScoresToOriginalTotal();
                 tempRubricItem.GetComponent<CurrentRubricPanel>().UpdateValues();
@@ -131,6 +133,12 @@ public class AssmManager : MonoBehaviour
             GameManager.gmInstance.PersistHideModals(2);
             GameManager.gmInstance.PersistShowModals2(1);
 
+            // CREATE A MASTER COPY OF PROJECT BASE, PUT IT ON RUBIRC MANAGER AND MANIPULATE THAT DATA
+            RubricManager.rbmInstance.MasterActiveProjectComponent = _button.GetComponent<AssignmentType>().localProjectWithRubricData[0];
+
+            // CREATE A REFERENCE to that Master Component Locally
+            ProjectBaseElement LocalActiveProjectComponent = RubricManager.rbmInstance.MasterActiveProjectComponent;
+
             int tempCountOfButtonsProject = _button.GetComponent<AssignmentType>().localProjectWithRubricData[0].project_associated_assignments.Count();
             GameObject tempComponentButton;
 
@@ -140,12 +148,14 @@ public class AssmManager : MonoBehaviour
             {   
                 tempComponentButton = GameObject.Instantiate(assignmentPrefab,assignmentPrefab.transform.position,assignmentPrefab.transform.rotation,RubricManager.rbmInstance.projectItemParent.transform);
 
-                // tempComponentButton.GetComponent<AssignmentType>().localAssignmentWithRubric[0] = _button.GetComponent<AssignmentType>().localProjectWithRubricData[0].project_associated_assignments[i];
-                
-                // tempComponentButton.transform.name = tempComponentButton.GetComponent<AssignmentType>().localAssignmentWithRubric[0].assm_name.ToString() + " | " + tempComponentButton.GetComponent<AssignmentType>().localAssignmentWithRubric[0].assm_no + " - " + tempComponentButton.GetComponent<AssignmentType>().localAssignmentWithRubric[0].assm_name;
+                // tempComponentButton.GetComponent<AssignmentType>().localAssignmentWithRubric.Add(_button.GetComponent<AssignmentType>().localProjectWithRubricData[0].project_associated_assignments[i]);
 
-                // //tempComponentButton.GetComponentInChildren<TMP_Text>().text = tempComponentButton.transform.name;
-                // //tempButtonGO.GetComponent<AssignmentType>().associatedAssignment = DataParser.dpInstance.assmDatasetElements[i].assm_type;
+                tempComponentButton.GetComponent<AssignmentType>().localAssignmentWithRubric.Add(LocalActiveProjectComponent.project_associated_assignments[i]);
+                
+                tempComponentButton.transform.name = LocalActiveProjectComponent.project_associated_assignments[i].assm_name;
+                tempComponentButton.GetComponentInChildren<TMP_Text>().text = tempComponentButton.transform.name;
+
+                tempComponentButton.GetComponent<AssignmentType>().associatedAssignment = LocalActiveProjectComponent.project_associated_assignments[i].assm_id;
 
                 // tempComponentButton.GetComponent<AssignmentType>().associatedAssignment = tempComponentButton.GetComponent<AssignmentType>().localAssignmentWithRubric[0].assm_type;
                 
@@ -158,7 +168,7 @@ public class AssmManager : MonoBehaviour
             foreach(Transform child in RubricManager.rbmInstance.projectItemParent.transform)
             {
                 // replace with onbuttonclick2
-                child.GetComponent<Button>().onClick.AddListener(() => onButtonClick1(child.gameObject));
+                child.GetComponent<Button>().onClick.AddListener(() => onButtonClick2(child.gameObject));
             }
 
             // GameObject tempRubricItem2;
@@ -177,6 +187,58 @@ public class AssmManager : MonoBehaviour
         //     RubricManager.rbmInstance.currentAssignmentButton = _button.GetComponent<Button>();
         //     currentRubricManager.rubricTypeDropdown.value = _button.GetComponent<AssignmentType>().localAssignmentWithRubric[0].assm_type;
         //     currentRubricManager.ChangeRubricsProject(_button);
+        }
+    }
+
+    // Once project loads in left panel, then this function loads in the rubrics for whatever component button is clicked
+    void onButtonClick2(GameObject _assmButton)
+    {
+        if(GameManager.gmInstance.currentState == GameManager.GameState.PROJECT_GRADING)
+        {
+            // GameObject tempRubricPanel = null;
+            // tempRubricPanel = GameObject.Instantiate(RubricManager.rbmInstance.rubricPanelPrefab, RubricManager.rbmInstance.rubricPanelPrefab.transform.position, RubricManager.rbmInstance.rubricPanelPrefab.transform.rotation, RubricManager.rbmInstance.rubricPanelPrefabParent.transform);
+
+            RubricManager.rbmInstance.currentAssignmentButton = _assmButton.GetComponent<Button>();
+            //RubricManager.rbmInstance.prevAssignmentButton = RubricManager.rbmInstance.currentAssignmentButton;
+            assignmentSelectorButton.GetComponentInChildren<TMP_Text>().text = _assmButton.gameObject.name;
+            currentRubricManager.rubricTypeDropdown.value = _assmButton.GetComponent<AssignmentType>().localAssignmentWithRubric[0].assm_type;
+           //GameManager.gmInstance.PersistHideModals(0);
+            GameManager.gmInstance.PersistShowModals2(1);
+
+            // CREATE A REFERENCE to that Master Component Locally
+            ProjectBaseElement LocalActiveProjectComponent = RubricManager.rbmInstance.MasterActiveProjectComponent;
+
+            foreach(Transform child in RubricManager.rbmInstance.rubricItemParent.transform)
+            {
+                Destroy(child.gameObject);
+            }
+
+            // LINQ to search for the index of assignment rubric (L3) associated to a specific assignment (L2) in project (L1) and compare to the assignment ID stored in the button that was clicked
+            var tempIndex = LocalActiveProjectComponent.project_associated_assignments.Select((assm_rubrics,index)=> new {assm_rubrics,index}).Where(x=>x.assm_rubrics.assm_id == _assmButton.GetComponent<AssignmentType>().associatedAssignment).FirstOrDefault();
+
+            GameObject tempRubricItem = null;
+
+            // Use the previously created temporary index "class"'s index memeber to select the correct assignment (L2) in project (L1) and find the length of its rubrics structure
+            for(int i=0; i<LocalActiveProjectComponent.project_associated_assignments[tempIndex.index].assm_rubrics.Count; i++)
+            {
+                tempRubricItem = GameObject.Instantiate(RubricManager.rbmInstance.rubricPrefab,RubricManager.rbmInstance.rubricPrefab.transform.position,RubricManager.rbmInstance.rubricPrefab.transform.rotation,RubricManager.rbmInstance.rubricItemParent.transform);
+                tempRubricItem.GetComponent<CurrentRubricPanel>().panelID = i;
+                tempRubricItem.GetComponent<CurrentRubricPanel>().localAssociatedAssignment = LocalActiveProjectComponent.project_associated_assignments[tempIndex.index].assm_id;
+                tempRubricItem.GetComponent<CurrentRubricPanel>().associatedAssignmentButton = _assmButton;
+                //tempRubricItem.GetComponent<CurrentRubricPanel>().ResetScoresToOriginalTotal();
+                tempRubricItem.GetComponent<CurrentRubricPanel>().UpdateValues();
+            }
+
+            //RubricManager.rbmInstance.currentFeedback.Clear();
+            //currentRubricManager.ChangeRubrics(_button);
+
+
+            // RubricManager.rbmInstance.currentAssignmentButton = _button.GetComponent<Button>();
+            // assignmentSelectorButton.GetComponentInChildren<TMP_Text>().text = _button.gameObject.name;
+            // currentRubricManager.rubricTypeDropdown.value = _button.GetComponent<AssignmentType>().assignmentTypeCode;
+            // GameManager.gmInstance.PersistHideModals(0);
+            // GameManager.gmInstance.PersistShowModals2(1);
+            // currentRubricManager.ChangeRubrics(_button);
         }
     }
 

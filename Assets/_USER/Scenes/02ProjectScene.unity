@@ -1563,6 +1563,11 @@ MonoBehaviour:
   currentFeedback: []
   currentComponentScores: []
   currentSum: 0
+  ActiveProjectComponentMaster:
+    project_id: 0
+    project_name: 
+    project_components_count: 0
+    project_associated_assignments: []
 --- !u!1 &569056003
 GameObject:
   m_ObjectHideFlags: 0

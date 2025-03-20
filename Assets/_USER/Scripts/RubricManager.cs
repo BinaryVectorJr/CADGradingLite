@@ -92,6 +92,9 @@ public class RubricManager : MonoBehaviour
 
     public int currentSum = 0;
 
+    [SerializeField]
+    public ProjectBaseElement MasterActiveProjectComponent;
+
     void Awake()
     {
         if(rbmInstance != null && rbmInstance != this)
@@ -103,6 +106,7 @@ public class RubricManager : MonoBehaviour
             rbmInstance = this;
         }
     }
+
 
     // Start is called before the first frame update
     void Start()
