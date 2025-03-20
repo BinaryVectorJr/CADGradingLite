@@ -105,6 +105,8 @@ public class ProjectBaseElement
     public int project_id;
     public string project_name;
     public int project_components_count;
+    public List<AssignmentDataElement> project_associated_assignments = new List<AssignmentDataElement>();
+
     public float project_total_points
     {
         get
@@ -144,7 +146,6 @@ public class ProjectBaseElement
         }
     }
 
-    public List<AssignmentDataElement> project_associated_assignments = new List<AssignmentDataElement>();
 
 }
 
@@ -541,20 +542,38 @@ public class DataParser : MonoBehaviour
 
             // Set the fileds for each element of array of classes OLD
             //projectDatasetElements[i] = SetProjectDataElementValues(projectDatasetContentPart);
-            projectDatasetElements[i] = SetProjectDataElementValues2(_projectDatasetLines);
+            projectDatasetElements[i] = SetProjectDataElementValues2(projectDatasetContentPart);
 
-            projectDatasetElements[i].project_associated_assignments.AddRange(assmDatasetElements.Where(x=>x.assm_name.Contains(projectDatasetElements[i].project_name)));
+            // projectDatasetElements[i].project_associated_assignments.AddRange(assmDatasetElements.Where(x=>x.assm_name.Contains(projectDatasetElements[i].project_name)));
+
+            // projectDatasetElements[i].project_associated_assignments = new List<AssignmentDataElement> {assmDatasetElements[27]};
 
             // for(int j = 0; j<projectDatasetElements[i].project_components_count; j++)
             // {
 
             //     //TESTING: Debug.Log(assmDatasetElements[i].assm_total_points);
             // }
+
+            if(projectDatasetElements[i].project_associated_assignments.Count == 0)
+            {
+                Debug.Log("HEHRE");
+                string tempAssm = projectDatasetElements[i].project_name;
+
+                projectDatasetElements[i].project_associated_assignments.AddRange(assmDatasetElements.Where(x=>x.assm_name.Contains(tempAssm)));
+
+                // projectDatasetElements[i].project_associated_assignments.AddRange(assmDatasetElements.Where(x=>projectDatasetElements[i].project_associated_assignments[i].assm_name.Contains(assmDatasetElements[i].assm_name)).ToList());
+                
+                // for(int j = 0; j<assmDatasetElements.Length; j++)
+                // {
+                //     assignmentWithRubricElements.Add(new AssignmentWithRubric(assmDatasetElements[i],finalGroupedArray[assmDatasetElements[i].assm_type]));
+                // }
+            }
         }
+        
 
         // for(int i = 0; i<projectDatasetElements.Length; i++)
         // {
-
+        //     projectDatasetElements[i].project_associated_assignments.AddRange(assmDatasetElements.Where(x=>x.assm_name.Contains(projectDatasetElements[i].project_name)));
         // }
     }
 
@@ -662,18 +681,17 @@ public class DataParser : MonoBehaviour
     // NEW
     ProjectBaseElement SetProjectDataElementValues2(string[] projectDatasetLine)
     {
-        List<AssignmentDataElement> tempProjs = new List<AssignmentDataElement>();
-        for(int i=0; i<projectDatasetLine.Length; i++)
-        {
-            tempProjs.AddRange(assmDatasetElements.Where(x=>x.assm_name.Contains(projectDatasetLine[1])));
-        }
+        // List<AssignmentDataElement> tempProjs = new List<AssignmentDataElement>();
+        // for(int i=0; i<projectDatasetLine.Length; i++)
+        // {
+        //     tempProjs.AddRange(assmDatasetElements.Where(x=>x.assm_name.Contains(projectDatasetLine[1])));
+        // }
 
         return new ProjectBaseElement
         {
             project_id = int.TryParse(projectDatasetLine[0], out var z0) ? z0:0,
             project_name = projectDatasetLine[1],
-            project_components_count = int.TryParse(projectDatasetLine[2], out var z1) ? z1:0,
-            project_associated_assignments = tempProjs
+            project_components_count = int.TryParse(projectDatasetLine[2], out var z1) ? z1:0
         };
     }
 
