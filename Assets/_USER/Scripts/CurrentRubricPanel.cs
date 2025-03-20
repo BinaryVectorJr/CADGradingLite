@@ -9,6 +9,10 @@ public class CurrentRubricPanel : MonoBehaviour
 {
     public int panelID = 0;
 
+    public int associatedAssignment = 0;
+
+    public GameObject associatedAssignmentButton;
+
     [SerializeField]
     public TMP_Text ErrorDesc;
 
@@ -39,6 +43,7 @@ public class CurrentRubricPanel : MonoBehaviour
 
     void Update()
     {
+
         if(ErrorTotal.text != ErrorAchieved.text)
         {
             this.gameObject.GetComponent<Image>().color = changedColor;
@@ -47,6 +52,33 @@ public class CurrentRubricPanel : MonoBehaviour
         else
         {
             this.gameObject.GetComponent<Image>().color = defaultColor;
+        }
+    }
+
+    public void UpdateValues()
+    {
+        if(associatedAssignment == associatedAssignmentButton.GetComponent<AssignmentType>().associatedAssignment)
+        {
+            //VALIDATED WORKING: Debug.Log("HERE");
+            ErrorDesc.text = associatedAssignmentButton.GetComponent<AssignmentType>().localAssignmentWithRubric[0].assm_rubrics[panelID].error_item_desc;
+            ErrorAchieved.text = int.Parse(associatedAssignmentButton.GetComponent<AssignmentType>().localAssignmentWithRubric[0].assm_rubrics[panelID].error_item_achieved_points.ToString()).ToString();
+            ErrorTotal.text = int.Parse(associatedAssignmentButton.GetComponent<AssignmentType>().localAssignmentWithRubric[0].assm_rubrics[panelID].error_item_total_points.ToString()).ToString();
+        }
+    }
+
+    public void WriteBackToSource()
+    {
+        if(associatedAssignment == associatedAssignmentButton.GetComponent<AssignmentType>().associatedAssignment)
+        {
+            associatedAssignmentButton.GetComponent<AssignmentType>().localAssignmentWithRubric[0].assm_rubrics[panelID].error_item_achieved_points = int.Parse(ErrorAchieved.text);
+        }
+    }
+
+    public void ResetScoresToOriginalTotal()
+    {
+        if(associatedAssignment == associatedAssignmentButton.GetComponent<AssignmentType>().associatedAssignment)
+        {
+            associatedAssignmentButton.GetComponent<AssignmentType>().localAssignmentWithRubric[0].assm_rubrics[panelID].error_item_achieved_points = associatedAssignmentButton.GetComponent<AssignmentType>().localAssignmentWithRubric[0].assm_rubrics[panelID].error_item_total_points;
         }
     }
 
@@ -80,9 +112,9 @@ public class CurrentRubricPanel : MonoBehaviour
 
             var localAchieved = RubricManager.rbmInstance.currentAssignmentButton.GetComponent<AssignmentType>().localProjectWithRubricData[0].rubric_data[panelID].error_item_achieved_points;
 
-            if(RubricManager.rbmInstance.currentScoresProjectDict.ContainsKey(RubricManager.rbmInstance.currentAssignmentButton.GetComponent<AssignmentType>().projectID.ToString()))
+            if(RubricManager.rbmInstance.currentScoresProjectDict.ContainsKey(RubricManager.rbmInstance.currentAssignmentButton.GetComponent<AssignmentType>().associatedProject.ToString()))
             {
-                List<int> values = RubricManager.rbmInstance.currentScoresProjectDict[RubricManager.rbmInstance.currentAssignmentButton.GetComponent<AssignmentType>().projectID.ToString()];
+                List<int> values = RubricManager.rbmInstance.currentScoresProjectDict[RubricManager.rbmInstance.currentAssignmentButton.GetComponent<AssignmentType>().associatedProject.ToString()];
 
                 for (int i=0; i< values.Count; i++)
                 {
@@ -94,6 +126,7 @@ public class CurrentRubricPanel : MonoBehaviour
             // {
             //     RubricManager.rbmInstance.currentScoresProjectDict.Values.(int.Parse(localAchieved.ToString()));
             // }
+            
         }
 
         if (!RubricManager.rbmInstance.currentFeedback.Any(s => s.Contains(ErrorDesc.text, System.StringComparison.OrdinalIgnoreCase)) && RubricManager.rbmInstance.currentAssignmentButton != null)
@@ -118,6 +151,7 @@ public class CurrentRubricPanel : MonoBehaviour
             RubricManager.rbmInstance.currentAssignmentButton.GetComponent<AssignmentType>().localProjectWithRubricData[0].rubric_data[panelID].error_item_achieved_points = _tempErrAchieved;
         }
 
+        WriteBackToSource();
     }
 
     public void SetHalf()
@@ -150,9 +184,9 @@ public class CurrentRubricPanel : MonoBehaviour
             
             var localAchieved = RubricManager.rbmInstance.currentAssignmentButton.GetComponent<AssignmentType>().localProjectWithRubricData[0].rubric_data[panelID].error_item_achieved_points;
 
-            if(RubricManager.rbmInstance.currentScoresProjectDict.ContainsKey(RubricManager.rbmInstance.currentAssignmentButton.GetComponent<AssignmentType>().projectID.ToString()))
+            if(RubricManager.rbmInstance.currentScoresProjectDict.ContainsKey(RubricManager.rbmInstance.currentAssignmentButton.GetComponent<AssignmentType>().associatedProject.ToString()))
             {
-                List<int> values = RubricManager.rbmInstance.currentScoresProjectDict[RubricManager.rbmInstance.currentAssignmentButton.GetComponent<AssignmentType>().projectID.ToString()];
+                List<int> values = RubricManager.rbmInstance.currentScoresProjectDict[RubricManager.rbmInstance.currentAssignmentButton.GetComponent<AssignmentType>().associatedProject.ToString()];
 
                 for (int i=0; i< values.Count; i++)
                 {
@@ -182,6 +216,8 @@ public class CurrentRubricPanel : MonoBehaviour
             // Updating the local variable score so that it persists
             RubricManager.rbmInstance.currentAssignmentButton.GetComponent<AssignmentType>().localProjectWithRubricData[0].rubric_data[panelID].error_item_achieved_points = _tempErrAchieved;
         }
+
+        WriteBackToSource();
     }
 
     public void IncreaseByOne(int val)
@@ -213,9 +249,9 @@ public class CurrentRubricPanel : MonoBehaviour
 
             var localAchieved = RubricManager.rbmInstance.currentAssignmentButton.GetComponent<AssignmentType>().localProjectWithRubricData[0].rubric_data[panelID].error_item_achieved_points;
 
-            if(RubricManager.rbmInstance.currentScoresProjectDict.ContainsKey(RubricManager.rbmInstance.currentAssignmentButton.GetComponent<AssignmentType>().projectID.ToString()))
+            if(RubricManager.rbmInstance.currentScoresProjectDict.ContainsKey(RubricManager.rbmInstance.currentAssignmentButton.GetComponent<AssignmentType>().associatedProject.ToString()))
             {
-                List<int> values = RubricManager.rbmInstance.currentScoresProjectDict[RubricManager.rbmInstance.currentAssignmentButton.GetComponent<AssignmentType>().projectID.ToString()];
+                List<int> values = RubricManager.rbmInstance.currentScoresProjectDict[RubricManager.rbmInstance.currentAssignmentButton.GetComponent<AssignmentType>().associatedProject.ToString()];
 
                 for (int i=0; i< values.Count; i++)
                 {
@@ -252,6 +288,8 @@ public class CurrentRubricPanel : MonoBehaviour
             // Updating the local variable score so that it persists
             RubricManager.rbmInstance.currentAssignmentButton.GetComponent<AssignmentType>().localProjectWithRubricData[0].rubric_data[panelID].error_item_achieved_points = _tempErrAchieved;
         }
+
+        WriteBackToSource();
     }
 
     public void DecreaseByOne(int val)
@@ -283,9 +321,9 @@ public class CurrentRubricPanel : MonoBehaviour
             
             var localAchieved = RubricManager.rbmInstance.currentAssignmentButton.GetComponent<AssignmentType>().localProjectWithRubricData[0].rubric_data[panelID].error_item_achieved_points;
 
-            if(RubricManager.rbmInstance.currentScoresProjectDict.ContainsKey(RubricManager.rbmInstance.currentAssignmentButton.GetComponent<AssignmentType>().projectID.ToString()))
+            if(RubricManager.rbmInstance.currentScoresProjectDict.ContainsKey(RubricManager.rbmInstance.currentAssignmentButton.GetComponent<AssignmentType>().associatedProject.ToString()))
             {
-                List<int> values = RubricManager.rbmInstance.currentScoresProjectDict[RubricManager.rbmInstance.currentAssignmentButton.GetComponent<AssignmentType>().projectID.ToString()];
+                List<int> values = RubricManager.rbmInstance.currentScoresProjectDict[RubricManager.rbmInstance.currentAssignmentButton.GetComponent<AssignmentType>().associatedProject.ToString()];
 
                 for (int i=0; i< values.Count; i++)
                 {
@@ -322,6 +360,8 @@ public class CurrentRubricPanel : MonoBehaviour
             // Updating the local variable score so that it persists
             RubricManager.rbmInstance.currentAssignmentButton.GetComponent<AssignmentType>().localProjectWithRubricData[0].rubric_data[panelID].error_item_achieved_points = _tempErrAchieved;
         }
+
+        WriteBackToSource();
         
     }
 
@@ -354,9 +394,9 @@ public class CurrentRubricPanel : MonoBehaviour
             
             var localAchieved = RubricManager.rbmInstance.currentAssignmentButton.GetComponent<AssignmentType>().localProjectWithRubricData[0].rubric_data[panelID].error_item_achieved_points;
 
-            if(RubricManager.rbmInstance.currentScoresProjectDict.ContainsKey(RubricManager.rbmInstance.currentAssignmentButton.GetComponent<AssignmentType>().projectID.ToString()))
+            if(RubricManager.rbmInstance.currentScoresProjectDict.ContainsKey(RubricManager.rbmInstance.currentAssignmentButton.GetComponent<AssignmentType>().associatedProject.ToString()))
             {
-                List<int> values = RubricManager.rbmInstance.currentScoresProjectDict[RubricManager.rbmInstance.currentAssignmentButton.GetComponent<AssignmentType>().projectID.ToString()];
+                List<int> values = RubricManager.rbmInstance.currentScoresProjectDict[RubricManager.rbmInstance.currentAssignmentButton.GetComponent<AssignmentType>().associatedProject.ToString()];
 
                 for (int i=0; i< values.Count; i++)
                 {
@@ -387,5 +427,7 @@ public class CurrentRubricPanel : MonoBehaviour
             // Updating the local variable score so that it persists
             RubricManager.rbmInstance.currentAssignmentButton.GetComponent<AssignmentType>().localProjectWithRubricData[0].rubric_data[panelID].error_item_achieved_points = _tempErrAchieved;
         }
+
+        WriteBackToSource();
     }
 }

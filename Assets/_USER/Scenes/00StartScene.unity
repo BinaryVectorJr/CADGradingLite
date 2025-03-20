@@ -349,8 +349,8 @@ MonoBehaviour:
   projectDatasetFile: {fileID: 0}
   projectDatasetLines: []
   projectDatasetElements: []
-  tempSameAssmRubrics: []
   assignmentWithRubricElements: []
+  projectWithRubricElements: []
 --- !u!114 &1492641281 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8948577526074077656, guid: e7a387d4d8e52be4ab422a629400f9f4, type: 3}

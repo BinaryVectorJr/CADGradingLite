@@ -5,7 +5,9 @@ using System.Linq;
 using System.Xml.Schema;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UIElements;
+using UnityEditor;
 
 [System.Serializable]
 public class RubricDataElement
@@ -39,13 +41,45 @@ public class RubricDataElement
 [System.Serializable]
 public class AssignmentDataElement
 {
+    public int assm_id;
     public int assm_type;
-    public int week_no;
-    public int assm_no;
+    public string week_no;
+    public string assm_no;
     public string assm_name;
-    public int total_points;
+
+    public int assm_total_points
+    {
+        get
+        {
+            int sum = 0;
+
+            for(int i=0; i<assm_rubrics.Count; i++)
+            {
+                sum += int.Parse(assm_rubrics[i].error_item_total_points.ToString());
+            }
+
+            return sum;
+        }
+    }
+    public int assm_achieved_points
+    {
+        get
+        {
+            int sum = 0;
+
+            for(int i=0; i<assm_rubrics.Count; i++)
+            {
+                sum += int.Parse(assm_rubrics[i].error_item_achieved_points.ToString());
+            }
+
+            return sum;
+        }
+    }
+
     public string avail_date;
     public string due_date;
+
+    public List<RubricDataElement> assm_rubrics = new List<RubricDataElement>();
 }
 
 [System.Serializable]
@@ -285,6 +319,7 @@ public class DataParser : MonoBehaviour
             for(int i = 0; i<assmDatasetElements.Length; i++)
             {
                 assignmentWithRubricElements.Add(new AssignmentWithRubric(assmDatasetElements[i],finalGroupedArray[assmDatasetElements[i].assm_type]));
+                //TESTING: Debug.Log(assmDatasetElements[i].assm_total_points);
             }
         }
 
@@ -323,7 +358,17 @@ public class DataParser : MonoBehaviour
             }
 
             // Set the fileds for each element of array of classes
-            assmDatasetElements[i] = SetAssmDataElementValues(assmDatasetContentPart);
+            assmDatasetElements[i] = SetAssmDataElementValues(assmDatasetContentPart,i);
+
+            if(assmDatasetElements[i].assm_rubrics.Count == 0)
+            {
+                assmDatasetElements[i].assm_rubrics.AddRange(rubricDatasetElements.Where(x=>x.assm_type == assmDatasetElements[i].assm_type));
+
+                // for(int j = 0; j<assmDatasetElements.Length; j++)
+                // {
+                //     assignmentWithRubricElements.Add(new AssignmentWithRubric(assmDatasetElements[i],finalGroupedArray[assmDatasetElements[i].assm_type]));
+                // }
+            }
         }
         
     }
@@ -347,7 +392,17 @@ public class DataParser : MonoBehaviour
             }
 
             // Set the fileds for each element of array of classes
-            assmDatasetElements[i] = SetAssmDataElementValues(assmDatasetContentPart);
+            assmDatasetElements[i] = SetAssmDataElementValues(assmDatasetContentPart,i);
+
+            if(assmDatasetElements[i].assm_rubrics.Count == 0)
+            {
+                assmDatasetElements[i].assm_rubrics.AddRange(rubricDatasetElements.Where(x=>x.assm_type == assmDatasetElements[i].assm_type));
+                
+                // for(int j = 0; j<assmDatasetElements.Length; j++)
+                // {
+                //     assignmentWithRubricElements.Add(new AssignmentWithRubric(assmDatasetElements[i],finalGroupedArray[assmDatasetElements[i].assm_type]));
+                // }
+            }
         }
     }
 
@@ -485,15 +540,20 @@ public class DataParser : MonoBehaviour
         };
     }
 
-    AssignmentDataElement SetAssmDataElementValues(string[] assmDatasetLine)
+    AssignmentDataElement SetAssmDataElementValues(string[] assmDatasetLine, int _id)
     {
         return new AssignmentDataElement
         {
+            assm_id = _id,
             assm_type = int.TryParse(assmDatasetLine[0], out var x0) ? x0:0,    // Primary Key
-            week_no = int.TryParse(assmDatasetLine[1], out var x1) ? x1:0,
-            assm_no = int.TryParse(assmDatasetLine[2], out var x2) ? x2:0,
+            // week_no = int.TryParse(assmDatasetLine[1], out var x1) ? x1:0,
+            week_no = assmDatasetLine[1],
+            // assm_no = int.TryParse(assmDatasetLine[2], out var x2) ? x2:0,
+            assm_no = assmDatasetLine[2],
             assm_name = assmDatasetLine[3],
-            total_points = int.TryParse(assmDatasetLine[4], out var x3) ? x3:0,
+            //total_points = int.TryParse(assmDatasetLine[4], out var x3) ? x3:0,
+            //assm_total_points = 0,
+            //total_achieved_points = 0,
             avail_date = assmDatasetLine[5],
             due_date = assmDatasetLine[6],
         };
@@ -521,10 +581,14 @@ public class DataParser : MonoBehaviour
             project_component_assignment_data = new AssignmentDataElement
             {
                 assm_type = int.TryParse(projectDatasetLine[5], out var z3) ? z3:0,    // Primary Key of assignment
-                week_no = int.TryParse(projectDatasetLine[6], out var z4) ? z4:0,
-                assm_no = int.TryParse(projectDatasetLine[7], out var z5) ? z5:0,
+                // week_no = int.TryParse(projectDatasetLine[6], out var z4) ? z4:0,
+                week_no = projectDatasetLine[6], 
+                // assm_no = int.TryParse(projectDatasetLine[7], out var z5) ? z5:0,
+                assm_no = projectDatasetLine[7],
                 assm_name = projectDatasetLine[8],
-                total_points = int.TryParse(projectDatasetLine[9], out var z6) ? z6:0,
+                //total_points = int.TryParse(projectDatasetLine[9], out var z6) ? z6:0,
+                //total_points = 0,
+                //total_achieved_points = 0,
                 avail_date = projectDatasetLine[10],
                 due_date = projectDatasetLine[11]
             }

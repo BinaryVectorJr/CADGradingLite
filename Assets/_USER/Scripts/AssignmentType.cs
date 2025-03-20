@@ -5,10 +5,13 @@ using UnityEngine;
 public class AssignmentType : MonoBehaviour
 {
     [SerializeField]
-    public int assignmentTypeCode = 0;
+    public int associatedAssignment = 0;
 
     [SerializeField]
-    public int projectID = 0;
+    public int associatedProject = 0;
+
+    [SerializeField]
+    public List<AssignmentDataElement> localAssignmentWithRubric = new List<AssignmentDataElement>();
 
     [SerializeField]
     public List<ProjectWithRubric> localProjectWithRubricData = new List<ProjectWithRubric>();

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using UnityEditor.Animations;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
@@ -46,6 +47,8 @@ public class AssmManager : MonoBehaviour
         
     }
 
+    // Actual buttons that when clicked on, one can navigate around different assignments
+    // Contains local assignment data based on button name
     void SetupAssignmentButtons()
     {
         int tempCountOfButtons = DataParser.dpInstance.assmLineCount;
@@ -54,9 +57,11 @@ public class AssmManager : MonoBehaviour
         for(int i=0; i<tempCountOfButtons; i++)
         {   
             tempButtonGO = GameObject.Instantiate(assignmentPrefab);
-            tempButtonGO.transform.name = DataParser.dpInstance.assmDatasetElements[i].week_no.ToString("D2") + " | " + DataParser.dpInstance.assmDatasetElements[i].assm_no;
+            tempButtonGO.transform.name = DataParser.dpInstance.assmDatasetElements[i].week_no.ToString() + " | " + DataParser.dpInstance.assmDatasetElements[i].assm_no;
             tempButtonGO.GetComponentInChildren<TMP_Text>().text = tempButtonGO.transform.name;
-            tempButtonGO.GetComponent<AssignmentType>().assignmentTypeCode = DataParser.dpInstance.assmDatasetElements[i].assm_type;
+            //tempButtonGO.GetComponent<AssignmentType>().associatedAssignment = DataParser.dpInstance.assmDatasetElements[i].assm_type;
+            tempButtonGO.GetComponent<AssignmentType>().associatedAssignment = i;
+            tempButtonGO.GetComponent<AssignmentType>().localAssignmentWithRubric.Add(DataParser.dpInstance.assmDatasetElements[i]);
             tempButtonGO.transform.SetParent(parentModal.transform);
             tempButtonGO = null;
         }
@@ -71,18 +76,49 @@ public class AssmManager : MonoBehaviour
     {
         if(GameManager.gmInstance.currentState == GameManager.GameState.REGULAR_GRADING)
         {
+            // GameObject tempRubricPanel = null;
+            // tempRubricPanel = GameObject.Instantiate(RubricManager.rbmInstance.rubricPanelPrefab, RubricManager.rbmInstance.rubricPanelPrefab.transform.position, RubricManager.rbmInstance.rubricPanelPrefab.transform.rotation, RubricManager.rbmInstance.rubricPanelPrefabParent.transform);
+
             RubricManager.rbmInstance.currentAssignmentButton = _button.GetComponent<Button>();
+            //RubricManager.rbmInstance.prevAssignmentButton = RubricManager.rbmInstance.currentAssignmentButton;
             assignmentSelectorButton.GetComponentInChildren<TMP_Text>().text = _button.gameObject.name;
-            currentRubricManager.rubricTypeDropdown.value = _button.GetComponent<AssignmentType>().assignmentTypeCode;
+            currentRubricManager.rubricTypeDropdown.value = _button.GetComponent<AssignmentType>().localAssignmentWithRubric[0].assm_type;
             GameManager.gmInstance.PersistHideModals(0);
             GameManager.gmInstance.PersistShowModals2(1);
-            currentRubricManager.ChangeRubrics();
+
+
+            foreach(Transform child in RubricManager.rbmInstance.rubricItemParent.transform)
+            {
+                Destroy(child.gameObject);
+            }
+
+            GameObject tempRubricItem = null;
+            for(int i=0; i<_button.GetComponent<AssignmentType>().localAssignmentWithRubric[0].assm_rubrics.Count; i++)
+            {
+                tempRubricItem = GameObject.Instantiate(RubricManager.rbmInstance.rubricPrefab,RubricManager.rbmInstance.rubricPrefab.transform.position,RubricManager.rbmInstance.rubricPrefab.transform.rotation,RubricManager.rbmInstance.rubricItemParent.transform);
+                tempRubricItem.GetComponent<CurrentRubricPanel>().panelID = i;
+                tempRubricItem.GetComponent<CurrentRubricPanel>().associatedAssignment = _button.GetComponent<AssignmentType>().localAssignmentWithRubric[0].assm_id;
+                tempRubricItem.GetComponent<CurrentRubricPanel>().associatedAssignmentButton = _button;
+                tempRubricItem.GetComponent<CurrentRubricPanel>().ResetScoresToOriginalTotal();
+                tempRubricItem.GetComponent<CurrentRubricPanel>().UpdateValues();
+            }
+
+            RubricManager.rbmInstance.currentFeedback.Clear();
+            //currentRubricManager.ChangeRubrics(_button);
+
+
+            // RubricManager.rbmInstance.currentAssignmentButton = _button.GetComponent<Button>();
+            // assignmentSelectorButton.GetComponentInChildren<TMP_Text>().text = _button.gameObject.name;
+            // currentRubricManager.rubricTypeDropdown.value = _button.GetComponent<AssignmentType>().assignmentTypeCode;
+            // GameManager.gmInstance.PersistHideModals(0);
+            // GameManager.gmInstance.PersistShowModals2(1);
+            // currentRubricManager.ChangeRubrics(_button);
         }
 
         if (GameManager.gmInstance.currentState == GameManager.GameState.PROJECT_GRADING)
         {
             RubricManager.rbmInstance.currentAssignmentButton = _button.GetComponent<Button>();
-            currentRubricManager.rubricTypeDropdown.value = _button.GetComponent<AssignmentType>().assignmentTypeCode;
+            currentRubricManager.rubricTypeDropdown.value = _button.GetComponent<AssignmentType>().localAssignmentWithRubric[0].assm_type;
             currentRubricManager.ChangeRubricsProject(_button);
         }
     }
@@ -112,8 +148,8 @@ public class AssmManager : MonoBehaviour
             tempButtonGO2.transform.name = DataParser.dpInstance.projectWithRubricElements[indexList[i]].project_data.project_name.ToString();
             tempButtonGO2.GetComponentInChildren<TMP_Text>().text = tempButtonGO2.transform.name;
 
-            tempButtonGO2.GetComponent<AssignmentType>().assignmentTypeCode = DataParser.dpInstance.projectWithRubricElements[indexList[i]].project_data.project_component_assignment_data.assm_type;
-            tempButtonGO2.GetComponent<AssignmentType>().projectID = DataParser.dpInstance.projectWithRubricElements[indexList[i]].project_data.project_id;
+            //tempButtonGO2.GetComponent<AssignmentType>().localProjectWithRubricData = DataParser.dpInstance.projectWithRubricElements[indexList[i]].project_data.project_component_assignment_data.assm_type;
+            tempButtonGO2.GetComponent<AssignmentType>().associatedProject = DataParser.dpInstance.projectWithRubricElements[indexList[i]].project_data.project_id;
             tempButtonGO2.GetComponent<AssignmentType>().localProjectWithRubricData.Add(DataParser.dpInstance.projectWithRubricElements[indexList[i]]);
 
             tempButtonGO2.transform.SetParent(parentModal.transform);
@@ -189,8 +225,8 @@ public class AssmManager : MonoBehaviour
             tempButtonGO2.transform.name = DataParser.dpInstance.projectWithRubricElements[indexList2[i]].project_data.project_name.ToString() + " | " + DataParser.dpInstance.projectWithRubricElements[indexList2[i]].project_data.project_component_assignment_data.assm_name.ToString();
             tempButtonGO2.GetComponentInChildren<TMP_Text>().text = tempButtonGO2.transform.name;
 
-            tempButtonGO2.GetComponent<AssignmentType>().assignmentTypeCode = DataParser.dpInstance.projectWithRubricElements[indexList2[i]].project_data.project_component_assignment_data.assm_type;
-            tempButtonGO2.GetComponent<AssignmentType>().projectID = DataParser.dpInstance.projectWithRubricElements[indexList2[i]].project_data.project_id;
+            //tempButtonGO2.GetComponent<AssignmentType>().assignmentTypeCode = DataParser.dpInstance.projectWithRubricElements[indexList2[i]].project_data.project_component_assignment_data.assm_type;
+            tempButtonGO2.GetComponent<AssignmentType>().associatedProject = DataParser.dpInstance.projectWithRubricElements[indexList2[i]].project_data.project_id;
             tempButtonGO2.GetComponent<AssignmentType>().localProjectWithRubricData.Add(DataParser.dpInstance.projectWithRubricElements[indexList2[i]]);
             
             tempButtonGO2.transform.SetParent(componentModal.transform);
@@ -220,7 +256,7 @@ public class AssmManager : MonoBehaviour
             child.GetComponent<Button>().onClick.AddListener(() => onButtonClick1(child.gameObject));
         }
 
-        currentRubricManager.ChangeRubrics();
+        currentRubricManager.ChangeRubrics(null);
 
     }
 

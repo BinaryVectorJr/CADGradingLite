@@ -23,7 +23,16 @@ public class RubricManager : MonoBehaviour
     private GameObject rubricParentModal;
 
     [SerializeField]
-    private GameObject rubricPrefab;
+    public GameObject rubricPrefab;
+
+    [SerializeField]
+    public GameObject rubricPanelPrefab;
+
+    //[SerializeField]
+    //public GameObject rubricPanelPrefabParent;
+
+    [SerializeField]
+    public GameObject rubricItemParent;
 
     [SerializeField]
     public TMP_Dropdown rubricTypeDropdown;
@@ -47,6 +56,8 @@ public class RubricManager : MonoBehaviour
     public List<List<int>> allAssignmentAchievedScoresProject;
 
     public Button currentAssignmentButton;
+    
+    public Button prevAssignmentButton;
 
     public List<int> currentScores;
 
@@ -95,7 +106,7 @@ public class RubricManager : MonoBehaviour
     {
         if(GameManager.gmInstance.currentState == GameManager.GameState.REGULAR_GRADING)
         {
-            ChangeRubrics();
+            ChangeRubrics(null);
         }
         else if (GameManager.gmInstance.currentState == GameManager.GameState.PROJECT_GRADING)
         {
@@ -116,7 +127,7 @@ public class RubricManager : MonoBehaviour
         }
     }
 
-    public void ChangeRubrics()
+    public void ChangeRubrics(GameObject _button)
     {
         // Each panel has a temporary ID when it is generated and is on-screen
         // This enables us to assign dynamic IDs to each panel, as the rubrics update based on assignment type
@@ -165,7 +176,7 @@ public class RubricManager : MonoBehaviour
 
             for(int i=0; i<tempCountRubricItems2; i++)
             {
-                if(_button.GetComponent<AssignmentType>().assignmentTypeCode == rubricTypeDropdown.value)
+                //if(_button.GetComponent<AssignmentType>().assignmentTypeCode == rubricTypeDropdown.value)
                 {
                     tempRubricGO = GameObject.Instantiate(rubricPrefab);
                     tempRubricGO.GetComponent<CurrentRubricPanel>().panelID = currentPanelID;
@@ -186,11 +197,11 @@ public class RubricManager : MonoBehaviour
 
                     // currentScoresProjectDict.Add(_button.GetComponent<AssignmentType>().projectID.ToString(), new List<int> {Mathf.CeilToInt(_button.GetComponent<AssignmentType>().localProjectWithRubricData[0].rubric_data[i].error_item_achieved_points)});
 
-                    if (!currentScoresProjectDict2.Exists(pair => pair.key == _button.GetComponent<AssignmentType>().projectID.ToString()))
+                    if (!currentScoresProjectDict2.Exists(pair => pair.key == _button.GetComponent<AssignmentType>().associatedProject.ToString()))
                     {
                         currentScoresProjectDict2.Add(new SerializableKeyValuePair 
                                                         {
-                                                            key = _button.GetComponent<AssignmentType>().projectID.ToString(), 
+                                                            key = _button.GetComponent<AssignmentType>().associatedProject.ToString(), 
                                                             value = new List<int> 
                                                             {
                                                                 Mathf.CeilToInt(_button.GetComponent<AssignmentType>().localProjectWithRubricData[0].rubric_data[i].error_item_achieved_points)
