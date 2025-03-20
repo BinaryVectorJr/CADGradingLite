@@ -346,7 +346,7 @@ public class GameManager : MonoBehaviour
         #endif
 
         LoadAndCopyAddressables();
-        DataParser.dpInstance.RubricSetter();
+        //DataParser.dpInstance.RubricSetter();
 
         // OnPanelChangeClick("PNL_Directory");
         // if (Directory.Exists(folderPath))

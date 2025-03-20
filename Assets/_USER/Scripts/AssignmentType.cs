@@ -13,6 +13,6 @@ public class AssignmentType : MonoBehaviour
     [SerializeField]
     public List<AssignmentDataElement> localAssignmentWithRubric = new List<AssignmentDataElement>();
 
-    [SerializeField]
-    public List<ProjectWithRubric> localProjectWithRubricData = new List<ProjectWithRubric>();
+    // [SerializeField]
+    // public List<ProjectWithRubric> localProjectWithRubricData = new List<ProjectWithRubric>();
 }
