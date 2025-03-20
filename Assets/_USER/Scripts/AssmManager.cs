@@ -116,7 +116,6 @@ public class AssmManager : MonoBehaviour
             tempButtonGO2.GetComponent<AssignmentType>().projectID = DataParser.dpInstance.projectWithRubricElements[indexList[i]].project_data.project_id;
             tempButtonGO2.GetComponent<AssignmentType>().localProjectWithRubricData.Add(DataParser.dpInstance.projectWithRubricElements[indexList[i]]);
 
-
             tempButtonGO2.transform.SetParent(parentModal.transform);
             tempButtonGO2 = null;
         }
@@ -129,11 +128,34 @@ public class AssmManager : MonoBehaviour
 
     void onButtonClick2(GameObject _button)
     {
+        int tempTotal = 0;
+
         if (GameManager.gmInstance.currentState == GameManager.GameState.PROJECT_GRADING)
         {
             GameManager.gmInstance.PersistHideModals(2);
             GameManager.gmInstance.PersistShowModals2(1);
             SetupProjectButtons2(_button.gameObject.name);
+
+            foreach(GameObject go in RubricManager.rbmInstance.allAssignmentButtonsProject)
+            {
+                int tempLen = go.GetComponent<AssignmentType>().localProjectWithRubricData[0].rubric_data.Count();
+                for(int i=1; i<tempLen; i++)
+                {
+                    tempTotal += int.Parse(go.GetComponent<AssignmentType>().localProjectWithRubricData[0].rubric_data[i].error_item_achieved_points.ToString());
+                }
+            }
+
+            RubricManager.rbmInstance.totalAssignmentScoreButton.GetComponentInChildren<TMP_Text>().text = tempTotal.ToString();
+
+            RubricManager.rbmInstance.rubricTotalScoreButton.GetComponentInChildren<TMP_Text>().text = _button.GetComponent<AssignmentType>().localProjectWithRubricData[0].project_data.project_id.ToString();
+
+            if(!RubricManager.rbmInstance.allRubricTotalScoresButtonProject.Contains(RubricManager.rbmInstance.rubricTotalScoreButton))
+            {
+                RubricManager.rbmInstance.allRubricTotalScoresButtonProject.Add(RubricManager.rbmInstance.rubricTotalScoreButton);
+            }
+
+            // WORKING VERIFIED: Debug.Log(RubricManager.rbmInstance.rubricTotalScoreButton.GetComponentInChildren<TMP_Text>().text);
+
         }
     }
 
@@ -143,6 +165,8 @@ public class AssmManager : MonoBehaviour
         int currentIndex2 = 0;
         List<int> indexList2 = new List<int>();
         GameObject tempButtonGO2 = null;
+        RubricManager.rbmInstance.allAssignmentButtonsProject.Clear();
+        //RubricManager.rbmInstance.allAssignmentAchievedScoresProject.Clear();
 
         foreach (ProjectWithRubric proj in DataParser.dpInstance.projectWithRubricElements)
         {
@@ -154,52 +178,50 @@ public class AssmManager : MonoBehaviour
             currentIndex2++;
         }
 
-        if(componentModal.transform.childCount == 0)
+        foreach(Transform child in componentModal.transform)
         {
-            for(int i=0; i<indexList2.Count; i++)
-            {   
-                tempButtonGO2 = GameObject.Instantiate(projectPrefab);
-                tempButtonGO2.transform.name = DataParser.dpInstance.projectWithRubricElements[indexList2[i]].project_data.project_name.ToString() + " | " + DataParser.dpInstance.projectWithRubricElements[indexList2[i]].project_data.project_component_assignment_data.assm_name.ToString();
-                tempButtonGO2.GetComponentInChildren<TMP_Text>().text = tempButtonGO2.transform.name;
-
-                tempButtonGO2.GetComponent<AssignmentType>().assignmentTypeCode = DataParser.dpInstance.projectWithRubricElements[indexList2[i]].project_data.project_component_assignment_data.assm_type;
-                tempButtonGO2.GetComponent<AssignmentType>().projectID = DataParser.dpInstance.projectWithRubricElements[indexList2[i]].project_data.project_id;
-                tempButtonGO2.GetComponent<AssignmentType>().localProjectWithRubricData.Add(DataParser.dpInstance.projectWithRubricElements[indexList2[i]]);
-
-                
-                tempButtonGO2.transform.SetParent(componentModal.transform);
-
-                // WORKS BUT SCORES UPDATE FOR ALL
-                if(currentRubricManager.currentComponentScores.Count == 0)
-                {
-                    currentRubricManager.currentComponentScores.Add(new RubricManager.ProjectComponentScoresElement(DataParser.dpInstance.projectDatasetElements[i].project_id,0,currentRubricManager.currentScores));
-                }
-                else if (currentRubricManager.currentComponentScores.Any(complist => complist.component_id == DataParser.dpInstance.projectDatasetElements[i].project_id))
-                {
-                    Debug.Log("EXISTS");
-                }
-                else
-                {
-                    RubricManager.rbmInstance.currentComponentScores.Add(new RubricManager.ProjectComponentScoresElement(DataParser.dpInstance.projectDatasetElements[i].project_id,0,currentRubricManager.currentScores));
-                }
-                
-
-                tempButtonGO2 = null;
-            }
-
-            foreach(Transform child in componentModal.transform)
-            {
-                child.GetComponent<Button>().onClick.AddListener(() => onButtonClick1(child.gameObject));
-            }
+            Destroy(child.gameObject);
         }
-        else
+
+        for(int i=0; i<indexList2.Count; i++)
+        {   
+            tempButtonGO2 = GameObject.Instantiate(projectPrefab);
+            tempButtonGO2.transform.name = DataParser.dpInstance.projectWithRubricElements[indexList2[i]].project_data.project_name.ToString() + " | " + DataParser.dpInstance.projectWithRubricElements[indexList2[i]].project_data.project_component_assignment_data.assm_name.ToString();
+            tempButtonGO2.GetComponentInChildren<TMP_Text>().text = tempButtonGO2.transform.name;
+
+            tempButtonGO2.GetComponent<AssignmentType>().assignmentTypeCode = DataParser.dpInstance.projectWithRubricElements[indexList2[i]].project_data.project_component_assignment_data.assm_type;
+            tempButtonGO2.GetComponent<AssignmentType>().projectID = DataParser.dpInstance.projectWithRubricElements[indexList2[i]].project_data.project_id;
+            tempButtonGO2.GetComponent<AssignmentType>().localProjectWithRubricData.Add(DataParser.dpInstance.projectWithRubricElements[indexList2[i]]);
+            
+            tempButtonGO2.transform.SetParent(componentModal.transform);
+
+            RubricManager.rbmInstance.allAssignmentButtonsProject.Add(tempButtonGO2);
+            // RubricManager.rbmInstance.allAssignmentAchievedScoresProject.Add(int.Parse(tempButtonGO2.GetComponent<AssignmentType>().localProjectWithRubricData[0].rubric_data[i].error_item_achieved_points.ToString()));
+
+            // // WORKS BUT SCORES UPDATE FOR ALL
+            // if(currentRubricManager.currentComponentScores.Count == 0)
+            // {
+            //     currentRubricManager.currentComponentScores.Add(new RubricManager.ProjectComponentScoresElement(DataParser.dpInstance.projectDatasetElements[i].project_id,0,currentRubricManager.currentScores));
+            // }
+            // else if (currentRubricManager.currentComponentScores.Any(complist => complist.component_id == DataParser.dpInstance.projectDatasetElements[i].project_id))
+            // {
+            //     Debug.Log("EXISTS");
+            // }
+            // else
+            // {
+            //     RubricManager.rbmInstance.currentComponentScores.Add(new RubricManager.ProjectComponentScoresElement(DataParser.dpInstance.projectDatasetElements[i].project_id,0,currentRubricManager.currentScores));
+            // }
+
+            tempButtonGO2 = null;
+        }
+
+        foreach(Transform child in componentModal.transform)
         {
-            currentRubricManager.ChangeRubrics();
+            child.GetComponent<Button>().onClick.AddListener(() => onButtonClick1(child.gameObject));
         }
+
+        currentRubricManager.ChangeRubrics();
 
     }
-
-
-
 
 }

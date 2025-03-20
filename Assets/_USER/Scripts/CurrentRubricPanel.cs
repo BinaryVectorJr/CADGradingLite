@@ -52,11 +52,50 @@ public class CurrentRubricPanel : MonoBehaviour
 
     public void SetZero()
     {
-        int _tempErrAchieved = Mathf.Clamp((int.Parse(ErrorTotal.text)-int.Parse(ErrorTotal.text)),0,int.Parse(ErrorTotal.text));
+        int _tempErrAchieved = 0;
+
+        if(GameManager.gmInstance.currentState == GameManager.GameState.REGULAR_GRADING)
+        {
+            _tempErrAchieved = Mathf.Clamp((int.Parse(ErrorTotal.text)-int.Parse(ErrorTotal.text)),0,int.Parse(ErrorTotal.text));
+        }
+
+        else if (GameManager.gmInstance.currentState == GameManager.GameState.PROJECT_GRADING)
+        {
+            var localTotal = RubricManager.rbmInstance.currentAssignmentButton.GetComponent<AssignmentType>().localProjectWithRubricData[0].rubric_data[panelID].error_item_total_points;
+
+            _tempErrAchieved = Mathf.Clamp(int.Parse(localTotal.ToString()) - int.Parse(localTotal.ToString()),0,int.Parse(ErrorTotal.text));
+        }
+
         ErrorAchieved.text = _tempErrAchieved.ToString();
         int _tempErrTotal = int.Parse(ErrorTotal.text);
-        RubricManager.rbmInstance.UpdateScore();
-        RubricManager.rbmInstance.currentScores[panelID]=int.Parse(ErrorAchieved.text);
+
+        if(GameManager.gmInstance.currentState == GameManager.GameState.REGULAR_GRADING)
+        {
+            RubricManager.rbmInstance.UpdateScore();
+            RubricManager.rbmInstance.currentScores[panelID]=int.Parse(ErrorAchieved.text);
+        }
+        else if (GameManager.gmInstance.currentState == GameManager.GameState.PROJECT_GRADING)
+        {
+            RubricManager.rbmInstance.UpdateScoreProject(_tempErrAchieved);
+
+            var localAchieved = RubricManager.rbmInstance.currentAssignmentButton.GetComponent<AssignmentType>().localProjectWithRubricData[0].rubric_data[panelID].error_item_achieved_points;
+
+            if(RubricManager.rbmInstance.currentScoresProjectDict.ContainsKey(RubricManager.rbmInstance.currentAssignmentButton.GetComponent<AssignmentType>().projectID.ToString()))
+            {
+                List<int> values = RubricManager.rbmInstance.currentScoresProjectDict[RubricManager.rbmInstance.currentAssignmentButton.GetComponent<AssignmentType>().projectID.ToString()];
+
+                for (int i=0; i< values.Count; i++)
+                {
+                    values[i] = int.Parse(localAchieved.ToString());
+                }
+            }
+
+            // for(int i=0; i<RubricManager.rbmInstance.allAssignmentButtonsProject.Count; i++)
+            // {
+            //     RubricManager.rbmInstance.currentScoresProjectDict.Values.(int.Parse(localAchieved.ToString()));
+            // }
+        }
+
         if (!RubricManager.rbmInstance.currentFeedback.Any(s => s.Contains(ErrorDesc.text, System.StringComparison.OrdinalIgnoreCase)) && RubricManager.rbmInstance.currentAssignmentButton != null)
         {
             RubricManager.rbmInstance.currentFeedback.Add(RubricManager.rbmInstance.currentAssignmentButton.name.ToString() + " - DEDUCTION: " + ErrorDesc.text + " (-" + (_tempErrTotal-_tempErrAchieved).ToString() +")");
@@ -72,15 +111,56 @@ public class CurrentRubricPanel : MonoBehaviour
                 RubricManager.rbmInstance.currentFeedback[indexOfFeedbackItem.Value] = RubricManager.rbmInstance.currentAssignmentButton.name.ToString() + " - DEDUCTION: " + ErrorDesc.text + " (-" + (_tempErrTotal-_tempErrAchieved).ToString() +")";
             }
         }
+
+        if (GameManager.gmInstance.currentState == GameManager.GameState.PROJECT_GRADING)
+        {
+            // Updating the local variable score so that it persists
+            RubricManager.rbmInstance.currentAssignmentButton.GetComponent<AssignmentType>().localProjectWithRubricData[0].rubric_data[panelID].error_item_achieved_points = _tempErrAchieved;
+        }
+
     }
 
     public void SetHalf()
     {
-        int _tempErrAchieved = Mathf.Clamp((Mathf.CeilToInt(float.Parse(ErrorTotal.text)/2)),0,Mathf.CeilToInt(float.Parse(ErrorTotal.text)/2));
+        int _tempErrAchieved = 0;
+
+        if(GameManager.gmInstance.currentState == GameManager.GameState.REGULAR_GRADING)
+        {
+            _tempErrAchieved = Mathf.Clamp((Mathf.CeilToInt(float.Parse(ErrorTotal.text)/2)),0,Mathf.CeilToInt(float.Parse(ErrorTotal.text)/2));
+        }
+
+        else if (GameManager.gmInstance.currentState == GameManager.GameState.PROJECT_GRADING)
+        {
+            var localTotal = RubricManager.rbmInstance.currentAssignmentButton.GetComponent<AssignmentType>().localProjectWithRubricData[0].rubric_data[panelID].error_item_total_points;
+
+            _tempErrAchieved = Mathf.Clamp((Mathf.CeilToInt(float.Parse(localTotal.ToString())/2)),0,Mathf.CeilToInt(float.Parse(localTotal.ToString())/2));
+        }
+
         ErrorAchieved.text = _tempErrAchieved.ToString();
         int _tempErrTotal = int.Parse(ErrorTotal.text);
-        RubricManager.rbmInstance.UpdateScore();
-        RubricManager.rbmInstance.currentScores[panelID]=int.Parse(ErrorAchieved.text);
+        
+        if(GameManager.gmInstance.currentState == GameManager.GameState.REGULAR_GRADING)
+        {
+            RubricManager.rbmInstance.UpdateScore();
+            RubricManager.rbmInstance.currentScores[panelID]=int.Parse(ErrorAchieved.text);
+        }
+        else if (GameManager.gmInstance.currentState == GameManager.GameState.PROJECT_GRADING)
+        {
+            RubricManager.rbmInstance.UpdateScoreProject(_tempErrAchieved);
+            
+            var localAchieved = RubricManager.rbmInstance.currentAssignmentButton.GetComponent<AssignmentType>().localProjectWithRubricData[0].rubric_data[panelID].error_item_achieved_points;
+
+            if(RubricManager.rbmInstance.currentScoresProjectDict.ContainsKey(RubricManager.rbmInstance.currentAssignmentButton.GetComponent<AssignmentType>().projectID.ToString()))
+            {
+                List<int> values = RubricManager.rbmInstance.currentScoresProjectDict[RubricManager.rbmInstance.currentAssignmentButton.GetComponent<AssignmentType>().projectID.ToString()];
+
+                for (int i=0; i< values.Count; i++)
+                {
+                    values[i] = int.Parse(localAchieved.ToString());
+                }
+            }
+        }
+
         if (!RubricManager.rbmInstance.currentFeedback.Any(s => s.Contains(ErrorDesc.text, System.StringComparison.OrdinalIgnoreCase)))
         {
             RubricManager.rbmInstance.currentFeedback.Add(RubricManager.rbmInstance.currentAssignmentButton.name.ToString() + " - DEDUCTION: " + ErrorDesc.text + " (-" + (_tempErrTotal-_tempErrAchieved).ToString() +")");
@@ -96,13 +176,54 @@ public class CurrentRubricPanel : MonoBehaviour
                 RubricManager.rbmInstance.currentFeedback[indexOfFeedbackItem.Value] = RubricManager.rbmInstance.currentAssignmentButton.name.ToString() + " - DEDUCTION: " + ErrorDesc.text + " (-" + (_tempErrTotal-_tempErrAchieved).ToString() +")";
             }
         }
+
+        if (GameManager.gmInstance.currentState == GameManager.GameState.PROJECT_GRADING)
+        {
+            // Updating the local variable score so that it persists
+            RubricManager.rbmInstance.currentAssignmentButton.GetComponent<AssignmentType>().localProjectWithRubricData[0].rubric_data[panelID].error_item_achieved_points = _tempErrAchieved;
+        }
     }
 
     public void IncreaseByOne(int val)
     {
-        ErrorAchieved.text = Mathf.Clamp((int.Parse(ErrorAchieved.text)+val),0,int.Parse(ErrorTotal.text)).ToString();
-        RubricManager.rbmInstance.UpdateScore();
-        RubricManager.rbmInstance.currentScores[panelID]=int.Parse(ErrorAchieved.text);
+        int _tempErrAchieved = 0;
+
+        if(GameManager.gmInstance.currentState == GameManager.GameState.REGULAR_GRADING)
+        {
+            _tempErrAchieved = Mathf.Clamp((int.Parse(ErrorAchieved.text)+val),0,int.Parse(ErrorTotal.text));
+        }
+
+        else if (GameManager.gmInstance.currentState == GameManager.GameState.PROJECT_GRADING)
+        {
+            var localTotal = RubricManager.rbmInstance.currentAssignmentButton.GetComponent<AssignmentType>().localProjectWithRubricData[0].rubric_data[panelID].error_item_total_points;
+
+            _tempErrAchieved = Mathf.Clamp((int.Parse(localTotal.ToString())+val),0,int.Parse(localTotal.ToString()));
+        }
+
+        ErrorAchieved.text = _tempErrAchieved.ToString();
+        
+        if(GameManager.gmInstance.currentState == GameManager.GameState.REGULAR_GRADING)
+        {
+            RubricManager.rbmInstance.UpdateScore();
+            RubricManager.rbmInstance.currentScores[panelID]=int.Parse(ErrorAchieved.text);
+        }
+        else if (GameManager.gmInstance.currentState == GameManager.GameState.PROJECT_GRADING)
+        {
+            RubricManager.rbmInstance.UpdateScoreProject(_tempErrAchieved);
+
+            var localAchieved = RubricManager.rbmInstance.currentAssignmentButton.GetComponent<AssignmentType>().localProjectWithRubricData[0].rubric_data[panelID].error_item_achieved_points;
+
+            if(RubricManager.rbmInstance.currentScoresProjectDict.ContainsKey(RubricManager.rbmInstance.currentAssignmentButton.GetComponent<AssignmentType>().projectID.ToString()))
+            {
+                List<int> values = RubricManager.rbmInstance.currentScoresProjectDict[RubricManager.rbmInstance.currentAssignmentButton.GetComponent<AssignmentType>().projectID.ToString()];
+
+                for (int i=0; i< values.Count; i++)
+                {
+                    values[i] = int.Parse(localAchieved.ToString());
+                }
+            }
+        }
+
         if(string.Equals(ErrorAchieved.text,ErrorTotal.text))
         {
             ResetScore();
@@ -124,14 +245,55 @@ public class CurrentRubricPanel : MonoBehaviour
                     RubricManager.rbmInstance.currentFeedback[indexOfFeedbackItem.Value] = RubricManager.rbmInstance.currentAssignmentButton.name.ToString() + " - DEDUCTION: " + ErrorDesc.text;
                 }
             }
+        }
+
+        if (GameManager.gmInstance.currentState == GameManager.GameState.PROJECT_GRADING)
+        {
+            // Updating the local variable score so that it persists
+            RubricManager.rbmInstance.currentAssignmentButton.GetComponent<AssignmentType>().localProjectWithRubricData[0].rubric_data[panelID].error_item_achieved_points = _tempErrAchieved;
         }
     }
 
     public void DecreaseByOne(int val)
     {
-        ErrorAchieved.text = Mathf.Clamp((int.Parse(ErrorAchieved.text)-val),0,int.Parse(ErrorTotal.text)).ToString();
-        RubricManager.rbmInstance.UpdateScore();
-        RubricManager.rbmInstance.currentScores[panelID]=int.Parse(ErrorAchieved.text);
+        int _tempErrAchieved = 0;
+
+        if(GameManager.gmInstance.currentState == GameManager.GameState.REGULAR_GRADING)
+        {
+            _tempErrAchieved = Mathf.Clamp((int.Parse(ErrorAchieved.text)-val),0,int.Parse(ErrorTotal.text));
+        }
+
+        else if (GameManager.gmInstance.currentState == GameManager.GameState.PROJECT_GRADING)
+        {
+            var localTotal = RubricManager.rbmInstance.currentAssignmentButton.GetComponent<AssignmentType>().localProjectWithRubricData[0].rubric_data[panelID].error_item_total_points;
+
+            _tempErrAchieved = Mathf.Clamp((int.Parse(localTotal.ToString())-val),0,int.Parse(localTotal.ToString()));
+        }
+
+        ErrorAchieved.text = _tempErrAchieved.ToString();
+        
+        if(GameManager.gmInstance.currentState == GameManager.GameState.REGULAR_GRADING)
+        {
+            RubricManager.rbmInstance.UpdateScore();
+            RubricManager.rbmInstance.currentScores[panelID]=int.Parse(ErrorAchieved.text);
+        }
+        else if (GameManager.gmInstance.currentState == GameManager.GameState.PROJECT_GRADING)
+        {
+            RubricManager.rbmInstance.UpdateScoreProject(_tempErrAchieved);
+            
+            var localAchieved = RubricManager.rbmInstance.currentAssignmentButton.GetComponent<AssignmentType>().localProjectWithRubricData[0].rubric_data[panelID].error_item_achieved_points;
+
+            if(RubricManager.rbmInstance.currentScoresProjectDict.ContainsKey(RubricManager.rbmInstance.currentAssignmentButton.GetComponent<AssignmentType>().projectID.ToString()))
+            {
+                List<int> values = RubricManager.rbmInstance.currentScoresProjectDict[RubricManager.rbmInstance.currentAssignmentButton.GetComponent<AssignmentType>().projectID.ToString()];
+
+                for (int i=0; i< values.Count; i++)
+                {
+                    values[i] = int.Parse(localAchieved.ToString());
+                }
+            }
+        }
+
         if(string.Equals(ErrorAchieved.text,ErrorTotal.text))
         {
             ResetScore();
@@ -154,16 +316,76 @@ public class CurrentRubricPanel : MonoBehaviour
                 }
             }
         }
+
+        if (GameManager.gmInstance.currentState == GameManager.GameState.PROJECT_GRADING)
+        {
+            // Updating the local variable score so that it persists
+            RubricManager.rbmInstance.currentAssignmentButton.GetComponent<AssignmentType>().localProjectWithRubricData[0].rubric_data[panelID].error_item_achieved_points = _tempErrAchieved;
+        }
+        
     }
 
     public void ResetScore()
     {
-        ErrorAchieved.text = ErrorTotal.text;
-        RubricManager.rbmInstance.UpdateScore();
-        RubricManager.rbmInstance.currentScores[panelID]=int.Parse(ErrorAchieved.text);
-        if (RubricManager.rbmInstance.currentFeedback.Any(s => s.Contains(ErrorDesc.text, System.StringComparison.OrdinalIgnoreCase)))
+        int _tempErrAchieved = 0;
+
+        if(GameManager.gmInstance.currentState == GameManager.GameState.REGULAR_GRADING)
+        {
+            _tempErrAchieved = Mathf.Clamp((int.Parse(ErrorTotal.text)),0,int.Parse(ErrorTotal.text));
+        }
+
+        else if (GameManager.gmInstance.currentState == GameManager.GameState.PROJECT_GRADING)
+        {
+            var localTotal = RubricManager.rbmInstance.currentAssignmentButton.GetComponent<AssignmentType>().localProjectWithRubricData[0].rubric_data[panelID].error_item_total_points;
+
+            _tempErrAchieved = Mathf.Clamp(int.Parse(localTotal.ToString()),0,int.Parse(ErrorTotal.text));
+        }
+
+        ErrorAchieved.text = _tempErrAchieved.ToString();
+
+        if(GameManager.gmInstance.currentState == GameManager.GameState.REGULAR_GRADING)
+        {
+            RubricManager.rbmInstance.UpdateScore();
+            RubricManager.rbmInstance.currentScores[panelID]=int.Parse(ErrorAchieved.text);
+        }
+        else if (GameManager.gmInstance.currentState == GameManager.GameState.PROJECT_GRADING)
+        {
+            RubricManager.rbmInstance.UpdateScoreProject(_tempErrAchieved);
+            
+            var localAchieved = RubricManager.rbmInstance.currentAssignmentButton.GetComponent<AssignmentType>().localProjectWithRubricData[0].rubric_data[panelID].error_item_achieved_points;
+
+            if(RubricManager.rbmInstance.currentScoresProjectDict.ContainsKey(RubricManager.rbmInstance.currentAssignmentButton.GetComponent<AssignmentType>().projectID.ToString()))
+            {
+                List<int> values = RubricManager.rbmInstance.currentScoresProjectDict[RubricManager.rbmInstance.currentAssignmentButton.GetComponent<AssignmentType>().projectID.ToString()];
+
+                for (int i=0; i< values.Count; i++)
+                {
+                    values[i] = int.Parse(localAchieved.ToString());
+                }
+            }
+        }
+
+
+        if (!RubricManager.rbmInstance.currentFeedback.Any(s => s.Contains(ErrorDesc.text, System.StringComparison.OrdinalIgnoreCase)))
         {
             RubricManager.rbmInstance.currentFeedback.RemoveAll(item => item.Contains(ErrorDesc.text));
+        }
+        else
+        {
+            var indexOfFeedbackItem = RubricManager.rbmInstance.currentFeedback.Select((value,idx) => new {value,idx}).FirstOrDefault(x => x.value.Contains(ErrorDesc.text))?.idx;
+
+            // WORKING VALIDATED: Debug.Log(indexOfFeedbackItem.Value.ToString());
+
+            if(indexOfFeedbackItem.HasValue)
+            {
+                RubricManager.rbmInstance.currentFeedback.RemoveAll(item => item.Contains(ErrorDesc.text));
+            }
+        }
+
+        if (GameManager.gmInstance.currentState == GameManager.GameState.PROJECT_GRADING)
+        {
+            // Updating the local variable score so that it persists
+            RubricManager.rbmInstance.currentAssignmentButton.GetComponent<AssignmentType>().localProjectWithRubricData[0].rubric_data[panelID].error_item_achieved_points = _tempErrAchieved;
         }
     }
 }

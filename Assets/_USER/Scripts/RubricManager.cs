@@ -2,13 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Linq;
+using System.Runtime.InteropServices;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements.Experimental;
 
 public class RubricManager : MonoBehaviour
 {
     public static RubricManager rbmInstance {get; private set;}
+
+    [System.Serializable]
+    public class SerializableKeyValuePair
+    {
+        public string key;        // The key (string)
+        public List<int> value;   // The value (List<int>)
+    }
 
     [SerializeField]
     private GameObject rubricParentModal;
@@ -20,14 +29,32 @@ public class RubricManager : MonoBehaviour
     public TMP_Dropdown rubricTypeDropdown;
 
     [SerializeField]
-    public Button rubricTotalScore;
+    public Button rubricTotalScoreButton;
+
+    [SerializeField]
+    public List<Button> allRubricTotalScoresButtonProject;
+
+    [SerializeField]
+    public Button totalAssignmentScoreButton;
 
     [SerializeField]
     public Button rubricFinalFeedback;
 
+    [SerializeField]
+    public List<GameObject> allAssignmentButtonsProject;
+
+    [SerializeField]
+    public List<List<int>> allAssignmentAchievedScoresProject;
+
     public Button currentAssignmentButton;
 
     public List<int> currentScores;
+
+    [SerializeField]
+    public Dictionary<string, List<int>> currentScoresProjectDict = new Dictionary<string, List<int>>();
+
+    [SerializeField]
+    public List<SerializableKeyValuePair> currentScoresProjectDict2;
 
     public List<string> currentFeedback;
 
@@ -66,13 +93,27 @@ public class RubricManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        ChangeRubrics();
+        if(GameManager.gmInstance.currentState == GameManager.GameState.REGULAR_GRADING)
+        {
+            ChangeRubrics();
+        }
+        else if (GameManager.gmInstance.currentState == GameManager.GameState.PROJECT_GRADING)
+        {
+            ChangeRubricsProject(null);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        UpdateScore();
+        if(GameManager.gmInstance.currentState == GameManager.GameState.REGULAR_GRADING)
+        {
+            UpdateScore();
+        }
+        else if (GameManager.gmInstance.currentState == GameManager.GameState.PROJECT_GRADING)
+        {
+            UpdateScoreProject(0);
+        }
     }
 
     public void ChangeRubrics()
@@ -112,7 +153,12 @@ public class RubricManager : MonoBehaviour
         int currentPanelID = 0;
         if (GameManager.gmInstance.currentState == GameManager.GameState.PROJECT_GRADING)
         {
-            ClearPanel(1,0);
+            if(_button == null)
+            {
+                return;
+            }
+
+            ClearPanel(0,0);
             // Index will always be 0 as the button only is associated with one assignment type and rubric set for that assignment type
             int tempCountRubricItems2 = _button.GetComponent<AssignmentType>().localProjectWithRubricData[0].rubric_data.Count();
             GameObject tempRubricGO = null;
@@ -138,7 +184,21 @@ public class RubricManager : MonoBehaviour
                     tempRubricGO.transform.SetParent(rubricParentModal.transform);
                     tempRubricGO = null;
 
-                    currentScores.Add(Mathf.CeilToInt(_button.GetComponent<AssignmentType>().localProjectWithRubricData[0].rubric_data[i].error_item_achieved_points));
+                    // currentScoresProjectDict.Add(_button.GetComponent<AssignmentType>().projectID.ToString(), new List<int> {Mathf.CeilToInt(_button.GetComponent<AssignmentType>().localProjectWithRubricData[0].rubric_data[i].error_item_achieved_points)});
+
+                    if (!currentScoresProjectDict2.Exists(pair => pair.key == _button.GetComponent<AssignmentType>().projectID.ToString()))
+                    {
+                        currentScoresProjectDict2.Add(new SerializableKeyValuePair 
+                                                        {
+                                                            key = _button.GetComponent<AssignmentType>().projectID.ToString(), 
+                                                            value = new List<int> 
+                                                            {
+                                                                Mathf.CeilToInt(_button.GetComponent<AssignmentType>().localProjectWithRubricData[0].rubric_data[i].error_item_achieved_points)
+                                                            }
+                                                        }
+                                                    );
+                    }
+                    
                 }
             }
         }
@@ -188,8 +248,33 @@ public class RubricManager : MonoBehaviour
             // }
         }
 
-        rubricTotalScore.GetComponentInChildren<TMP_Text>().text = sum.ToString();
+        rubricTotalScoreButton.GetComponentInChildren<TMP_Text>().text = sum.ToString();
         currentSum = sum;
+    }
+
+    public void UpdateScoreProject(int _achievedScore)
+    {
+        int currentRubricSum = 0;
+
+        foreach(Transform child in rubricParentModal.transform)
+        {
+            GameObject res2 = FindTagInHierarchy(child.transform,"AchievedScore");
+
+            if(res2 != null)
+            {
+                currentRubricSum += Mathf.CeilToInt(float.TryParse(res2.GetComponent<TMP_Text>().text, out var y1) ? y1:0);
+            }
+            else
+            {
+                currentRubricSum += 0;
+            }
+        }
+
+        // rubricTotalScoreButton.GetComponentInChildren<TMP_Text>().text = (int.TryParse(rubricTotalScoreButton.GetComponentInChildren<TMP_Text>().text, out var y2) ? y2:0 - currentSum).ToString();
+
+        rubricTotalScoreButton.GetComponentInChildren<TMP_Text>().text = currentRubricSum.ToString();
+        currentSum = currentRubricSum;
+
     }
 
     GameObject FindTagInHierarchy(Transform _parentTransform, string _tag)
