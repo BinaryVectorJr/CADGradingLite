@@ -102,3 +102,4 @@
 17,Errors in assembly,100,100
 18,Atleast 5 dimensions per view (if Anark does not have 5 dimensions then its fine),20,20
 18,Dimensions spread over TOP-FRONT-SIDE views (10 pts per view),30,30
+19,Instructor part not used,10,10

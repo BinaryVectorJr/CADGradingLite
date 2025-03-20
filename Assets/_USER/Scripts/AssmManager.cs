@@ -37,7 +37,7 @@ public class AssmManager : MonoBehaviour
         }
         else if (GameManager.gmInstance.currentState == GameManager.GameState.PROJECT_GRADING)
         {
-            //SetupProjectButtons();
+            SetupProjectButtons();
         }
     }
 
@@ -57,7 +57,7 @@ public class AssmManager : MonoBehaviour
         for(int i=0; i<tempCountOfButtons; i++)
         {   
             tempButtonGO = GameObject.Instantiate(assignmentPrefab);
-            tempButtonGO.transform.name = DataParser.dpInstance.assmDatasetElements[i].week_no.ToString() + " | " + DataParser.dpInstance.assmDatasetElements[i].assm_no;
+            tempButtonGO.transform.name = DataParser.dpInstance.assmDatasetElements[i].week_no.ToString() + " | " + DataParser.dpInstance.assmDatasetElements[i].assm_no + " - " + DataParser.dpInstance.assmDatasetElements[i].assm_name;
             tempButtonGO.GetComponentInChildren<TMP_Text>().text = tempButtonGO.transform.name;
             //tempButtonGO.GetComponent<AssignmentType>().associatedAssignment = DataParser.dpInstance.assmDatasetElements[i].assm_type;
             tempButtonGO.GetComponent<AssignmentType>().associatedAssignment = i;
@@ -123,8 +123,11 @@ public class AssmManager : MonoBehaviour
         // }
     }
 
-    // void SetupProjectButtons()
-    // {
+    void SetupProjectButtons()
+    {
+
+        
+
     //     int tempCountOfButtons2 = 0;
     //     int currentIndex = 0;
     //     List<int> indexList = new List<int>();
@@ -193,7 +196,7 @@ public class AssmManager : MonoBehaviour
     //         // WORKING VERIFIED: Debug.Log(RubricManager.rbmInstance.rubricTotalScoreButton.GetComponentInChildren<TMP_Text>().text);
 
     //     }
-    // }
+    }
 
     // void SetupProjectButtons2(string _assignment_name)
     // {

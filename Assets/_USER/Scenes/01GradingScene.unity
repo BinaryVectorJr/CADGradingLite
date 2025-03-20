@@ -541,7 +541,6 @@ MonoBehaviour:
   rubricParentModal: {fileID: 2308769327598848870}
   rubricPrefab: {fileID: 8984050175971383647, guid: 01e8ea43e072a8f48b390621c47dc9e4, type: 3}
   rubricPanelPrefab: {fileID: 1690823594413368644}
-  rubricPanelPrefabParent: {fileID: 1655984007}
   rubricItemParent: {fileID: 2308769327598848870}
   rubricTypeDropdown: {fileID: 3259829190162452495}
   rubricTotalScoreButton: {fileID: 2080546361778580523}
@@ -550,6 +549,7 @@ MonoBehaviour:
   rubricFinalFeedback: {fileID: 1891174747961076554}
   allAssignmentButtonsProject: []
   currentAssignmentButton: {fileID: 0}
+  prevAssignmentButton: {fileID: 0}
   currentScores: 
   currentScoresProjectDict2: []
   currentFeedback: []
@@ -2981,6 +2981,12 @@ MonoBehaviour:
     - m_Text: INST Part
       m_Image: {fileID: 0}
     - m_Text: Progress Screenshot
+      m_Image: {fileID: 0}
+    - m_Text: Project Subassembly
+      m_Image: {fileID: 0}
+    - m_Text: Project PMI
+      m_Image: {fileID: 0}
+    - m_Text: INST Part Low
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:

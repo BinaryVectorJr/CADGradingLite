@@ -24,8 +24,41 @@
 10,08,1,Spindle Assembly (GA),100,available,due
 11,08,2,Butterfly Valve Assembly (DIY),100,available,due
 12,09,1,Cart Assembly (DIY),100,available,due
+17,09,1,BASE ASSEMBLY: Assembly,250,available,due
 0,09,1,BASE ASSEMBLY: ENGINE BODY,100,available,due
 0,09,1,BASE ASSEMBLY: CYLINDER,100,available,due
 15,09,1,BASE ASSEMBLY: INST-LBE BASE,30,available,due
+16,09,1,BASE ASSEMBLY: Screenshot,20,available,due
 13,10,1,Discussions,100,available,due
 14,10,2,Introduction to Engineering Documentation (GA),100,available,due
+17,10,1,CRANK AND CAM ASSEMBLY: Assembly,200,available,due
+0,10,1,CRANK AND CAM ASSEMBLY: CRANK AND CAM,100,available,due
+18,10,1,CRANK AND CAM ASSEMBLY: CAM Annotations,50,available,due
+15,10,1,CRANK AND CAM ASSEMBLY: INST-LBE CRANKSHAFT,30,available,due
+16,10,1,CRANK AND CAM ASSEMBLY: Screenshot,20,available,due
+17,11,1,PISTON ASSEMBLY: Assembly,400,available,due
+0,11,1,PISTON ASSEMBLY: PISTON,100,available,due
+0,11,1,PISTON ASSEMBLY: WRIST PIN BRACKET,100,available,due
+0,11,1,PISTON ASSEMBLY: CONNECTING ROD,100,available,due
+18,11,1,PISTON ASSEMBLY: CONNECTING ROD Annotations,50,available,due
+15,11,1,PISTON ASSEMBLY: INST-LBE WRIST PIN,30,available,due
+16,11,1,PISTON ASSEMBLY: Screenshot,20,available,due
+17,12,1,VALVE ASSEMBLY: Assembly,500,available,due
+0,12,1,VALVE ASSEMBLY: VALVE FLAT SPRING,100,available,due
+0,12,1,VALVE ASSEMBLY: VALVE SPRING,100,available,due
+0,12,1,VALVE ASSEMBLY: VALVE,100,available,due
+0,12,1,VALVE ASSEMBLY: CAM ROLLER FORK,100,available,due
+18,12,1,VALVE ASSEMBLY: CAM ROLLER FORK Annotations,50,available,due
+19,12,1,VALVE ASSEMBLY: INST-LBE ROLLER BUSHING,10,available,due
+19,12,1,VALVE ASSEMBLY: INST-LBE CAM ROLLER,10,available,due
+19,12,1,VALVE ASSEMBLY: INST-LBE VALVE PUSH ROD,10,available,due
+16,12,1,VALVE ASSEMBLY: Screenshot,20,available,due
+17,13,1,FUEL TANK ASSEMBLY: Assembly,400,available,due
+0,13,1,FUEL TANK ASSEMBLY: FUEL TANK,100,available,due
+0,13,1,FUEL TANK ASSEMBLY: FUEL TANK LID,100,available,due
+0,13,1,FUEL TANK ASSEMBLY: FUEL TANK BASE,100,available,due
+18,13,1,FUEL TANK ASSEMBLY: FUEL TANK BASE Annotations,50,available,due
+15,13,1,FUEL TANK ASSEMBLY: INST-LBE FUEL TANK SPOUT,30,available,due
+16,13,1,FUEL TANK ASSEMBLY: Screenshot,20,available,due
+0,14,1,TLA:FLYWHEEL,100,available,due
+18,14,1,TLA:FLYWHEEL Annotations,50,available,due
