@@ -1548,8 +1548,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rubricParentModal: {fileID: 1806657053}
   rubricPrefab: {fileID: 8984050175971383647, guid: ade1154d8cbba8548abc66e4bd327558, type: 3}
-  rubricPanelPrefab: {fileID: 0}
-  rubricItemParent: {fileID: 0}
+  rubricItemParent: {fileID: 1806657053}
+  projectItemParent: {fileID: 2025450016}
   rubricTypeDropdown: {fileID: 873116981}
   rubricTotalScoreButton: {fileID: 813424808}
   allRubricTotalScoresButtonProject: []
@@ -5223,7 +5223,7 @@ GameObject:
   - component: {fileID: 1806657056}
   - component: {fileID: 1806657055}
   m_Layer: 5
-  m_Name: Content
+  m_Name: Content Rubric
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -25,14 +25,17 @@ public class RubricManager : MonoBehaviour
     [SerializeField]
     public GameObject rubricPrefab;
 
-    [SerializeField]
-    public GameObject rubricPanelPrefab;
+    // [SerializeField]
+    // public GameObject rubricPanelPrefab;
 
     //[SerializeField]
     //public GameObject rubricPanelPrefabParent;
 
     [SerializeField]
     public GameObject rubricItemParent;
+
+    [SerializeField]
+    public GameObject projectItemParent;
 
     [SerializeField]
     public TMP_Dropdown rubricTypeDropdown;

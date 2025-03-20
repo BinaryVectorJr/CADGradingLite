@@ -86,7 +86,6 @@ public class AssmManager : MonoBehaviour
             GameManager.gmInstance.PersistHideModals(0);
             GameManager.gmInstance.PersistShowModals2(1);
 
-
             foreach(Transform child in RubricManager.rbmInstance.rubricItemParent.transform)
             {
                 Destroy(child.gameObject);
@@ -115,18 +114,94 @@ public class AssmManager : MonoBehaviour
             // currentRubricManager.ChangeRubrics(_button);
         }
 
-        // if (GameManager.gmInstance.currentState == GameManager.GameState.PROJECT_GRADING)
-        // {
+        // When assignment button is selected, create buttons on left side of screen with all the elements
+        if (GameManager.gmInstance.currentState == GameManager.GameState.PROJECT_GRADING)
+        {
+            if(RubricManager.rbmInstance.projectItemParent.transform.childCount != 0)
+            {
+                foreach(Transform child in RubricManager.rbmInstance.projectItemParent.transform)
+                {
+                    Destroy(child.gameObject);
+                }
+            }
+
+            RubricManager.rbmInstance.currentAssignmentButton = _button.GetComponent<Button>();
+            assignmentSelectorButton.GetComponentInChildren<TMP_Text>().text = _button.gameObject.name;
+            //currentRubricManager.rubricTypeDropdown.value = _button.GetComponent<AssignmentType>().localAssignmentWithRubric[0].assm_type;
+            GameManager.gmInstance.PersistHideModals(2);
+            GameManager.gmInstance.PersistShowModals2(1);
+
+            int tempCountOfButtonsProject = _button.GetComponent<AssignmentType>().localProjectWithRubricData[0].project_associated_assignments.Count();
+            GameObject tempComponentButton;
+
+            // _button.AssignmentType.localproject[0].projectassociatedassm for number of buttons
+            // then use that to instantiate rubrics
+            for(int i=0; i<tempCountOfButtonsProject; i++)
+            {   
+                tempComponentButton = GameObject.Instantiate(assignmentPrefab,assignmentPrefab.transform.position,assignmentPrefab.transform.rotation,RubricManager.rbmInstance.projectItemParent.transform);
+
+                // tempComponentButton.GetComponent<AssignmentType>().localAssignmentWithRubric[0] = _button.GetComponent<AssignmentType>().localProjectWithRubricData[0].project_associated_assignments[i];
+                
+                // tempComponentButton.transform.name = tempComponentButton.GetComponent<AssignmentType>().localAssignmentWithRubric[0].assm_name.ToString() + " | " + tempComponentButton.GetComponent<AssignmentType>().localAssignmentWithRubric[0].assm_no + " - " + tempComponentButton.GetComponent<AssignmentType>().localAssignmentWithRubric[0].assm_name;
+
+                // //tempComponentButton.GetComponentInChildren<TMP_Text>().text = tempComponentButton.transform.name;
+                // //tempButtonGO.GetComponent<AssignmentType>().associatedAssignment = DataParser.dpInstance.assmDatasetElements[i].assm_type;
+
+                // tempComponentButton.GetComponent<AssignmentType>().associatedAssignment = tempComponentButton.GetComponent<AssignmentType>().localAssignmentWithRubric[0].assm_type;
+                
+                // tempComponentButton.GetComponent<AssignmentType>().localAssignmentWithRubric.Add(tempComponentButton.GetComponent<AssignmentType>().localProjectWithRubricData[0].project_associated_assignments[i]);
+
+                // //tempComponentButton.transform.SetParent(parentModal.transform);
+                // tempComponentButton = null;
+            }
+
+            foreach(Transform child in RubricManager.rbmInstance.projectItemParent.transform)
+            {
+                // replace with onbuttonclick2
+                child.GetComponent<Button>().onClick.AddListener(() => onButtonClick1(child.gameObject));
+            }
+
+            // GameObject tempRubricItem2;
+            // for(int i=0; i<_button.GetComponent<AssignmentType>().localAssignmentWithRubric[0].assm_rubrics.Count; i++)
+            // {
+            //     tempRubricItem2 = GameObject.Instantiate(RubricManager.rbmInstance.rubricPrefab,RubricManager.rbmInstance.rubricPrefab.transform.position,RubricManager.rbmInstance.rubricPrefab.transform.rotation,RubricManager.rbmInstance.rubricItemParent.transform);
+            //     tempRubricItem2.GetComponent<CurrentRubricPanel>().panelID = i;
+            //     tempRubricItem2.GetComponent<CurrentRubricPanel>().associatedAssignment = _button.GetComponent<AssignmentType>().localAssignmentWithRubric[0].assm_id;
+            //     tempRubricItem2.GetComponent<CurrentRubricPanel>().associatedAssignmentButton = _button;
+            //     tempRubricItem2.GetComponent<CurrentRubricPanel>().ResetScoresToOriginalTotal();
+            //     tempRubricItem2.GetComponent<CurrentRubricPanel>().UpdateValues();
+            // }
+            // RubricManager.rbmInstance.currentFeedback.Clear();
+
+
         //     RubricManager.rbmInstance.currentAssignmentButton = _button.GetComponent<Button>();
         //     currentRubricManager.rubricTypeDropdown.value = _button.GetComponent<AssignmentType>().localAssignmentWithRubric[0].assm_type;
         //     currentRubricManager.ChangeRubricsProject(_button);
-        // }
+        }
     }
 
     void SetupProjectButtons()
     {
+        int tempCountOfButtonsProject = DataParser.dpInstance.projectDatasetElements.Count();
+        GameObject tempButtonGO2 = null;
 
-        
+        for(int i=0; i<tempCountOfButtonsProject; i++)
+        {   
+            tempButtonGO2 = GameObject.Instantiate(assignmentPrefab);
+            // Divide by 10 is just for formatting
+            tempButtonGO2.transform.name = (DataParser.dpInstance.projectDatasetElements[i].project_id / 10).ToString()+ " | " + DataParser.dpInstance.projectDatasetElements[i].project_name;
+            tempButtonGO2.GetComponentInChildren<TMP_Text>().text = tempButtonGO2.transform.name;
+            //tempButtonGO.GetComponent<AssignmentType>().associatedAssignment = DataParser.dpInstance.assmDatasetElements[i].assm_type;
+            tempButtonGO2.GetComponent<AssignmentType>().associatedProject = i;
+            tempButtonGO2.GetComponent<AssignmentType>().localProjectWithRubricData.Add(DataParser.dpInstance.projectDatasetElements[i]);
+            tempButtonGO2.transform.SetParent(parentModal.transform);
+            tempButtonGO2 = null;
+        }
+
+        foreach(Transform child in parentModal.transform)
+        {
+            child.GetComponent<Button>().onClick.AddListener(() => onButtonClick1(child.gameObject));
+        }
 
     //     int tempCountOfButtons2 = 0;
     //     int currentIndex = 0;
