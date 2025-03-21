@@ -134,7 +134,12 @@ public class AssmManager : MonoBehaviour
             GameManager.gmInstance.PersistShowModals2(1);
 
             // CREATE A MASTER COPY OF PROJECT BASE, PUT IT ON RUBIRC MANAGER AND MANIPULATE THAT DATA
-            RubricManager.rbmInstance.MasterActiveProjectComponent = _button.GetComponent<AssignmentType>().localProjectWithRubricData[0];
+            // PROBLEM: Unity is doing copy by reference instead of copy by value
+            // Deep Copy Technique needed
+            string jsonParse = JsonUtility.ToJson(_button.GetComponent<AssignmentType>().localProjectWithRubricData[0]);
+            RubricManager.rbmInstance.MasterActiveProjectComponent = JsonUtility.FromJson<ProjectBaseElement>(jsonParse);
+
+            // RubricManager.rbmInstance.MasterActiveProjectComponent = _button.GetComponent<AssignmentType>().localProjectWithRubricData[0];
 
             // CREATE A REFERENCE to that Master Component Locally
             ProjectBaseElement LocalActiveProjectComponent = RubricManager.rbmInstance.MasterActiveProjectComponent;

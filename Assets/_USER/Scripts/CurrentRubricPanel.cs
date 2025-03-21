@@ -87,11 +87,33 @@ public class CurrentRubricPanel : MonoBehaviour
         }
     }
 
+    // TODO: The original projectbasedataset element is being modified somehow. Try to break the logic, where
+    // original data is unmodified. Its copy is made to rubric manager. And when rubrics are manipulated, the copied instance
+    // is worked on. Then when the rubrics are reset or loaded again, they pull in from original source (which should be UNMODIFIED)
+
     public void WriteBackToSource()
     {
-        if(localAssociatedAssignment == associatedAssignmentButton.GetComponent<AssignmentType>().associatedAssignment)
+        if(GameManager.gmInstance.currentState == GameManager.GameState.REGULAR_GRADING)
         {
-            associatedAssignmentButton.GetComponent<AssignmentType>().localAssignmentWithRubric[0].assm_rubrics[panelID].error_item_achieved_points = int.Parse(ErrorAchieved.text);
+            if(localAssociatedAssignment == associatedAssignmentButton.GetComponent<AssignmentType>().associatedAssignment)
+            {
+                associatedAssignmentButton.GetComponent<AssignmentType>().localAssignmentWithRubric[0].assm_rubrics[panelID].error_item_achieved_points = int.Parse(ErrorAchieved.text);
+            }
+        }
+
+        if(GameManager.gmInstance.currentState == GameManager.GameState.PROJECT_GRADING)
+        {
+            var tempIndex = RubricManager.rbmInstance.MasterActiveProjectComponent.project_associated_assignments.Select((assm_rubrics,index)=> new {assm_rubrics,index}).Where(x=>x.assm_rubrics.assm_id == associatedAssignmentButton.GetComponent<AssignmentType>().associatedAssignment).FirstOrDefault();
+
+            if(RubricManager.rbmInstance.MasterActiveProjectComponent.project_associated_assignments[tempIndex.index].assm_id == localAssociatedAssignment)
+            {
+                Debug.Log(tempIndex.index);
+                RubricManager.rbmInstance.MasterActiveProjectComponent.project_associated_assignments[tempIndex.index].assm_rubrics[panelID].error_item_achieved_points = int.Parse(ErrorAchieved.text);
+            }
+            else
+            {
+                return;
+            }
         }
     }
 
@@ -105,7 +127,6 @@ public class CurrentRubricPanel : MonoBehaviour
 
     public void SetZero()
     {
-
         if(GameManager.gmInstance.currentState == GameManager.GameState.REGULAR_GRADING)
         {
             int _tempErrAchieved = 0;
@@ -169,6 +190,43 @@ public class CurrentRubricPanel : MonoBehaviour
             //     // Updating the local variable score so that it persists
             //     RubricManager.rbmInstance.currentAssignmentButton.GetComponent<AssignmentType>().localProjectWithRubricData[0].rubric_data[panelID].error_item_achieved_points = _tempErrAchieved;
             // }
+
+            WriteBackToSource();
+        }
+        if(GameManager.gmInstance.currentState == GameManager.GameState.PROJECT_GRADING)
+        {
+            var tempIndex = RubricManager.rbmInstance.MasterActiveProjectComponent.project_associated_assignments.Select((assm_rubrics,index)=> new {assm_rubrics,index}).Where(x=>x.assm_rubrics.assm_id == associatedAssignmentButton.GetComponent<AssignmentType>().associatedAssignment).FirstOrDefault();
+
+            int _tempErrAchieved = 0;
+            if(associatedAssignmentButton.GetComponent<AssignmentType>().associatedAssignment == RubricManager.rbmInstance.MasterActiveProjectComponent.project_associated_assignments[tempIndex.index].assm_id)
+            {
+                _tempErrAchieved = Mathf.Clamp((int.Parse(RubricManager.rbmInstance.MasterActiveProjectComponent.project_associated_assignments[tempIndex.index].assm_rubrics[panelID].error_item_total_points.ToString())-int.Parse(RubricManager.rbmInstance.MasterActiveProjectComponent.project_associated_assignments[tempIndex.index].assm_rubrics[panelID].error_item_total_points.ToString())),0,int.Parse(ErrorTotal.text));
+            }
+
+            ErrorAchieved.text = _tempErrAchieved.ToString();
+            int _tempErrTotal = int.Parse(ErrorTotal.text);
+
+            if(GameManager.gmInstance.currentState == GameManager.GameState.PROJECT_GRADING)
+            {
+                RubricManager.rbmInstance.UpdateScore();
+                RubricManager.rbmInstance.MasterActiveProjectComponent.project_associated_assignments[tempIndex.index].assm_achieved_points = int.Parse(ErrorAchieved.text);
+            }
+
+            if (!RubricManager.rbmInstance.currentFeedback.Any(s => s.Contains(ErrorDesc.text, System.StringComparison.OrdinalIgnoreCase)) && RubricManager.rbmInstance.currentAssignmentButton != null)
+            {
+                RubricManager.rbmInstance.currentFeedback.Add(RubricManager.rbmInstance.currentAssignmentButton.name.ToString() + " - DEDUCTION: " + ErrorDesc.text + " (-" + (_tempErrTotal-_tempErrAchieved).ToString() +")");
+            }
+            else
+            {
+                var indexOfFeedbackItem = RubricManager.rbmInstance.currentFeedback.Select((value,idx) => new {value,idx}).FirstOrDefault(x => x.value.Contains(ErrorDesc.text))?.idx;
+                
+                //WORKING VALIDATED: Debug.Log(indexOfFeedbackItem.Value.ToString());
+
+                if(indexOfFeedbackItem.HasValue)
+                {
+                    RubricManager.rbmInstance.currentFeedback[indexOfFeedbackItem.Value] = RubricManager.rbmInstance.currentAssignmentButton.name.ToString() + " - DEDUCTION: " + ErrorDesc.text + " (-" + (_tempErrTotal-_tempErrAchieved).ToString() +")";
+                }
+            }
 
             WriteBackToSource();
         }

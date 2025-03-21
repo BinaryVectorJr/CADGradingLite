@@ -49,6 +49,9 @@ public class AssignmentDataElement
     public string assm_no;
     public string assm_name;
 
+    private int assm_total;
+    private int assm_achieved;
+
     public int assm_total_points
     {
         get
@@ -61,6 +64,10 @@ public class AssignmentDataElement
             }
 
             return sum;
+        }
+        set
+        {
+            assm_total = value;
         }
     }
     public int assm_achieved_points
@@ -75,6 +82,10 @@ public class AssignmentDataElement
             }
 
             return sum;
+        }
+        set
+        {
+            assm_achieved = value;
         }
     }
 
