@@ -1,12 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Data.Common;
-using System.Linq;
-using System.Runtime.InteropServices;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.UIElements.Experimental;
 
 public class RubricManager : MonoBehaviour
 {
@@ -24,12 +19,6 @@ public class RubricManager : MonoBehaviour
 
     [SerializeField]
     public GameObject rubricPrefab;
-
-    // [SerializeField]
-    // public GameObject rubricPanelPrefab;
-
-    //[SerializeField]
-    //public GameObject rubricPanelPrefabParent;
 
     [SerializeField]
     public GameObject rubricItemParent;
@@ -164,64 +153,6 @@ public class RubricManager : MonoBehaviour
         }
     }
 
-    // public void ChangeRubricsProject(GameObject _button)
-    // {
-    //     // Each panel has a temporary ID when it is generated and is on-screen
-    //     // This enables us to assign dynamic IDs to each panel, as the rubrics update based on assignment type
-    //     int currentPanelID = 0;
-    //     if (GameManager.gmInstance.currentState == GameManager.GameState.PROJECT_GRADING)
-    //     {
-    //         if(_button == null)
-    //         {
-    //             return;
-    //         }
-
-    //         ClearPanel(0,0);
-    //         // Index will always be 0 as the button only is associated with one assignment type and rubric set for that assignment type
-    //         int tempCountRubricItems2 = _button.GetComponent<AssignmentType>().localProjectWithRubricData[0].rubric_data.Count();
-    //         GameObject tempRubricGO = null;
-
-    //         for(int i=0; i<tempCountRubricItems2; i++)
-    //         {
-    //             //if(_button.GetComponent<AssignmentType>().assignmentTypeCode == rubricTypeDropdown.value)
-    //             {
-    //                 tempRubricGO = GameObject.Instantiate(rubricPrefab);
-    //                 tempRubricGO.GetComponent<CurrentRubricPanel>().panelID = currentPanelID;
-    //                 currentPanelID++;   // Updating the IDs based on order of generation
-
-    //                 tempRubricGO.GetComponent<CurrentRubricPanel>().ErrorDesc.text = _button.GetComponent<AssignmentType>().localProjectWithRubricData[0].rubric_data[i].error_item_desc;
-    //                 tempRubricGO.GetComponent<CurrentRubricPanel>().ErrorTotal.text = _button.GetComponent<AssignmentType>().localProjectWithRubricData[0].rubric_data[i].error_item_total_points.ToString();
-    //                 tempRubricGO.GetComponent<CurrentRubricPanel>().ErrorAchieved.text = _button.GetComponent<AssignmentType>().localProjectWithRubricData[0].rubric_data[i].error_item_achieved_points.ToString();
-    //                 tempRubricGO.transform.name = _button.GetComponent<AssignmentType>().localProjectWithRubricData[0].rubric_data[i].error_item_desc;
-                    
-    //                 //DataParser.dpInstance.rubricDatasetElements[i].error_item_desc.ToString();
-    //                 //tempRubricGO.GetComponent<CurrentRubricPanel>().ErrorTotal.text = DataParser.dpInstance.rubricDatasetElements[i].error_item_total_points.ToString();
-    //                 //tempRubricGO.GetComponent<CurrentRubricPanel>().ErrorAchieved.text = DataParser.dpInstance.rubricDatasetElements[i].error_item_achieved_points.ToString();
-    //                 //tempRubricGO.transform.name = DataParser.dpInstance.rubricDatasetElements[i].error_item_desc.ToString();
-
-    //                 tempRubricGO.transform.SetParent(rubricParentModal.transform);
-    //                 tempRubricGO = null;
-
-    //                 // currentScoresProjectDict.Add(_button.GetComponent<AssignmentType>().projectID.ToString(), new List<int> {Mathf.CeilToInt(_button.GetComponent<AssignmentType>().localProjectWithRubricData[0].rubric_data[i].error_item_achieved_points)});
-
-    //                 if (!currentScoresProjectDict2.Exists(pair => pair.key == _button.GetComponent<AssignmentType>().associatedProject.ToString()))
-    //                 {
-    //                     currentScoresProjectDict2.Add(new SerializableKeyValuePair 
-    //                                                     {
-    //                                                         key = _button.GetComponent<AssignmentType>().associatedProject.ToString(), 
-    //                                                         value = new List<int> 
-    //                                                         {
-    //                                                             Mathf.CeilToInt(_button.GetComponent<AssignmentType>().localProjectWithRubricData[0].rubric_data[i].error_item_achieved_points)
-    //                                                         }
-    //                                                     }
-    //                                                 );
-    //                 }
-                    
-    //             }
-    //         }
-    //     }
-    // }
-
     public void ClearPanel(int _clearScores, int _clearFeedback)
     {
         foreach(Transform child in rubricParentModal.transform)
@@ -256,14 +187,6 @@ public class RubricManager : MonoBehaviour
             {
                 sum += 0;
             }
-            // foreach(Transform childchild in child)
-            // {
-                
-            //     // if(childchild.tag == "AchievedScore")
-            //     // {
-            //     //     sum += Mathf.CeilToInt(float.TryParse(childchild.GetComponent<TMP_Text>().text, out var y1) ? y1:0);
-            //     // }
-            // }
         }
 
         rubricTotalScoreButton.GetComponentInChildren<TMP_Text>().text = sum.ToString();
@@ -288,11 +211,8 @@ public class RubricManager : MonoBehaviour
             }
         }
 
-        // rubricTotalScoreButton.GetComponentInChildren<TMP_Text>().text = (int.TryParse(rubricTotalScoreButton.GetComponentInChildren<TMP_Text>().text, out var y2) ? y2:0 - currentSum).ToString();
-
         rubricTotalScoreButton.GetComponentInChildren<TMP_Text>().text = currentRubricSum.ToString();
         currentSum = currentRubricSum;
-
     }
 
     GameObject FindTagInHierarchy(Transform _parentTransform, string _tag)
