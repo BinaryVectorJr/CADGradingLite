@@ -60,5 +60,16 @@
 18,13,1,FUEL TANK ASSEMBLY: FUEL TANK BASE Annotations,50,available,due
 15,13,1,FUEL TANK ASSEMBLY: INST-LBE FUEL TANK SPOUT,30,available,due
 16,13,1,FUEL TANK ASSEMBLY: Screenshot,20,available,due
+17,14,1,TOP LEVEL ASSEMBLY: Assembly,100,available,due
+21,14,1,TOP LEVEL ASSEMBLY: Screenshot,10,available,due
+23,14,1,TOP LEVEL ASSEMBLY: Correct motion,10,available,due
+20,14,1,TOP LEVEL ASSEMBLY: BASE Assembly,10,available,due
+20,14,1,TOP LEVEL ASSEMBLY: CRANKSHAFT AND CAM Assembly,10,available,due
+20,14,1,TOP LEVEL ASSEMBLY: PISTON AND ROD Assembly,10,available,due
+20,14,1,TOP LEVEL ASSEMBLY: VALVE Assembly,10,available,due
+20,14,1,TOP LEVEL ASSEMBLY: FUEL TANK Assembly,10,available,due
+22,14,1,TOP LEVEL ASSEMBLY: FLYWHEEL with Annotations(10% part score),10,available,due
+19,14,1,TOP LEVEL ASSEMBLY: INST-LBE CRANK PIN WASHER,10,available,due
+19,14,1,TOP LEVEL ASSEMBLY: INST-LBE CRANK PIN BUSHING,10,available,due
 0,14,1,TLA:FLYWHEEL,100,available,due
 18,14,1,TLA:FLYWHEEL Annotations,50,available,due

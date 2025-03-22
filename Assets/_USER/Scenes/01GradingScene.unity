@@ -540,8 +540,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rubricParentModal: {fileID: 2308769327598848870}
   rubricPrefab: {fileID: 8984050175971383647, guid: 01e8ea43e072a8f48b390621c47dc9e4, type: 3}
-  rubricPanelPrefab: {fileID: 1690823594413368644}
   rubricItemParent: {fileID: 2308769327598848870}
+  projectItemParent: {fileID: 0}
   rubricTypeDropdown: {fileID: 3259829190162452495}
   rubricTotalScoreButton: {fileID: 2080546361778580523}
   allRubricTotalScoresButtonProject: []
@@ -555,6 +555,11 @@ MonoBehaviour:
   currentFeedback: []
   currentComponentScores: []
   currentSum: 0
+  MasterActiveProjectSubsetFromSource:
+    project_id: 0
+    project_name: 
+    project_components_count: 0
+    project_associated_assignments: []
 --- !u!1 &662333135
 GameObject:
   m_ObjectHideFlags: 0
@@ -2987,6 +2992,16 @@ MonoBehaviour:
     - m_Text: Project PMI
       m_Image: {fileID: 0}
     - m_Text: INST Part Low
+      m_Image: {fileID: 0}
+    - m_Text: Sub-Assembly Present
+      m_Image: {fileID: 0}
+    - m_Text: TLA Screenshot
+      m_Image: {fileID: 0}
+    - m_Text: Flywheel 10 Percent
+      m_Image: {fileID: 0}
+    - m_Text: Flywheel Annotation 10 Percent
+      m_Image: {fileID: 0}
+    - m_Text: TLA Motion
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:

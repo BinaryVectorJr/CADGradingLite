@@ -395,7 +395,7 @@ public class GameManager : MonoBehaviour
                         // Write the content of the text file to the destination path
                         File.WriteAllText(destinationPath, textAsset.text);
 
-                        UnityEngine.Debug.Log($"Text file '{address}' copied to: {destinationPath}");
+                        // VERIFIED WORKING: UnityEngine.Debug.Log($"Text file '{address}' copied to: {destinationPath}");
 
                         if(handle.Result.name == "weekly-assms")
                         {
@@ -432,14 +432,14 @@ public class GameManager : MonoBehaviour
                             DataParser.dpInstance.ValidateProjectTextAsset(projs);
                         }
 
-                        UnityEngine.Debug.Log($"Files already exist: {address}");
+                        // VERIFIED WORKING: UnityEngine.Debug.Log($"Files already exist: {address}");
                         return;
                     }
 
                 }
                 else
                 {
-                    UnityEngine.Debug.LogError($"Failed to load Addressable text file: {address}");
+                    // VERIFIED WORKING: UnityEngine.Debug.LogError($"Failed to load Addressable text file: {address}");
                 }
             };
         }

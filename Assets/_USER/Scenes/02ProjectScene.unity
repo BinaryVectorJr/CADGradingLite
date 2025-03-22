@@ -3256,6 +3256,16 @@ MonoBehaviour:
       m_Image: {fileID: 0}
     - m_Text: INST Part Low
       m_Image: {fileID: 0}
+    - m_Text: Sub-Assembly Present
+      m_Image: {fileID: 0}
+    - m_Text: TLA Screenshot
+      m_Image: {fileID: 0}
+    - m_Text: Flywheel 10 Percent
+      m_Image: {fileID: 0}
+    - m_Text: Flywheel Annotation 10 Percent
+      m_Image: {fileID: 0}
+    - m_Text: TLA Motion
+      m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:

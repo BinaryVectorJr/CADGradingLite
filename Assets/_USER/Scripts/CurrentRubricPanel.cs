@@ -112,7 +112,7 @@ public class CurrentRubricPanel : MonoBehaviour
 
             if(RubricManager.rbmInstance.MasterActiveProjectSubsetFromSource.project_associated_assignments[tempIndex.index].assm_id == localAssociatedAssignment)
             {
-                // VERIFIED WORKING: Debug.Log(tempIndex.index);
+                //VERIFIED WORKING: Debug.Log(tempIndex.index);
                 RubricManager.rbmInstance.MasterActiveProjectSubsetFromSource.project_associated_assignments[tempIndex.index].assm_rubrics[panelID].error_item_achieved_points = int.Parse(ErrorAchieved.text);
             }
             else

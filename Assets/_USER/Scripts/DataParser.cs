@@ -316,7 +316,7 @@ public class DataParser : MonoBehaviour
             // Validation query
             if(rubricDatasetContentPart.Length % 4 != 0)
             {
-                Debug.LogError("Atleast 4 comma separated values needed!"); //TODO - make this dynamic
+                // VALIDATED WORKING: Debug.LogError("Atleast 4 comma separated values needed!"); //TODO - make this dynamic
                 return;
             }
 
@@ -339,7 +339,7 @@ public class DataParser : MonoBehaviour
             // Validation query
             if(rubricDatasetContentPart.Length % 4 != 0)
             {
-                Debug.LogError("Atleast 4 comma separated values needed!"); //TODO - make this dynamic
+                // VALIDATED WORKING: Debug.LogError("Atleast 4 comma separated values needed!"); //TODO - make this dynamic
                 return;
             }
 
@@ -567,7 +567,7 @@ public class DataParser : MonoBehaviour
 
             if(projectDatasetElements[i].project_associated_assignments.Count == 0)
             {
-                Debug.Log("HEHRE");
+                // VERIFIED WORKING: Debug.Log("HEHRE");
                 string tempAssm = projectDatasetElements[i].project_name;
 
                 projectDatasetElements[i].project_associated_assignments.AddRange(assmDatasetElements.Where(x=>x.assm_name.Contains(tempAssm)));
