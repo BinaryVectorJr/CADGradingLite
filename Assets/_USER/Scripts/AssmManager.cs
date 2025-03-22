@@ -119,6 +119,8 @@ public class AssmManager : MonoBehaviour
         // When assignment button is selected, create buttons on left side of screen with all the elements
         if (GameManager.gmInstance.currentState == GameManager.GameState.PROJECT_GRADING)
         {
+            // TODO: Make sure to clear out references to all old values (maybe the button is being selected) and clear all old project vals
+
             if(RubricManager.rbmInstance.projectItemParent.transform.childCount != 0)
             {
                 foreach(Transform child in RubricManager.rbmInstance.projectItemParent.transform)
