@@ -11,6 +11,8 @@ using UnityEngine.UI;
 
 public class AssmManager : MonoBehaviour
 {
+    public static AssmManager assmMgrInstance {get; private set;}
+
     [SerializeField]
     private GameObject parentModal;
 
@@ -28,6 +30,18 @@ public class AssmManager : MonoBehaviour
 
     [SerializeField]
     private RubricManager currentRubricManager;
+
+    void Awake()
+    {
+        if(assmMgrInstance != null && assmMgrInstance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            assmMgrInstance = this;
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -133,18 +147,19 @@ public class AssmManager : MonoBehaviour
             assignmentSelectorButton.GetComponentInChildren<TMP_Text>().text = _button.gameObject.name;
             //currentRubricManager.rubricTypeDropdown.value = _button.GetComponent<AssignmentType>().localAssignmentWithRubric[0].assm_type;
             GameManager.gmInstance.PersistHideModals(2);
-            GameManager.gmInstance.PersistShowModals2(1);
+            //GameManager.gmInstance.PersistShowModals2(1);
+            GameManager.gmInstance.PersistHideModals(1);
 
             // CREATE A MASTER COPY OF PROJECT BASE, PUT IT ON RUBIRC MANAGER AND MANIPULATE THAT DATA
             // PROBLEM: Unity is doing copy by reference instead of copy by value
             // Deep Copy Technique needed
             string jsonParse = JsonUtility.ToJson(_button.GetComponent<AssignmentType>().localProjectWithRubricData[0]);
-            RubricManager.rbmInstance.MasterActiveProjectComponent = JsonUtility.FromJson<ProjectBaseElement>(jsonParse);
+            RubricManager.rbmInstance.MasterActiveProjectSubsetFromSource = JsonUtility.FromJson<ProjectBaseElement>(jsonParse);
 
             // RubricManager.rbmInstance.MasterActiveProjectComponent = _button.GetComponent<AssignmentType>().localProjectWithRubricData[0];
 
             // CREATE A REFERENCE to that Master Component Locally
-            ProjectBaseElement LocalActiveProjectComponent = RubricManager.rbmInstance.MasterActiveProjectComponent;
+            ProjectBaseElement LocalActiveProjectComponent = RubricManager.rbmInstance.MasterActiveProjectSubsetFromSource;
 
             int tempCountOfButtonsProject = _button.GetComponent<AssignmentType>().localProjectWithRubricData[0].project_associated_assignments.Count();
             GameObject tempComponentButton;
@@ -171,6 +186,8 @@ public class AssmManager : MonoBehaviour
                 // //tempComponentButton.transform.SetParent(parentModal.transform);
                 // tempComponentButton = null;
             }
+            
+            RecalculateCurrentTotal(RubricManager.rbmInstance.MasterActiveProjectSubsetFromSource);
 
             foreach(Transform child in RubricManager.rbmInstance.projectItemParent.transform)
             {
@@ -213,7 +230,7 @@ public class AssmManager : MonoBehaviour
             GameManager.gmInstance.PersistShowModals2(1);
 
             // CREATE A REFERENCE to that Master Component Locally
-            ProjectBaseElement LocalActiveProjectComponent = RubricManager.rbmInstance.MasterActiveProjectComponent;
+            ProjectBaseElement LocalActiveProjectComponent = RubricManager.rbmInstance.MasterActiveProjectSubsetFromSource;
 
             foreach(Transform child in RubricManager.rbmInstance.rubricItemParent.transform)
             {
@@ -340,6 +357,20 @@ public class AssmManager : MonoBehaviour
     //         // WORKING VERIFIED: Debug.Log(RubricManager.rbmInstance.rubricTotalScoreButton.GetComponentInChildren<TMP_Text>().text);
 
     //     }
+    }
+
+    public void RecalculateCurrentTotal(ProjectBaseElement _projectSubset)
+    {
+        int tempSum1 = 0;
+        int tempSum2 = 0;
+
+        // Start at 1 because 0 index holds general error. Need to remove that element from total score if any issues
+        for(int i=1; i<_projectSubset.project_associated_assignments.Count(); i++)
+        {
+            tempSum1 += int.Parse(_projectSubset.project_associated_assignments[i].assm_achieved_points.ToString());
+            tempSum2 = _projectSubset.project_associated_assignments[0].assm_achieved_points - _projectSubset.project_associated_assignments[0].assm_total_points;
+            RubricManager.rbmInstance.totalAssignmentScoreButton.GetComponentInChildren<TMP_Text>().text = (tempSum1+tempSum2).ToString();
+        }
     }
 
     // void SetupProjectButtons2(string _assignment_name)

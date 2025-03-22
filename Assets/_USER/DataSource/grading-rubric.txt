@@ -99,7 +99,7 @@
 14,3D Annotations correctly distributed over all 3 views,5,5
 15,Instructor part not used,30,30
 16,Screenshot has issues,20,20
-17,Errors in assembly,100,100
+17,General issues in assembly itself,100,100
 18,Atleast 5 dimensions per view (if Anark does not have 5 dimensions then its fine),20,20
 18,Dimensions spread over TOP-FRONT-SIDE views (10 pts per view),30,30
 19,Instructor part not used,10,10

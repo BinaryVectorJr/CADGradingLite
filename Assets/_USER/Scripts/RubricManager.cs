@@ -93,7 +93,7 @@ public class RubricManager : MonoBehaviour
     public int currentSum = 0;
 
     [SerializeField]
-    public ProjectBaseElement MasterActiveProjectComponent;
+    public ProjectBaseElement MasterActiveProjectSubsetFromSource;
 
     void Awake()
     {
