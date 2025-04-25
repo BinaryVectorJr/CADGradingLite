@@ -1,5 +1,7 @@
 using System.Linq;
+using System.Net.WebSockets;
 using TMPro;
+using UnityEditor.MPE;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,6 +24,9 @@ public class CurrentRubricPanel : MonoBehaviour
 
     [SerializeField]
     private Button[] PanelButtons;
+    
+    [SerializeField]
+    public Button lastPressedButtonInPanel;
 
     public Color defaultColor;
     public Color changedColor;
@@ -35,7 +40,7 @@ public class CurrentRubricPanel : MonoBehaviour
         PanelButtons[0] = this.gameObject.transform.Find("Group/CalcControlGroup").GetChild(0).GetComponent<Button>();
         PanelButtons[1] = this.gameObject.transform.Find("Group/CalcControlGroup").GetChild(1).GetComponent<Button>();
         PanelButtons[2] = this.gameObject.transform.Find("Group/IncreaseDecrease").GetChild(0).GetComponent<Button>();
-        PanelButtons[3] = this.gameObject.transform.Find("Group/IncreaseDecrease").GetChild(1).GetComponent<Button>();
+        PanelButtons[3] = this.gameObject.transform.Find("Group/IncreaseDecrease").GetChild(2).GetComponent<Button>();
         PanelButtons[4] = this.gameObject.transform.Find("Group/BTN_Reset").GetComponent<Button>();
     }
 
@@ -136,10 +141,41 @@ public class CurrentRubricPanel : MonoBehaviour
         }
     }
 
+    public void DisableOtherButtons(Button _pressedButton)
+    {
+        foreach(var item in PanelButtons)
+        {
+            if(item.transform.name == _pressedButton.transform.name || item.transform.name == "BTN_Reset")
+            {
+                // Do nothing
+            }
+            else
+            {
+                item.GetComponent<Button>().interactable = false;
+
+            }
+        }
+    }
+
+    public void EnableOtherButtons()
+    {
+        foreach(var item in PanelButtons)
+        {
+            if(item.GetComponent<Button>().interactable == false)
+            {
+                item.GetComponent<Button>().interactable = true;
+            }
+        }
+    }
+
     public void SetZero()
     {
         if(GameManager.gmInstance.currentState == GameManager.GameState.REGULAR_GRADING)
         {
+            // Deactivate other buttons so that they cannot be pressed until Reset is hit
+            lastPressedButtonInPanel = PanelButtons.FirstOrDefault(btnName => btnName.gameObject.name == "BTN_Zero");
+            DisableOtherButtons(lastPressedButtonInPanel);
+
             int _tempErrAchieved = 0;
             _tempErrAchieved = Mathf.Clamp((int.Parse(ErrorTotal.text)-int.Parse(ErrorTotal.text)),0,int.Parse(ErrorTotal.text));
 
@@ -174,6 +210,10 @@ public class CurrentRubricPanel : MonoBehaviour
         if(GameManager.gmInstance.currentState == GameManager.GameState.PROJECT_GRADING)
         {
             var tempIndex = RubricManager.rbmInstance.MasterActiveProjectSubsetFromSource.project_associated_assignments.Select((assm_rubrics,index)=> new {assm_rubrics,index}).Where(x=>x.assm_rubrics.assm_id == associatedAssignmentButton.GetComponent<AssignmentType>().associatedAssignment).FirstOrDefault();
+
+            // Deactivate other buttons so that they cannot be pressed until Reset is hit
+            lastPressedButtonInPanel = PanelButtons.FirstOrDefault(btnName => btnName.gameObject.name == "BTN_Zero");
+            DisableOtherButtons(lastPressedButtonInPanel);
 
             int _tempErrAchieved = 0;
             if(associatedAssignmentButton.GetComponent<AssignmentType>().associatedAssignment == RubricManager.rbmInstance.MasterActiveProjectSubsetFromSource.project_associated_assignments[tempIndex.index].assm_id)
@@ -222,6 +262,10 @@ public class CurrentRubricPanel : MonoBehaviour
     {
         if(GameManager.gmInstance.currentState == GameManager.GameState.REGULAR_GRADING)
         {
+            // Deactivate other buttons so that they cannot be pressed until Reset is hit
+            lastPressedButtonInPanel = PanelButtons.FirstOrDefault(btnName => btnName.gameObject.name == "BTN_Half");
+            DisableOtherButtons(lastPressedButtonInPanel);
+
             int _tempErrAchieved = 0;
 
             if(GameManager.gmInstance.currentState == GameManager.GameState.REGULAR_GRADING)
@@ -260,6 +304,10 @@ public class CurrentRubricPanel : MonoBehaviour
         if(GameManager.gmInstance.currentState == GameManager.GameState.PROJECT_GRADING)
         {
             var tempIndex = RubricManager.rbmInstance.MasterActiveProjectSubsetFromSource.project_associated_assignments.Select((assm_rubrics,index)=> new {assm_rubrics,index}).Where(x=>x.assm_rubrics.assm_id == associatedAssignmentButton.GetComponent<AssignmentType>().associatedAssignment).FirstOrDefault();
+
+            // Deactivate other buttons so that they cannot be pressed until Reset is hit
+            lastPressedButtonInPanel = PanelButtons.FirstOrDefault(btnName => btnName.gameObject.name == "BTN_Half");
+            DisableOtherButtons(lastPressedButtonInPanel);
 
             int _tempErrAchieved = 0;
             if(associatedAssignmentButton.GetComponent<AssignmentType>().associatedAssignment == RubricManager.rbmInstance.MasterActiveProjectSubsetFromSource.project_associated_assignments[tempIndex.index].assm_id)
@@ -308,6 +356,10 @@ public class CurrentRubricPanel : MonoBehaviour
     {
         if(GameManager.gmInstance.currentState == GameManager.GameState.REGULAR_GRADING)
         {
+            // Deactivate other buttons so that they cannot be pressed until Reset is hit
+            lastPressedButtonInPanel = PanelButtons.FirstOrDefault(btnName => btnName.gameObject.name == "BTN_AddOne");
+            DisableOtherButtons(lastPressedButtonInPanel);
+
             int _tempErrAchieved = 0;
 
             if(GameManager.gmInstance.currentState == GameManager.GameState.REGULAR_GRADING)
@@ -353,6 +405,10 @@ public class CurrentRubricPanel : MonoBehaviour
         if(GameManager.gmInstance.currentState == GameManager.GameState.PROJECT_GRADING)
         {
             var tempIndex = RubricManager.rbmInstance.MasterActiveProjectSubsetFromSource.project_associated_assignments.Select((assm_rubrics,index)=> new {assm_rubrics,index}).Where(x=>x.assm_rubrics.assm_id == associatedAssignmentButton.GetComponent<AssignmentType>().associatedAssignment).FirstOrDefault();
+
+            // Deactivate other buttons so that they cannot be pressed until Reset is hit
+            lastPressedButtonInPanel = PanelButtons.FirstOrDefault(btnName => btnName.gameObject.name == "BTN_AddOne");
+            DisableOtherButtons(lastPressedButtonInPanel);
 
             int _tempErrAchieved = 0;
             if(associatedAssignmentButton.GetComponent<AssignmentType>().associatedAssignment == RubricManager.rbmInstance.MasterActiveProjectSubsetFromSource.project_associated_assignments[tempIndex.index].assm_id)
@@ -401,6 +457,10 @@ public class CurrentRubricPanel : MonoBehaviour
     {
         if(GameManager.gmInstance.currentState == GameManager.GameState.REGULAR_GRADING)
         {
+            // Deactivate other buttons so that they cannot be pressed until Reset is hit
+            lastPressedButtonInPanel = PanelButtons.FirstOrDefault(btnName => btnName.gameObject.name == "BTN_RemoveOne");
+            DisableOtherButtons(lastPressedButtonInPanel);
+
             int _tempErrAchieved = 0;
 
             if(GameManager.gmInstance.currentState == GameManager.GameState.REGULAR_GRADING)
@@ -447,6 +507,10 @@ public class CurrentRubricPanel : MonoBehaviour
         {
             var tempIndex = RubricManager.rbmInstance.MasterActiveProjectSubsetFromSource.project_associated_assignments.Select((assm_rubrics,index)=> new {assm_rubrics,index}).Where(x=>x.assm_rubrics.assm_id == associatedAssignmentButton.GetComponent<AssignmentType>().associatedAssignment).FirstOrDefault();
 
+            // Deactivate other buttons so that they cannot be pressed until Reset is hit
+            lastPressedButtonInPanel = PanelButtons.FirstOrDefault(btnName => btnName.gameObject.name == "BTN_RemoveOne");
+            DisableOtherButtons(lastPressedButtonInPanel);
+
             int _tempErrAchieved = 0;
             if(associatedAssignmentButton.GetComponent<AssignmentType>().associatedAssignment == RubricManager.rbmInstance.MasterActiveProjectSubsetFromSource.project_associated_assignments[tempIndex.index].assm_id)
             {
@@ -485,6 +549,8 @@ public class CurrentRubricPanel : MonoBehaviour
 
     public void ResetScore()
     {
+        EnableOtherButtons();
+
         if(GameManager.gmInstance.currentState == GameManager.GameState.REGULAR_GRADING)
         {
                 int _tempErrAchieved = 0;
@@ -551,7 +617,7 @@ public class CurrentRubricPanel : MonoBehaviour
 
                 if(indexOfFeedbackItem.HasValue)
                 {
-                    RubricManager.rbmInstance.currentFeedback.RemoveAll(item => item.Contains(ErrorDesc.text));
+                    RubricManager.rbmInstance.currentFeedback.RemoveAll(item => item.Contains(RubricManager.rbmInstance.currentAssignmentButton.name.ToString() + " - DEDUCTION: " + ErrorDesc.text));
                 }
             }
 

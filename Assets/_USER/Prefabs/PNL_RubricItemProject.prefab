@@ -1996,6 +1996,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   panelID: 0
+  localAssociatedAssignment: 0
+  associatedAssignmentButton: {fileID: 0}
   ErrorDesc: {fileID: 1441595900879559054}
   ErrorTotal: {fileID: 4446589849048917098}
   ErrorAchieved: {fileID: 3194701117411046192}
@@ -2003,7 +2005,8 @@ MonoBehaviour:
   - {fileID: 4596683386874620445}
   - {fileID: 4671089918411917116}
   - {fileID: 3319726283169073814}
-  - {fileID: 0}
+  - {fileID: 1169449708447611552}
   - {fileID: 3920087991373540408}
+  lastPressedButtonInPanel: {fileID: 0}
   defaultColor: {r: 1, g: 0.9367131, b: 0, a: 1}
   changedColor: {r: 1, g: 0.52691036, b: 0, a: 1}

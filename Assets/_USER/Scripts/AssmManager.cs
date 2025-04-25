@@ -117,6 +117,8 @@ public class AssmManager : MonoBehaviour
         {
             // TODO: Make sure to clear out references to all old values (maybe the button is being selected) and clear all old project vals
 
+            RubricManager.rbmInstance.ClearPanel(0,1);
+
             if(RubricManager.rbmInstance.projectItemParent.transform.childCount != 0)
             {
                 foreach(Transform child in RubricManager.rbmInstance.projectItemParent.transform)
