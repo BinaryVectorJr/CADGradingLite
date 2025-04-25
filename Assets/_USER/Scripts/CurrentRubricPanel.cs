@@ -196,7 +196,7 @@ public class CurrentRubricPanel : MonoBehaviour
             }
             else
             {
-                if (!RubricManager.rbmInstance.currentFeedback.Any(s => s.Contains(ErrorDesc.text, System.StringComparison.OrdinalIgnoreCase)) && RubricManager.rbmInstance.currentAssignmentButton != null)
+                if (!RubricManager.rbmInstance.currentFeedback.Any(s => s.Equals(ErrorDesc.text, System.StringComparison.OrdinalIgnoreCase)) && RubricManager.rbmInstance.currentAssignmentButton != null)
                 {
                     RubricManager.rbmInstance.currentFeedback.Add(RubricManager.rbmInstance.currentAssignmentButton.name.ToString() + " - DEDUCTION: " + ErrorDesc.text + " (-" + (_tempErrTotal-_tempErrAchieved).ToString() +")");
                 }
@@ -283,7 +283,7 @@ public class CurrentRubricPanel : MonoBehaviour
             }
             else
             {
-                if (!RubricManager.rbmInstance.currentFeedback.Any(s => s.Contains(ErrorDesc.text, System.StringComparison.OrdinalIgnoreCase)) && RubricManager.rbmInstance.currentAssignmentButton != null)
+                if (!RubricManager.rbmInstance.currentFeedback.Any(s => s.Equals(ErrorDesc.text, System.StringComparison.OrdinalIgnoreCase)) && RubricManager.rbmInstance.currentAssignmentButton != null)
                 {
                     RubricManager.rbmInstance.currentFeedback.Add(RubricManager.rbmInstance.currentAssignmentButton.name.ToString() + " - DEDUCTION: " + ErrorDesc.text + " (-" + (_tempErrTotal-_tempErrAchieved).ToString() +")");
                 }
@@ -375,7 +375,7 @@ public class CurrentRubricPanel : MonoBehaviour
             }
             else
             {
-                if (!RubricManager.rbmInstance.currentFeedback.Any(s => s.Contains(ErrorDesc.text, System.StringComparison.OrdinalIgnoreCase)) && RubricManager.rbmInstance.currentAssignmentButton != null)
+                if (!RubricManager.rbmInstance.currentFeedback.Any(s => s.Equals(ErrorDesc.text, System.StringComparison.OrdinalIgnoreCase)) && RubricManager.rbmInstance.currentAssignmentButton != null)
                 {
                     RubricManager.rbmInstance.currentFeedback.Add(RubricManager.rbmInstance.currentAssignmentButton.name.ToString() + " - DEDUCTION: " + ErrorDesc.text + " (-" + (_tempErrTotal-_tempErrAchieved).ToString() +")");
                 }
@@ -423,7 +423,7 @@ public class CurrentRubricPanel : MonoBehaviour
             }
             else
             {
-                if (!RubricManager.rbmInstance.currentFeedback.Any(s => s.Contains(ErrorDesc.text, System.StringComparison.OrdinalIgnoreCase)))
+                if (!RubricManager.rbmInstance.currentFeedback.Any(s => s.Equals(ErrorDesc.text, System.StringComparison.OrdinalIgnoreCase)))
                 {
                     RubricManager.rbmInstance.currentFeedback.Add(RubricManager.rbmInstance.currentAssignmentButton.name.ToString() + " - DEDUCTION: " + ErrorDesc.text);
                 }
