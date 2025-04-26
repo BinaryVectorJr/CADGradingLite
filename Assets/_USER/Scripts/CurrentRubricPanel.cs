@@ -1,7 +1,5 @@
 using System.Linq;
-using System.Net.WebSockets;
 using TMPro;
-using UnityEditor.MPE;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -236,13 +234,13 @@ public class CurrentRubricPanel : MonoBehaviour
             }
             else
             {
-                if (!RubricManager.rbmInstance.currentFeedback.Any(s => s.Equals(ErrorDesc.text, System.StringComparison.OrdinalIgnoreCase)) && RubricManager.rbmInstance.currentAssignmentButton != null)
+                if (RubricManager.rbmInstance.currentAssignmentButton != null && !RubricManager.rbmInstance.currentFeedback.Any(s => s.Contains(RubricManager.rbmInstance.currentAssignmentButton.name.ToString() + " - DEDUCTION: " + ErrorDesc.text, System.StringComparison.OrdinalIgnoreCase)))
                 {
                     RubricManager.rbmInstance.currentFeedback.Add(RubricManager.rbmInstance.currentAssignmentButton.name.ToString() + " - DEDUCTION: " + ErrorDesc.text + " (-" + (_tempErrTotal-_tempErrAchieved).ToString() +")");
                 }
                 else
                 {
-                    var indexOfFeedbackItem = RubricManager.rbmInstance.currentFeedback.Select((value,idx) => new {value,idx}).FirstOrDefault(x => x.value.Contains(ErrorDesc.text))?.idx;
+                    var indexOfFeedbackItem = RubricManager.rbmInstance.currentFeedback.Select((value,idx) => new {value,idx}).FirstOrDefault(x => x.value.Contains(RubricManager.rbmInstance.currentAssignmentButton.name.ToString() + " - DEDUCTION: " + ErrorDesc.text))?.idx;
                     
                     //WORKING VALIDATED: Debug.Log(indexOfFeedbackItem.Value.ToString());
 
@@ -331,13 +329,13 @@ public class CurrentRubricPanel : MonoBehaviour
             }
             else
             {
-                if (!RubricManager.rbmInstance.currentFeedback.Any(s => s.Equals(ErrorDesc.text, System.StringComparison.OrdinalIgnoreCase)) && RubricManager.rbmInstance.currentAssignmentButton != null)
+                if (RubricManager.rbmInstance.currentAssignmentButton != null && !RubricManager.rbmInstance.currentFeedback.Any(s => s.Contains(RubricManager.rbmInstance.currentAssignmentButton.name.ToString() + " - DEDUCTION: " + ErrorDesc.text, System.StringComparison.OrdinalIgnoreCase)))
                 {
                     RubricManager.rbmInstance.currentFeedback.Add(RubricManager.rbmInstance.currentAssignmentButton.name.ToString() + " - DEDUCTION: " + ErrorDesc.text + " (-" + (_tempErrTotal-_tempErrAchieved).ToString() +")");
                 }
                 else
                 {
-                    var indexOfFeedbackItem = RubricManager.rbmInstance.currentFeedback.Select((value,idx) => new {value,idx}).FirstOrDefault(x => x.value.Contains(ErrorDesc.text))?.idx;
+                    var indexOfFeedbackItem = RubricManager.rbmInstance.currentFeedback.Select((value,idx) => new {value,idx}).FirstOrDefault(x => x.value.Contains(RubricManager.rbmInstance.currentAssignmentButton.name.ToString() + " - DEDUCTION: " + ErrorDesc.text))?.idx;
                     
                     //WORKING VALIDATED: Debug.Log(indexOfFeedbackItem.Value.ToString());
 
@@ -431,13 +429,13 @@ public class CurrentRubricPanel : MonoBehaviour
             }
             else
             {
-                if (!RubricManager.rbmInstance.currentFeedback.Any(s => s.Equals(ErrorDesc.text, System.StringComparison.OrdinalIgnoreCase)) && RubricManager.rbmInstance.currentAssignmentButton != null)
+                if (RubricManager.rbmInstance.currentAssignmentButton != null && !RubricManager.rbmInstance.currentFeedback.Any(s => s.Contains(RubricManager.rbmInstance.currentAssignmentButton.name.ToString() + " - DEDUCTION: " + ErrorDesc.text, System.StringComparison.OrdinalIgnoreCase)))
                 {
                     RubricManager.rbmInstance.currentFeedback.Add(RubricManager.rbmInstance.currentAssignmentButton.name.ToString() + " - DEDUCTION: " + ErrorDesc.text + " (-" + (_tempErrTotal-_tempErrAchieved).ToString() +")");
                 }
                 else
                 {
-                    var indexOfFeedbackItem = RubricManager.rbmInstance.currentFeedback.Select((value,idx) => new {value,idx}).FirstOrDefault(x => x.value.Contains(ErrorDesc.text))?.idx;
+                    var indexOfFeedbackItem = RubricManager.rbmInstance.currentFeedback.Select((value,idx) => new {value,idx}).FirstOrDefault(x => x.value.Contains(RubricManager.rbmInstance.currentAssignmentButton.name.ToString() + " - DEDUCTION: " + ErrorDesc.text))?.idx;
                     
                     //WORKING VALIDATED: Debug.Log(indexOfFeedbackItem.Value.ToString());
 
@@ -526,13 +524,13 @@ public class CurrentRubricPanel : MonoBehaviour
                 RubricManager.rbmInstance.MasterActiveProjectSubsetFromSource.project_associated_assignments[tempIndex.index].assm_achieved_points = int.Parse(ErrorAchieved.text);
             }
 
-            if (!RubricManager.rbmInstance.currentFeedback.Any(s => s.Contains(ErrorDesc.text, System.StringComparison.OrdinalIgnoreCase)) && RubricManager.rbmInstance.currentAssignmentButton != null)
+            if (RubricManager.rbmInstance.currentAssignmentButton != null && !RubricManager.rbmInstance.currentFeedback.Any(s => s.Contains(RubricManager.rbmInstance.currentAssignmentButton.name.ToString() + " - DEDUCTION: " + ErrorDesc.text, System.StringComparison.OrdinalIgnoreCase)))
             {
                 RubricManager.rbmInstance.currentFeedback.Add(RubricManager.rbmInstance.currentAssignmentButton.name.ToString() + " - DEDUCTION: " + ErrorDesc.text + " (-" + (_tempErrTotal-_tempErrAchieved).ToString() +")");
             }
             else
             {
-                var indexOfFeedbackItem = RubricManager.rbmInstance.currentFeedback.Select((value,idx) => new {value,idx}).FirstOrDefault(x => x.value.Contains(ErrorDesc.text))?.idx;
+                var indexOfFeedbackItem = RubricManager.rbmInstance.currentFeedback.Select((value,idx) => new {value,idx}).FirstOrDefault(x => x.value.Contains(RubricManager.rbmInstance.currentAssignmentButton.name.ToString() + " - DEDUCTION: " + ErrorDesc.text))?.idx;
                 
                 //WORKING VALIDATED: Debug.Log(indexOfFeedbackItem.Value.ToString());
 
